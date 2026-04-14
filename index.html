@@ -170,6 +170,141 @@
 
   .legend-dot.obligatoire { background: #DC2626; }
   .legend-dot.optionnel { background: #A8A29E; }
+
+  .node-input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #D6D3D1;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-family: inherit;
+    font-size: 10.5px;
+    line-height: 1.3;
+    color: #1C1917;
+    background: #FAFAF9;
+    resize: none;
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .node-input:focus {
+    border-color: #78716C;
+    background: #FFFFFF;
+  }
+
+  .node-input::placeholder {
+    color: #A8A29E;
+    font-style: italic;
+  }
+
+  .node-input.filled {
+    border-color: #16A34A;
+    background: #F0FDF4;
+  }
+
+  .toolbar button.primary {
+    background: #1C1917;
+    color: #FAFAF9;
+    border-color: #1C1917;
+  }
+
+  .toolbar button.primary:hover {
+    background: #292524;
+  }
+
+  .toolbar button.danger {
+    color: #DC2626;
+    border-color: #FECACA;
+  }
+
+  .toolbar button.danger:hover {
+    background: #FEF2F2;
+    border-color: #DC2626;
+  }
+
+  .progress {
+    font-size: 12px;
+    color: #57534E;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .progress .count {
+    color: #16A34A;
+    font-weight: 600;
+  }
+
+  .progress .count.incomplete {
+    color: #DC2626;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .modal h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .modal pre {
+    background: #F5F5F4;
+    border: 1px solid #E7E5E4;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 11px;
+    line-height: 1.5;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .modal .modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    justify-content: flex-end;
+  }
+
+  .modal button {
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #D6D3D1;
+    background: #FFFFFF;
+    color: #44403C;
+    transition: all 0.15s ease;
+  }
+
+  .modal button:hover { background: #F5F5F4; }
+
+  .modal button.primary {
+    background: #1C1917;
+    color: #FAFAF9;
+    border-color: #1C1917;
+  }
+
+  .modal button.primary:hover { background: #292524; }
 </style>
 </head>
 <body>
@@ -177,9 +312,12 @@
 <header>
   <h1>L'Arbre d'Intention <span>— framework de cadrage avant délégation</span></h1>
   <div class="toolbar">
+    <span class="progress" id="progress"></span>
     <button id="btn-expand">Tout déplier</button>
     <button id="btn-collapse">Tout replier</button>
     <button id="btn-reset">Recentrer</button>
+    <button id="btn-export" class="primary">Exporter CLAUDE.md</button>
+    <button id="btn-clear" class="danger">Effacer</button>
   </div>
 </header>
 
@@ -190,7 +328,7 @@
     <span class="legend-item"><span class="legend-dot obligatoire"></span>obligatoire</span>
     <span class="legend-item"><span class="legend-dot optionnel"></span>optionnel</span>
     <span>·</span>
-    <span>clic sur un nœud pour plier/déplier · molette pour zoomer · glisser pour panner</span>
+    <span>clic sur un nœud pour plier/déplier · remplissez les champs pour construire votre arbre · molette pour zoomer</span>
   </div>
 </footer>
 
@@ -208,8 +346,8 @@ const data = {
       color: "#64748B",
       quote: "Nommez-le précisément. Un projet mal nommé produit des intentions floues — et des agents qui travaillent à côté.",
       children: [
-        { name: "Nom du projet", status: "obligatoire", description: "Un nom opérationnel, pas une catégorie" },
-        { name: "Contexte", status: "optionnel", description: "Pourquoi ce projet existe maintenant ? L'agent ne l'aura pas si vous ne l'écrivez pas" }
+        { name: "Nom du projet", status: "obligatoire", id: "projet_nom", description: "Un nom opérationnel, pas une catégorie" },
+        { name: "Contexte", status: "optionnel", id: "projet_contexte", description: "Pourquoi ce projet existe maintenant ? L'agent ne l'aura pas si vous ne l'écrivez pas" }
       ]
     },
     {
@@ -217,9 +355,9 @@ const data = {
       color: "#B91C1C",
       quote: "Qui, au sommet, sera satisfait ou insatisfait — indépendamment de la qualité technique ?",
       children: [
-        { name: "Porteur", status: "optionnel", description: "Qui juge si le résultat global est un succès ou un échec ?" },
-        { name: "Intention", status: "obligatoire", description: "Pas un objectif chiffré. La finalité dont l'absence invalide tout" },
-        { name: "Test d'invalidation", status: "optionnel", description: "Exécution réussie mais intention violée" }
+        { name: "Porteur", status: "optionnel", id: "strategique_porteur", description: "Qui juge si le résultat global est un succès ou un échec ?" },
+        { name: "Intention", status: "obligatoire", id: "strategique_intention", description: "Pas un objectif chiffré. La finalité dont l'absence invalide tout" },
+        { name: "Test d'invalidation", status: "optionnel", id: "strategique_test", description: "Exécution réussie mais intention violée" }
       ]
     },
     {
@@ -227,9 +365,9 @@ const data = {
       color: "#EA580C",
       quote: "Qui pilote au quotidien ? Cette personne a sa propre définition du succès.",
       children: [
-        { name: "Porteur", status: "optionnel", description: "Celui qui traduit la stratégie en plan d'action" },
-        { name: "Intention", status: "obligatoire", description: "La finalité dont l'absence invalide le résultat, même si l'exécution est parfaite" },
-        { name: "Test d'invalidation", status: "optionnel", description: "Le niveau stratégique est satisfait, mais celui-ci est violé" }
+        { name: "Porteur", status: "optionnel", id: "tactique_porteur", description: "Celui qui traduit la stratégie en plan d'action" },
+        { name: "Intention", status: "obligatoire", id: "tactique_intention", description: "La finalité dont l'absence invalide le résultat, même si l'exécution est parfaite" },
+        { name: "Test d'invalidation", status: "optionnel", id: "tactique_test", description: "Le niveau stratégique est satisfait, mais celui-ci est violé" }
       ]
     },
     {
@@ -237,9 +375,9 @@ const data = {
       color: "#047857",
       quote: "Qui exécute ? Ses contraintes sont légitimes — les niveaux supérieurs ne les voient souvent pas.",
       children: [
-        { name: "Porteur", status: "optionnel", description: "Celui dont les mains sont sur le clavier" },
-        { name: "Intention", status: "obligatoire", description: "La finalité dont l'absence invalide le résultat, même si l'exécution est parfaite" },
-        { name: "Test d'invalidation", status: "optionnel", description: "Situation où l'exécution est réussie mais l'intention est violée" }
+        { name: "Porteur", status: "optionnel", id: "operationnel_porteur", description: "Celui dont les mains sont sur le clavier" },
+        { name: "Intention", status: "obligatoire", id: "operationnel_intention", description: "La finalité dont l'absence invalide le résultat, même si l'exécution est parfaite" },
+        { name: "Test d'invalidation", status: "optionnel", id: "operationnel_test", description: "Situation où l'exécution est réussie mais l'intention est violée" }
       ]
     },
     {
@@ -250,19 +388,19 @@ const data = {
         {
           name: "Stratégique ↔ Tactique",
           children: [
-            { name: "Contradiction concrète", status: "optionnel", description: "Quelle action l'une prescrit-elle que l'autre interdit ?" }
+            { name: "Contradiction concrète", status: "optionnel", id: "tension_strat_tact", description: "Quelle action l'une prescrit-elle que l'autre interdit ?" }
           ]
         },
         {
           name: "Tactique ↔ Opérationnel",
           children: [
-            { name: "Contradiction concrète", status: "optionnel", description: "Quelle action l'une prescrit-elle que l'autre interdit ?" }
+            { name: "Contradiction concrète", status: "optionnel", id: "tension_tact_ope", description: "Quelle action l'une prescrit-elle que l'autre interdit ?" }
           ]
         },
         {
           name: "Stratégique ↔ Opérationnel",
           children: [
-            { name: "Contradiction concrète", status: "optionnel", description: "Quelle action l'une prescrit-elle que l'autre interdit ?" }
+            { name: "Contradiction concrète", status: "optionnel", id: "tension_strat_ope", description: "Quelle action l'une prescrit-elle que l'autre interdit ?" }
           ]
         }
       ]
@@ -275,22 +413,22 @@ const data = {
         {
           name: "Stratégique ↔ Tactique",
           children: [
-            { name: "Quelle intention prime ?", status: "obligatoire", description: "Tranchez — sans quoi l'agent choisira pour vous" },
-            { name: "Sacrifice", status: "optionnel", description: "Nommez ce qui est perdu" }
+            { name: "Quelle intention prime ?", status: "obligatoire", id: "arbitrage_strat_tact_prime", description: "Tranchez — sans quoi l'agent choisira pour vous" },
+            { name: "Sacrifice", status: "optionnel", id: "arbitrage_strat_tact_sacrifice", description: "Nommez ce qui est perdu" }
           ]
         },
         {
           name: "Tactique ↔ Opérationnel",
           children: [
-            { name: "Quelle intention prime ?", status: "obligatoire", description: "Tranchez — sans quoi l'agent choisira pour vous" },
-            { name: "Sacrifice", status: "optionnel", description: "Nommez ce qui est perdu" }
+            { name: "Quelle intention prime ?", status: "obligatoire", id: "arbitrage_tact_ope_prime", description: "Tranchez — sans quoi l'agent choisira pour vous" },
+            { name: "Sacrifice", status: "optionnel", id: "arbitrage_tact_ope_sacrifice", description: "Nommez ce qui est perdu" }
           ]
         },
         {
           name: "Stratégique ↔ Opérationnel",
           children: [
-            { name: "Quelle intention prime ?", status: "obligatoire", description: "Tranchez — sans quoi l'agent choisira pour vous" },
-            { name: "Sacrifice", status: "optionnel", description: "Nommez ce qui est perdu" }
+            { name: "Quelle intention prime ?", status: "obligatoire", id: "arbitrage_strat_ope_prime", description: "Tranchez — sans quoi l'agent choisira pour vous" },
+            { name: "Sacrifice", status: "optionnel", id: "arbitrage_strat_ope_sacrifice", description: "Nommez ce qui est perdu" }
           ]
         }
       ]
@@ -300,9 +438,9 @@ const data = {
       color: "#B45309",
       quote: "La délégation requiert des garde-fous de la même façon que l'aviation requiert des checklists.",
       children: [
-        { name: "L'agent ne doit JAMAIS…", status: "obligatoire", description: "Les lignes rouges spécifiques à ce projet, pas des bonnes pratiques génériques" },
-        { name: "L'agent s'arrête et demande quand…", status: "obligatoire", description: "Les frontières de la délégation" },
-        { name: "Test des 3 phrases", status: "obligatoire", description: "3 phrases qu'un observateur indépendant utiliserait pour valider le résultat, sans vous poser de question" }
+        { name: "L'agent ne doit JAMAIS…", status: "obligatoire", id: "gardefous_jamais", description: "Les lignes rouges spécifiques à ce projet, pas des bonnes pratiques génériques" },
+        { name: "L'agent s'arrête et demande quand…", status: "obligatoire", id: "gardefous_arret", description: "Les frontières de la délégation" },
+        { name: "Test des 3 phrases", status: "obligatoire", id: "gardefous_test3", description: "3 phrases qu'un observateur indépendant utiliserait pour valider le résultat, sans vous poser de question" }
       ]
     },
     {
@@ -336,6 +474,37 @@ const data = {
 };
 
 // ============================================================================
+// USER ANSWERS STORE
+// ============================================================================
+const STORAGE_KEY = "arbre-intention-answers";
+let userAnswers = {};
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) userAnswers = JSON.parse(saved);
+} catch(e) {}
+
+function saveAnswers() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
+  updateProgress();
+}
+
+// Collect all editable node IDs grouped by status
+const obligatoireIds = [];
+const optionnelIds = [];
+(function collectIds(node) {
+  if (node.id && node.status === "obligatoire") obligatoireIds.push(node.id);
+  if (node.id && node.status === "optionnel") optionnelIds.push(node.id);
+  if (node.children) node.children.forEach(collectIds);
+})(data);
+
+const progressEl = document.getElementById("progress");
+function updateProgress() {
+  const filled = obligatoireIds.filter(id => userAnswers[id]?.trim());
+  const total = obligatoireIds.length;
+  progressEl.innerHTML = `<span class="count ${filled.length < total ? 'incomplete' : ''}">${filled.length}/${total}</span> obligatoires`;
+}
+
+// ============================================================================
 // RENDER
 // ============================================================================
 
@@ -345,9 +514,13 @@ const svg = d3.select("#chart").append("svg")
 
 const g = svg.append("g");
 
-// Zoom behavior
+// Zoom behavior — filter out events from textareas
 const zoom = d3.zoom()
   .scaleExtent([0.3, 2.5])
+  .filter(event => {
+    if (event.target.tagName === "TEXTAREA") return false;
+    return true;
+  })
   .on("zoom", (event) => {
     g.attr("transform", event.transform);
   });
@@ -355,7 +528,7 @@ const zoom = d3.zoom()
 svg.call(zoom);
 
 // Tree layout
-const dx = 52;   // vertical spacing between siblings
+const dx = 58;   // vertical spacing (increased for inputs)
 const dy = 290;  // horizontal spacing between levels
 
 const tree = d3.tree().nodeSize([dx, dy]);
@@ -367,11 +540,9 @@ root.y0 = 0;
 
 // Inherit branch color from level-1 ancestor
 root.descendants().forEach((d, i) => {
-  d.id = i;
+  d.id = d.data.id || ("node_" + i);
   d._children = d.children;
-  // Initial state: expand level 1 only
   if (d.depth >= 2) d.children = null;
-  // Propagate color down the branch
   if (d.depth === 0) d.branchColor = "#1C1917";
   else if (d.depth === 1) d.branchColor = d.data.color || "#44403C";
   else d.branchColor = d.parent.branchColor;
@@ -386,15 +557,11 @@ function update(source) {
 
   tree(root);
 
-  // Compute extents for viewBox
   let left = root, right = root;
   root.eachBefore((n) => {
     if (n.x < left.x) left = n;
     if (n.x > right.x) right = n;
   });
-
-  const height = right.x - left.x + dx * 2;
-  const width = computeWidth(root) + 200;
 
   const transition = svg.transition()
     .duration(duration);
@@ -434,6 +601,8 @@ function update(source) {
     .attr("fill-opacity", _firstRender ? 1 : 0)
     .attr("stroke-opacity", _firstRender ? 1 : 0)
     .on("click", (event, d) => {
+      const tag = event.target.tagName;
+      if (tag === "TEXTAREA" || tag === "INPUT") return;
       d.children = d.children ? null : d._children;
       update(d);
     });
@@ -453,7 +622,7 @@ function update(source) {
         .attr("stroke", d.branchColor);
     });
 
-  // Status dot (for leaf-ish nodes)
+  // Status dot
   nodeEnter.filter(d => d.data.status)
     .append("circle")
     .attr("class", "status-dot")
@@ -478,7 +647,7 @@ function update(source) {
         .text(d.data.name);
     });
 
-  // Quote (italic, under label) — only level 1
+  // Quote (level 1)
   nodeEnter.filter(d => d.data.quote)
     .append("foreignObject")
     .each(function(d) {
@@ -495,10 +664,10 @@ function update(source) {
     .style("font-style", "italic")
     .style("line-height", "1.4")
     .style("color", d => shouldInvertText(d) ? "#E7E5E4" : "#57534E")
-    .html(d => "« " + d.data.quote + " »");
+    .html(d => "\u00ab " + d.data.quote + " \u00bb");
 
-  // Description (for non-level-1 nodes with description)
-  nodeEnter.filter(d => d.data.description && !d.data.quote)
+  // Description (for non-editable, non-quote nodes)
+  nodeEnter.filter(d => d.data.description && !d.data.quote && !d.data.id)
     .append("foreignObject")
     .each(function(d) {
       const dims = computeNodeDims(d);
@@ -515,7 +684,32 @@ function update(source) {
     .style("color", "#57534E")
     .html(d => d.data.description);
 
-  // Expand indicator (+/−) when node has collapsed children
+  // Editable textarea (for nodes with an id)
+  nodeEnter.filter(d => d.data.id)
+    .append("foreignObject")
+    .attr("class", "input-fo")
+    .each(function(d) {
+      const dims = computeNodeDims(d);
+      d3.select(this)
+        .attr("x", dims.x + 12)
+        .attr("y", dims.y + 24)
+        .attr("width", dims.width - 24)
+        .attr("height", dims.height - 30);
+    })
+    .append("xhtml:textarea")
+    .attr("class", d => "node-input" + (userAnswers[d.data.id]?.trim() ? " filled" : ""))
+    .attr("placeholder", d => d.data.description || (d.data.status === "obligatoire" ? "Requis…" : "Optionnel…"))
+    .attr("aria-label", d => d.data.name)
+    .property("value", d => userAnswers[d.data.id] || "")
+    .on("input", function(event, d) {
+      userAnswers[d.data.id] = this.value;
+      this.classList.toggle("filled", !!this.value.trim());
+      saveAnswers();
+    })
+    .on("mousedown", function(event) { event.stopPropagation(); })
+    .on("click", function(event) { event.stopPropagation(); });
+
+  // Expand indicator (+/-)
   nodeEnter.filter(d => d._children)
     .append("circle")
     .attr("class", "toggle")
@@ -543,7 +737,7 @@ function update(source) {
         .attr("font-size", "11px")
         .attr("font-weight", "600")
         .attr("fill", d.branchColor)
-        .text(d.children ? "−" : "+");
+        .text(d.children ? "\u2212" : "+");
     });
 
   // Merge enter + update
@@ -560,11 +754,9 @@ function update(source) {
       .attr("stroke-opacity", 1);
   }
 
-  // Update toggle label (+/−) as state changes
   node.merge(nodeEnter).select("text.toggle-label")
-    .text(d => d.children ? "−" : "+");
+    .text(d => d.children ? "\u2212" : "+");
 
-  // Remove old toggle circles if node has no more collapsed children
   node.merge(nodeEnter).each(function(d) {
     const sel = d3.select(this);
     if (!d._children) {
@@ -589,7 +781,7 @@ function update(source) {
         .attr("font-size", "11px")
         .attr("font-weight", "600")
         .attr("fill", d.branchColor)
-        .text(d.children ? "−" : "+");
+        .text(d.children ? "\u2212" : "+");
     }
   });
 
@@ -599,7 +791,6 @@ function update(source) {
     .attr("fill-opacity", 0)
     .attr("stroke-opacity", 0);
 
-  // Stash old positions
   root.eachBefore(d => {
     d.x0 = d.x;
     d.y0 = d.y;
@@ -617,7 +808,6 @@ function diagonal(d) {
            ${d.target.y + getNodeDimsFor(d.target).x},${d.target.x}`;
 }
 
-// Per-node dimensions depending on depth and content
 function computeNodeDims(d) {
   if (d.depth === 0) {
     return { x: -90, y: -22, width: 180, height: 44 };
@@ -625,11 +815,15 @@ function computeNodeDims(d) {
   if (d.depth === 1) {
     return { x: -115, y: -50, width: 230, height: 100 };
   }
+  // Editable nodes are taller to fit the textarea
+  const isEditable = !!d.data.id;
   if (d.depth === 2) {
+    if (isEditable) return { x: -110, y: -28, width: 220, height: 80 };
     const hasDesc = !!d.data.description;
     return { x: -130, y: hasDesc ? -34 : -16, width: 260, height: hasDesc ? 72 : 32 };
   }
-  // depth 3
+  // depth 3+
+  if (isEditable) return { x: -100, y: -24, width: 200, height: 72 };
   const hasDesc = !!d.data.description;
   return { x: -100, y: hasDesc ? -22 : -14, width: 200, height: hasDesc ? 48 : 28 };
 }
@@ -655,6 +849,119 @@ function computeWidth(root) {
   return (maxDepth + 1) * dy;
 }
 
+// ---------- Export CLAUDE.md ----------
+
+function generateExport() {
+  const a = userAnswers;
+  const v = id => (a[id] || "").trim();
+
+  let md = `# Arbre d'Intention \u2014 ${v("projet_nom") || "Sans nom"}\n\n`;
+  md += `> G\u00e9n\u00e9r\u00e9 le ${new Date().toLocaleDateString("fr-FR")} via L'Arbre d'Intention\n\n`;
+
+  // Projet
+  md += `## Projet\n`;
+  md += `- **Nom** : ${v("projet_nom") || "\u2014"}\n`;
+  if (v("projet_contexte")) md += `- **Contexte** : ${v("projet_contexte")}\n`;
+  md += `\n`;
+
+  // Intentions
+  const intentions = [
+    { title: "Intention strat\u00e9gique", prefix: "strategique" },
+    { title: "Intention tactique", prefix: "tactique" },
+    { title: "Intention op\u00e9rationnelle", prefix: "operationnel" }
+  ];
+  for (const { title, prefix } of intentions) {
+    md += `## ${title}\n`;
+    if (v(`${prefix}_porteur`)) md += `- **Porteur** : ${v(`${prefix}_porteur`)}\n`;
+    md += `- **Intention** : ${v(`${prefix}_intention`) || "\u2014"}\n`;
+    if (v(`${prefix}_test`)) md += `- **Test d'invalidation** : ${v(`${prefix}_test`)}\n`;
+    md += `\n`;
+  }
+
+  // Tensions
+  const tensions = [
+    { title: "Strat\u00e9gique \u2194 Tactique", id: "tension_strat_tact" },
+    { title: "Tactique \u2194 Op\u00e9rationnel", id: "tension_tact_ope" },
+    { title: "Strat\u00e9gique \u2194 Op\u00e9rationnel", id: "tension_strat_ope" }
+  ];
+  const hasTensions = tensions.some(t => v(t.id));
+  if (hasTensions) {
+    md += `## Tensions identifi\u00e9es\n`;
+    for (const t of tensions) {
+      if (v(t.id)) md += `### ${t.title}\n${v(t.id)}\n\n`;
+    }
+  }
+
+  // Arbitrages
+  const arbitrages = [
+    { title: "Strat\u00e9gique \u2194 Tactique", prime: "arbitrage_strat_tact_prime", sacrifice: "arbitrage_strat_tact_sacrifice" },
+    { title: "Tactique \u2194 Op\u00e9rationnel", prime: "arbitrage_tact_ope_prime", sacrifice: "arbitrage_tact_ope_sacrifice" },
+    { title: "Strat\u00e9gique \u2194 Op\u00e9rationnel", prime: "arbitrage_strat_ope_prime", sacrifice: "arbitrage_strat_ope_sacrifice" }
+  ];
+  const hasArbitrages = arbitrages.some(a => v(a.prime));
+  if (hasArbitrages) {
+    md += `## Arbitrages\n`;
+    for (const arb of arbitrages) {
+      if (v(arb.prime)) {
+        md += `### ${arb.title}\n`;
+        md += `- **Priorit\u00e9** : ${v(arb.prime)}\n`;
+        if (v(arb.sacrifice)) md += `- **Sacrifice** : ${v(arb.sacrifice)}\n`;
+        md += `\n`;
+      }
+    }
+  }
+
+  // Garde-fous
+  md += `## Garde-fous\n`;
+  md += `### L'agent ne doit JAMAIS :\n${v("gardefous_jamais") || "\u2014"}\n\n`;
+  md += `### L'agent s'arr\u00eate et demande quand :\n${v("gardefous_arret") || "\u2014"}\n\n`;
+  md += `### Test des 3 phrases :\n${v("gardefous_test3") || "\u2014"}\n`;
+
+  return md;
+}
+
+function showExportModal() {
+  // Check obligatoires
+  const missing = obligatoireIds.filter(id => !userAnswers[id]?.trim());
+
+  const md = generateExport();
+
+  const overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
+  overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
+
+  let warningHtml = "";
+  if (missing.length > 0) {
+    warningHtml = `<p style="color:#DC2626;font-size:12px;margin-bottom:12px;">\u26a0 ${missing.length} champ(s) obligatoire(s) non rempli(s)</p>`;
+  }
+
+  overlay.innerHTML = `
+    <div class="modal">
+      <h2>Export CLAUDE.md</h2>
+      ${warningHtml}
+      <pre>${md.replace(/</g, "&lt;")}</pre>
+      <div class="modal-actions">
+        <button onclick="this.closest('.modal-overlay').remove()">Fermer</button>
+        <button onclick="navigator.clipboard.writeText(generateExport()).then(()=>{this.textContent='Copi\u00e9 !';setTimeout(()=>this.textContent='Copier',1500)})">Copier</button>
+        <button class="primary" onclick="downloadExport()">T\u00e9l\u00e9charger</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+}
+
+function downloadExport() {
+  const md = generateExport();
+  const blob = new Blob([md], { type: "text/markdown" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "CLAUDE.md";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 // ---------- Controls ----------
 
 function expandAll() {
@@ -669,7 +976,6 @@ function collapseAll() {
   root.each(d => {
     if (d.depth >= 1 && d._children) d.children = null;
   });
-  // Keep level 1 visible
   root.children = root._children;
   update(root);
   setTimeout(fitToView, 360);
@@ -680,6 +986,17 @@ function resetView() {
     if (d.depth >= 2 && d._children) d.children = null;
     if (d.depth < 2 && d._children) d.children = d._children;
   });
+  update(root);
+  setTimeout(fitToView, 360);
+}
+
+function clearAll() {
+  if (!confirm("Effacer toutes vos r\u00e9ponses ? Cette action est irr\u00e9versible.")) return;
+  userAnswers = {};
+  saveAnswers();
+  // Re-render to reset textareas
+  g.selectAll("g.node").remove();
+  g.selectAll("path.link").remove();
   update(root);
   setTimeout(fitToView, 360);
 }
@@ -710,14 +1027,16 @@ function fitToView() {
 document.getElementById("btn-expand").addEventListener("click", expandAll);
 document.getElementById("btn-collapse").addEventListener("click", collapseAll);
 document.getElementById("btn-reset").addEventListener("click", resetView);
+document.getElementById("btn-export").addEventListener("click", showExportModal);
+document.getElementById("btn-clear").addEventListener("click", clearAll);
 
 window.addEventListener("resize", () => {
-  // re-fit on resize with small debounce
   clearTimeout(window._fitTimer);
   window._fitTimer = setTimeout(fitToView, 150);
 });
 
-// Initial render — duration=0 so nodes appear instantly (no transition race)
+// Initial render
+updateProgress();
 update(root);
 // fitToView immediately since nodes are already placed (no transition to wait for)
 requestAnimationFrame(() => fitToView());
