@@ -1,0 +1,151 @@
+{
+  "name": "L'Arbre d'Intention",
+  "color": "#1C1917",
+  "children": [
+    {
+      "id": "01",
+      "name": "Le projet",
+      "color": "#64748B",
+      "quote": "Nommez-le précisément. Un projet mal nommé produit des intentions floues — et des IA qui travaillent à côté.",
+      "comprendre": "Avant de déléguer quoi que ce soit à une IA, la première question est : sur quoi travaille-t-on exactement ? Un projet flou produit des instructions floues, qui produisent des résultats à côté. Nommer le projet, c'est poser le cadre. Un nom opérationnel — pas une catégorie — oblige à être précis sur ce qu'on construit.\n\nSi vous dites « refondre le site », l'IA ne sait pas si vous parlez d'un redesign visuel, d'une migration technique, ou d'une réécriture complète. Si vous dites « Arbre d'Intention v2 — page narrative interactive avec cas d'étude intégré », elle sait exactement où elle met les pieds.\n\nLe contexte est tout aussi critique : pourquoi ce projet existe maintenant, pas dans six mois ? L'IA n'a pas accès à votre historique. Ce que vous ne lui écrivez pas, elle ne le sait pas.",
+      "champs": [
+        { "name": "Nom du projet", "status": "obligatoire", "description": "Un nom opérationnel, pas une catégorie" },
+        { "name": "Contexte", "status": "optionnel", "description": "Pourquoi ce projet existe maintenant ? L'IA ne l'aura pas si vous ne l'écrivez pas" }
+      ]
+    },
+    {
+      "id": "02",
+      "name": "L'intention stratégique",
+      "color": "#B91C1C",
+      "quote": "Qui, au sommet, sera satisfait ou insatisfait — indépendamment de la qualité technique ?",
+      "comprendre": "L'intention stratégique est la finalité ultime du projet. Pas un objectif chiffré, pas un livrable — la raison pour laquelle le projet existe. Si cette intention n'est pas satisfaite, rien d'autre ne compte, même si tout le reste est techniquement parfait.\n\nLe porteur stratégique est celui qui juge le succès ou l'échec du projet dans son ensemble. Dans une entreprise, c'est souvent le sponsor, le DG, le client final. Pour un projet personnel, c'est vous — mais dans votre rôle de décideur, pas d'exécutant.\n\nLe test d'invalidation est l'outil le plus puissant de cette étape : décrivez une situation où l'exécution est réussie mais l'intention stratégique est violée. Si vous ne trouvez pas ce scénario, votre intention est probablement trop vague.",
+      "champs": [
+        { "name": "Porteur", "status": "optionnel", "description": "Qui juge si le résultat global est un succès ou un échec ?" },
+        { "name": "Intention", "status": "obligatoire", "description": "Pas un objectif chiffré. La finalité dont l'absence invalide tout" },
+        { "name": "Test d'invalidation", "status": "optionnel", "description": "Exécution réussie mais intention violée" }
+      ]
+    },
+    {
+      "id": "03",
+      "name": "L'intention tactique",
+      "color": "#EA580C",
+      "quote": "Qui pilote au quotidien ? Cette personne a sa propre définition du succès.",
+      "comprendre": "L'intention tactique traduit la stratégie en plan d'action. Le porteur tactique est celui qui pilote au quotidien : il choisit les priorités, séquence les étapes, arbitre les compromis terrain. Sa définition du succès n'est pas la même que celle du stratégique — et c'est normal.\n\nLe danger : quand l'intention tactique n'est pas explicite, l'IA (ou l'équipe) optimise pour la stratégie sans tenir compte des contraintes de pilotage. Le résultat est techniquement aligné avec la vision mais ingouvernable en pratique.\n\nIci aussi, le test d'invalidation révèle les angles morts : le niveau stratégique est satisfait, mais le pilotage est un cauchemar. Ce scénario arrive plus souvent qu'on ne le pense.",
+      "champs": [
+        { "name": "Porteur", "status": "optionnel", "description": "Celui qui traduit la stratégie en plan d'action" },
+        { "name": "Intention", "status": "obligatoire", "description": "La finalité dont l'absence invalide le résultat, même si l'exécution est parfaite" },
+        { "name": "Test d'invalidation", "status": "optionnel", "description": "Le niveau stratégique est satisfait, mais celui-ci est violé" }
+      ]
+    },
+    {
+      "id": "04",
+      "name": "L'intention opérationnelle",
+      "color": "#047857",
+      "quote": "Qui exécute ? Ses contraintes sont légitimes — les niveaux supérieurs ne les voient souvent pas.",
+      "comprendre": "L'intention opérationnelle est celle de la personne (ou de l'IA) qui a les mains sur le clavier. Ses contraintes sont réelles : temps disponible, compétences techniques, outils accessibles, dette technique existante. Les ignorer, c'est produire un plan que personne ne peut exécuter.\n\nDans le contexte de la délégation IA, l'intention opérationnelle décrit ce que l'IA doit concrètement produire, dans quel périmètre, avec quelles contraintes. C'est la couche la plus proche de l'instruction — mais elle n'est pas l'instruction. Elle est le « pourquoi » derrière chaque ligne du prompt.\n\nSans intention opérationnelle explicite, l'IA fait des choix techniques arbitraires. Avec, elle comprend non seulement ce qu'elle doit faire, mais pourquoi — et peut adapter quand le terrain change.",
+      "champs": [
+        { "name": "Porteur", "status": "optionnel", "description": "Celui dont les mains sont sur le clavier" },
+        { "name": "Intention", "status": "obligatoire", "description": "La finalité dont l'absence invalide le résultat, même si l'exécution est parfaite" },
+        { "name": "Test d'invalidation", "status": "optionnel", "description": "Situation où l'exécution est réussie mais l'intention est violée" }
+      ]
+    },
+    {
+      "id": "05",
+      "name": "Les tensions",
+      "color": "#7C3AED",
+      "quote": "Deux intentions légitimes qui prescrivent des actions incompatibles. Si vous n'en trouvez aucune, vous n'avez pas assez cherché.",
+      "comprendre": "Une tension n'est pas un problème — c'est un signal que votre cadrage est réaliste. Dès que trois niveaux d'intention coexistent, des contradictions apparaissent. Le stratégique veut de l'ambition, le tactique veut de la maîtrise, l'opérationnel veut de la faisabilité. Ces trois demandes sont légitimes — et incompatibles à 100%.\n\nSi vous ne trouvez aucune tension, c'est que vos intentions sont soit trop vagues (elles ne prescrivent rien de concret), soit identiques (vous n'avez pas vraiment trois niveaux, vous avez le même reformulé trois fois).\n\nLe travail ici est de nommer la contradiction concrète : quelle action un niveau prescrit-il que l'autre interdit ? Cette précision est ce qui permet l'arbitrage à l'étape suivante.",
+      "champs": [
+        {
+          "name": "Stratégique ↔ Tactique",
+          "children": [
+            { "name": "Contradiction concrète", "status": "optionnel", "description": "Quelle action l'une prescrit-elle que l'autre interdit ?" }
+          ]
+        },
+        {
+          "name": "Tactique ↔ Opérationnel",
+          "children": [
+            { "name": "Contradiction concrète", "status": "optionnel", "description": "Quelle action l'une prescrit-elle que l'autre interdit ?" }
+          ]
+        },
+        {
+          "name": "Stratégique ↔ Opérationnel",
+          "children": [
+            { "name": "Contradiction concrète", "status": "optionnel", "description": "Quelle action l'une prescrit-elle que l'autre interdit ?" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "name": "Arbitrage",
+      "color": "#4338CA",
+      "quote": "Arbitrer signifie décider qui perd quelque chose. Si personne ne perd rien, vous n'avez pas tranché.",
+      "comprendre": "L'arbitrage est l'étape que tout le monde veut éviter. Trancher signifie qu'une intention légitime va être sacrifiée — partiellement ou totalement — au profit d'une autre. Si personne ne perd rien, vous n'avez pas arbitré, vous avez reformulé le problème pour qu'il ait l'air résolu.\n\nPour chaque tension identifiée : quelle intention prime ? Et surtout : quel est le sacrifice ? Nommer ce qui est perdu est aussi important que nommer ce qui est gardé. L'IA (ou l'équipe) doit savoir ce qu'elle n'optimise PAS.\n\nSans arbitrage explicite, l'IA arbitre pour vous — silencieusement, sans vous prévenir, selon ses propres heuristiques. C'est exactement la situation que l'Arbre d'Intention cherche à éviter.",
+      "champs": [
+        {
+          "name": "Stratégique ↔ Tactique",
+          "children": [
+            { "name": "Quelle intention prime ?", "status": "obligatoire", "description": "Tranchez — sans quoi l'IA choisira pour vous" },
+            { "name": "Sacrifice", "status": "optionnel", "description": "Nommez ce qui est perdu" }
+          ]
+        },
+        {
+          "name": "Tactique ↔ Opérationnel",
+          "children": [
+            { "name": "Quelle intention prime ?", "status": "obligatoire", "description": "Tranchez — sans quoi l'IA choisira pour vous" },
+            { "name": "Sacrifice", "status": "optionnel", "description": "Nommez ce qui est perdu" }
+          ]
+        },
+        {
+          "name": "Stratégique ↔ Opérationnel",
+          "children": [
+            { "name": "Quelle intention prime ?", "status": "obligatoire", "description": "Tranchez — sans quoi l'IA choisira pour vous" },
+            { "name": "Sacrifice", "status": "optionnel", "description": "Nommez ce qui est perdu" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "name": "Garde-fous",
+      "color": "#B45309",
+      "quote": "La délégation requiert des garde-fous de la même façon que l'aviation requiert des checklists.",
+      "comprendre": "Les garde-fous ne sont pas des bonnes pratiques génériques (« ne pas introduire de bugs »). Ce sont les lignes rouges spécifiques à ce projet — les actions que l'IA ne doit jamais entreprendre, les situations où elle doit s'arrêter et demander.\n\nLes interdictions définissent le périmètre de la délégation : tout ce qui est en dehors est interdit. Les seuils d'arrêt définissent les frontières de l'autonomie : au-delà, l'IA rend la main.\n\nLe test des 3 phrases est l'outil de validation finale : 3 phrases qu'un observateur indépendant utiliserait pour juger si le résultat est conforme — sans avoir besoin de vous poser une seule question. Si vous ne pouvez pas les écrire, vos intentions ne sont pas assez claires.",
+      "champs": [
+        { "name": "L'IA ne doit JAMAIS…", "status": "obligatoire", "description": "Les lignes rouges spécifiques à ce projet, pas des bonnes pratiques génériques" },
+        { "name": "L'IA s'arrête et demande quand…", "status": "obligatoire", "description": "Les frontières de la délégation" },
+        { "name": "Test des 3 phrases", "status": "obligatoire", "description": "3 phrases qu'un observateur indépendant utiliserait pour valider le résultat, sans vous poser de question" }
+      ]
+    },
+    {
+      "id": "08",
+      "name": "Synthèse",
+      "color": "#1C1917",
+      "quote": "La structure de vos décisions. Ce document est prêt à être encodé dans un CLAUDE.md ou un system prompt.",
+      "comprendre": "La synthèse est le moment de vérité : votre arbre est-il complet ? Les champs essentiels (nom du projet, trois intentions) sont-ils remplis ? Les tensions sont-elles identifiées et arbitrées ? Les garde-fous sont-ils posés ?\n\nLe diagnostic distingue l'essentiel (sans quoi l'arbre ne tient pas) de l'important (qui renforce la qualité du cadrage). Un arbre avec uniquement les champs essentiels est utilisable. Un arbre avec tous les champs est robuste.\n\nLe résultat final est un document structuré, prêt à être intégré dans un CLAUDE.md, un system prompt, ou tout autre mécanisme d'instruction. C'est le pont entre votre réflexion et l'exécution par l'IA.",
+      "champs": [
+        { "name": "Visualisation de l'arbre", "description": "Les 3 nœuds : Stratégique / Tactique / Opérationnel" },
+        { "name": "Tensions résolues", "description": "✓ résolu entre chaque paire de nœuds" },
+        {
+          "name": "Diagnostic — ESSENTIEL",
+          "children": [
+            { "name": "Projet nommé", "status": "obligatoire" },
+            { "name": "Intention stratégique", "status": "obligatoire" },
+            { "name": "Intention tactique", "status": "obligatoire" },
+            { "name": "Intention opérationnelle", "status": "obligatoire" }
+          ]
+        },
+        {
+          "name": "Diagnostic — IMPORTANT",
+          "children": [
+            { "name": "Au moins une tension identifiée", "status": "optionnel" },
+            { "name": "Tensions arbitrées", "status": "optionnel" },
+            { "name": "Interdictions posées", "status": "optionnel" },
+            { "name": "Critères de validation", "status": "optionnel" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "titre": "Développer l'Arbre d'Intention avec sa propre méthode",
+  "description": "Ce cas d'étude est particulier : le framework a été appliqué au projet de sa propre refonte. Chaque réponse ci-dessous a été produite avant de coder, en suivant les 8 étapes de la méthode.",
+  "etapes": {
+    "01": {
+      "recit": "Le premier réflexe aurait été de foncer dans le code. Au lieu de cela, on a posé la question : qu'est-ce qu'on construit exactement ? Pas « améliorer la mindmap » — c'est une catégorie. Le vrai nom du projet a forcé une décision : ce n'est plus une mindmap, c'est une page narrative interactive qui démontre la méthode en l'appliquant à elle-même.",
+      "reponses": {
+        "Nom du projet": "Arbre d'Intention v2 — Page narrative interactive avec cas d'étude intégré",
+        "Contexte": "La v1 est une mindmap D3.js fonctionnelle mais inutilisable sur mobile, sans explication du framework, et sans cas d'usage concret. Floryan cherche un stage/alternance et veut se positionner sur la gouvernance IA et la littératie IA (Article 4 EU AI Act). Le projet doit démontrer une pensée structurée, pas juste une compétence technique."
+      }
+    },
+    "02": {
+      "recit": "Qui juge si ce projet est un succès ? Pas un utilisateur technique — un recruteur, un décideur, quelqu'un qui ouvre un lien LinkedIn et qui doit comprendre en 30 secondes que Floryan sait penser la gouvernance IA. Si cette personne ne comprend rien, tout le reste est inutile.",
+      "reponses": {
+        "Porteur": "Floryan dans son rôle de candidat — jugé par des recruteurs et décideurs",
+        "Intention": "Démontrer une pensée structurée sur la gouvernance de la délégation IA, matérialisée dans un outil concret",
+        "Test d'invalidation": "L'outil est techniquement parfait mais un recruteur qui l'ouvre ne comprend pas en 30 secondes de quoi il s'agit ni pourquoi c'est pertinent"
+      }
+    },
+    "03": {
+      "recit": "Le pilotage au quotidien, c'est la question du comment. On a exploré trois approches (mindmap augmentée, page narrative, app deux panneaux) et tranché pour la page narrative. La raison tactique : un recruteur scrolle, il ne zoome pas dans une mindmap D3.js.",
+      "reponses": {
+        "Porteur": "Floryan dans son rôle de concepteur/développeur",
+        "Intention": "Produire une page qui se lit naturellement (scroll), qui fonctionne sur mobile, et qui intègre le cas d'étude comme preuve — pas comme annexe",
+        "Test d'invalidation": "La page est belle mais le cas d'étude est relégué dans un onglet secondaire que personne ne trouve"
+      }
+    },
+    "04": {
+      "recit": "Les contraintes opérationnelles sont réelles : vanilla JS uniquement, pas de build, fichier unique initialement (maintenant multi-fichiers), D3.js déjà en place. Le code existant de la mindmap v1 doit être adapté, pas réécrit from scratch.",
+      "reponses": {
+        "Porteur": "Claude Code — l'IA qui exécute le développement",
+        "Intention": "Transformer le fichier HTML unique en architecture multi-fichiers propre, en réutilisant le code D3.js existant pour la mindmap et en ajoutant les sections narratives",
+        "Test d'invalidation": "Le code est propre et bien structuré mais la page ne charge pas correctement sur GitHub Pages à cause d'un problème de chemins relatifs"
+      }
+    },
+    "05": {
+      "recit": "Les tensions sont apparues naturellement. Le stratégique veut impressionner en 30 secondes — le tactique veut du contenu riche et complet. Le tactique veut une navigation fluide avec mindmap — l'opérationnel sait que la mindmap D3.js est ingérable sur mobile. Le stratégique veut un positionnement sérieux/institutionnel — l'opérationnel travaille en vanilla JS sans designer.",
+      "reponses": {
+        "Stratégique ↔ Tactique": "Le stratégique veut un impact immédiat (30 secondes) ; le tactique veut 8 sections complètes avec textes explicatifs et cas d'étude. Les deux ne tiennent pas dans le même viewport.",
+        "Tactique ↔ Opérationnel": "Le tactique veut la mindmap comme navigation synchronisée ; l'opérationnel constate que D3.js sur mobile est inutilisable et consomme des ressources.",
+        "Stratégique ↔ Opérationnel": "Le stratégique veut un rendu professionnel/institutionnel ; l'opérationnel travaille sans designer, sans framework CSS, en vanilla uniquement."
+      }
+    },
+    "06": {
+      "recit": "Chaque tension a été arbitrée explicitement. Le contenu prime sur l'impact immédiat — le hero fait le travail d'accroche, le contenu fait le travail de conviction. Le mobile prime sur la mindmap — une barre de progression remplace l'arbre sur petit écran. Le sérieux du contenu prime sur le polish visuel — le thème clair et sobre compense l'absence de designer.",
+      "reponses": {
+        "Stratégique ↔ Tactique": {
+          "prime": "Tactique (contenu complet)",
+          "sacrifice": "L'impact immédiat repose entièrement sur le hero — si le hero rate, la suite n'est pas lue"
+        },
+        "Tactique ↔ Opérationnel": {
+          "prime": "Opérationnel (faisabilité mobile)",
+          "sacrifice": "Pas de mindmap sur mobile — remplacée par une barre de progression moins spectaculaire"
+        },
+        "Stratégique ↔ Opérationnel": {
+          "prime": "Stratégique (rendu sérieux)",
+          "sacrifice": "Le thème clair uniquement, pas de dark mode — réduit le scope technique au profit du ton"
+        }
+      }
+    },
+    "07": {
+      "recit": "Les garde-fous ont été posés dès le début dans le CLAUDE.md du projet. Pour la v2, on en ajoute de spécifiques : ne pas introduire de jargon technique dans le hero, ne pas sacrifier le mobile pour le desktop, ne pas inventer de statistiques non sourcées (sauf le 80% Pareto, explicitement assumé).",
+      "reponses": {
+        "L'IA ne doit JAMAIS…": "Introduire du jargon technique (D3.js, LLM, API) dans le hero ou les accroches. Casser la compatibilité mobile pour embellir le desktop. Inventer des statistiques ou citations sans les qualifier.",
+        "L'IA s'arrête et demande quand…": "Un choix de design impacte la lisibilité mobile. Le contenu éditorial (textes 'Comprendre', récits du cas d'étude) nécessite une validation de ton. Un changement structurel touche plus de 3 fichiers simultanément.",
+        "Test des 3 phrases": "1. La page explique en 30 secondes ce qu'est la méthode et pourquoi elle existe. 2. Le cas d'étude montre la méthode appliquée à un vrai projet, avec des réponses concrètes. 3. La page fonctionne aussi bien sur mobile que sur desktop."
+      }
+    },
+    "08": {
+      "recit": "Le diagnostic est complet. Les 4 champs essentiels sont remplis : projet nommé, intentions stratégique, tactique et opérationnelle. Les 3 tensions sont identifiées et arbitrées. Les garde-fous sont posés. Le test des 3 phrases est formulé. L'arbre est prêt à guider le développement.",
+      "reponses": {
+        "diagnostic_essentiel": {
+          "Projet nommé": true,
+          "Intention stratégique": true,
+          "Intention tactique": true,
+          "Intention opérationnelle": true
+        },
+        "diagnostic_important": {
+          "Au moins une tension identifiée": true,
+          "Tensions arbitrées": true,
+          "Interdictions posées": true,
+          "Critères de validation": true
+        }
+      }
+    }
+  }
+}
