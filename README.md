@@ -1,58 +1,50 @@
-# Arbre d'Intention — Mindmap Interactive
+# L'Arbre d'Intention — Méthode de cadrage pour la délégation IA
 
-Visualisation interactive du framework **Arbre d'Intention**, un outil de cadrage pour structurer les intentions stratégiques, tactiques et opérationnelles d'un projet avant de déléguer à un agent IA.
+Une méthode en 8 étapes pour structurer ce que vous attendez d'une IA avant de lui donner les clés.
 
-## Apercu
+## Aperçu
 
-Fichier HTML autonome utilisant **D3.js v7** (via CDN) pour rendre une arborescence horizontale collapsible.
-
-### Contenu
-
-L'arbre couvre les 8 étapes du framework :
-
-1. **Le projet** — Nom et contexte
-2. **L'intention stratégique** — Porteur, intention, test d'invalidation
-3. **L'intention tactique** — Idem, niveau pilotage
-4. **L'intention opérationnelle** — Idem, niveau exécution
-5. **Les tensions** — Contradictions entre niveaux
-6. **Arbitrage** — Quelle intention prime, quel sacrifice
-7. **Garde-fous** — Interdictions, seuils d'arrêt, test des 3 phrases
-8. **Synthèse** — Diagnostic de complétude
-
-### Interactions
-
-- Clic sur un noeud pour plier/déplier
-- Molette pour zoomer, glisser pour panner
-- Boutons : *Tout déplier* / *Tout replier* / *Recentrer*
-- Badges rouge (obligatoire) et gris (optionnel) sur chaque champ
+Page narrative interactive avec :
+- **8 sections** expliquant chaque étape de la méthode
+- **Cas d'étude concret** : la méthode appliquée à son propre développement
+- **Mindmap D3.js** en vue d'ensemble et navigation (desktop)
+- **Barre de progression** pour la navigation mobile
+- **Toggle** Framework / Cas d'étude
 
 ## Utilisation
 
 Ouvrir dans un navigateur :
 
 ```bash
-open arbre-intention-mindmap.html
+open index.html
 ```
 
-Ou servir localement :
+Ou servir localement (recommandé pour le chargement des JSON) :
 
 ```bash
 python3 -m http.server 8080
-# puis http://localhost:8080/arbre-intention-mindmap.html
+# puis http://localhost:8080
 ```
 
 ## Stack
 
-- HTML + CSS + JS inline (fichier unique, ~700 lignes)
-- D3.js v7 via CDN
+- HTML + CSS + JS (vanilla, pas de framework)
+- D3.js v7 via CDN (mindmap uniquement)
+- Données en JSON (`data/arbre.json`, `data/cas-etude.json`)
 - Aucune dépendance locale, aucun build
 
-## Workflow multi-machine
+## Structure
 
-Le repo est concu pour être travaillé depuis plusieurs machines via GitHub :
-
-```bash
-git clone git@github.com:florycarm-a11y/arbre-intention-mindmap.git
-cd arbre-intention-mindmap
-claude   # ouvrir Claude Code pour continuer le projet
 ```
+├── index.html          Page principale
+├── css/style.css       Styles
+├── js/main.js          Orchestration, toggle, sections
+├── js/mindmap.js       Rendu D3.js de la mindmap
+├── data/arbre.json     Structure du framework
+├── data/cas-etude.json Cas d'étude concret
+└── assets/             Images et OG cover
+```
+
+## Contexte
+
+Ce projet s'inscrit dans une réflexion sur la **littératie IA** et l'**Article 4 de l'EU AI Act**, qui impose aux organisations de garantir la compétence de leurs équipes dans l'usage des systèmes d'IA.
