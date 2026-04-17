@@ -51,6 +51,7 @@
     <!-- Navigation -->
     <nav class="nav" aria-label="Navigation principale">
         <a class="nav__logo" href="#">L'Arbre d'Intention</a>
+        <button class="nav__fill-btn" id="fill-toggle" aria-label="Remplir mon arbre">✏ Mon arbre</button>
         <div class="nav__toggle-wrapper">
             <button class="nav__toggle" id="mode-toggle" aria-label="Basculer entre mode Framework et Cas d'étude">
                 <span class="nav__toggle-option nav__toggle-option--framework">Méthode</span>
@@ -66,12 +67,22 @@
         <div class="hero__actions">
             <a class="hero__cta hero__cta--primary" href="#etape-01" data-mode="framework">Découvrir la méthode</a>
             <a class="hero__cta hero__cta--secondary" href="#etape-01" data-mode="casestudy">Voir le cas d'étude</a>
+            <a class="hero__cta hero__cta--fill" href="#etape-01" id="fill-cta">Remplir mon arbre</a>
         </div>
         <p class="hero__context">Vous pouvez déléguer une tâche entière à une IA. Mais sans cadrage, elle optimise ce que vous avez dit — pas ce que vous vouliez. Ce qui se joue avant la première instruction détermine 80% du résultat.</p>
         <aside class="hero__aside">
             <p>L'Article 4 de l'EU AI Act impose aux organisations de garantir la littératie IA de leurs équipes. L'Arbre d'Intention est une réponse concrète : 8 étapes pour passer de <em>« j'utilise l'IA »</em> à <em>« je sais cadrer ce que je lui délègue »</em>.</p>
         </aside>
     </header>
+
+    <!-- Restore banner -->
+    <div class="restore-banner" id="restore-banner" hidden>
+        <p>Vous avez un arbre en cours.</p>
+        <div class="restore-banner__actions">
+            <button class="restore-banner__btn" id="restore-resume">Reprendre</button>
+            <button class="restore-banner__btn restore-banner__btn--secondary" id="restore-restart">Recommencer</button>
+        </div>
+    </div>
 
     <main id="main-content">
         <!-- Mindmap (desktop) / Progress bar (mobile) -->
@@ -87,6 +98,25 @@
     <!-- Floating "show map" button -->
     <button class="fab-map" id="fab-map" aria-label="Voir la carte">Carte</button>
 
+    <!-- Floating export button (fill mode only) -->
+    <button class="fab-export" id="fab-export" aria-label="Exporter mon arbre">Exporter mon arbre</button>
+
+    <!-- Export modal -->
+    <div class="modal-overlay" id="export-modal" hidden>
+        <div class="modal">
+            <div class="modal__header">
+                <h2 class="modal__title">Exporter votre Arbre d'Intention</h2>
+                <button class="modal__close" id="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal__preview" id="modal-preview"></div>
+            <div class="modal__diagnostic" id="modal-diagnostic"></div>
+            <div class="modal__actions">
+                <button class="modal__btn" id="export-md">Télécharger en Markdown</button>
+                <button class="modal__btn modal__btn--primary" id="export-pdf">Télécharger en PDF</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <p>L'Arbre d'Intention — une méthode de cadrage par <a href="https://florycarm-a11y.github.io/PORTFOLIO/" target="_blank" rel="noopener noreferrer">Floryan Leblanc</a></p>
@@ -101,5 +131,7 @@
     <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
     <script src="js/mindmap.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="js/fill-mode.js"></script>
 </body>
 </html>
