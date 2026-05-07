@@ -107,10 +107,10 @@ Au clic du CTA secondaire `[Voir un exemple]` du hero, ouverture d'une **mini-mo
 
 | ID | Cas | Rôle |
 |---|---|---|
-| `meta` | Le Mandat construit avec sa propre démarche | Cas principal — déjà rédigé, conceptuellement fort, à refondre depuis `cas-etude.json` |
-| `rse-bdp` | Expert RSE de la Banque de Polynésie (filiale Société Générale) accompagnant un client en transition énergétique de la détection du risque ESG jusqu'au plan d'action RSE chiffré | Cas universel — à rédiger |
+| `meta` | Le Mandat construit avec sa propre démarche | Cas principal — conceptuellement fort, met en abyme la méthode |
+| `rse-bdp` | Expert RSE de la Banque de Polynésie (filiale Société Générale) accompagnant un client en transition énergétique de la détection du risque ESG jusqu'au plan d'action RSE chiffré | Cas universel — registre banque/conseil/gouvernance |
 
-Les deux cas sont écrits **dans le design doc** (cf. annexe A) pour validation conjointe avant implémentation.
+Les contenus complets des deux cas sont rédigés en **annexe A** (objets `mandat` v2 prêts à sérialiser). Toute reformulation éditoriale passe par l'annexe d'abord, puis répercussion dans les fichiers JSON en P3.
 
 ### 4.5 Modification depuis l'aperçu visuel
 
@@ -658,34 +658,133 @@ Ces sujets pourront être traités dans des refontes ultérieures, projet par pr
 | Le wizard simplifié perd des utilisateurs experts qui voulaient les champs détaillés | Les champs optionnels restent disponibles via `+ détails`, aucune fonctionnalité n'est perdue |
 | La page `/` devient trop centrée sur l'outil et perd la dimension pédagogique | La bande Article 4 et la section « Pour aller plus loin » assument la pédagogie en aval |
 | L'ancien URL `arbre-intention-mindmap.github.io` renvoie 404 | Documenter clairement, mettre à jour activement les liens publics ; le cas échéant, accepter la perte des liens partagés non maîtrisés |
-| Les 2 cas exemples (méta + RSE) ne sont pas équivalents en qualité | Rédiger les deux dans le design doc (annexe A) avant implémentation, valider conjointement |
+| Les 2 cas exemples (méta + RSE) ne sont pas équivalents en qualité | Les deux cas sont rédigés intégralement en annexe A du design doc (objets `mandat` v2 prêts à sérialiser), permettant une validation conjointe avant implémentation |
 | Maintenance du PNG OG (régénération manuelle après modif du SVG) oubliée | Documenter la procédure dans le README + rappel dans le commit message si modif du SVG |
 
 ---
 
-## 13. Annexe A — Cas d'exemple à rédiger en P3
+## 13. Annexe A — Contenu complet des deux cas d'exemple
 
-Les contenus complets des deux cas (`exemple-meta.json` et `exemple-rse-bdp.json`) seront rédigés dans le **plan d'implémentation** avant la phase P3, pour validation conjointe. Voici les briefs :
+Les deux cas sont rédigés ici intégralement, au format de l'objet `mandat` v2 défini en § 8.3. Ils serviront de source à `data/exemple-meta.json` et `data/exemple-rse-bdp.json` lors de la phase P3.
 
-### A.1 Cas méta (Le Mandat construit avec sa propre démarche)
+### A.1 Cas méta — Le Mandat construit avec sa propre démarche
 
-Conserver l'esprit du `cas-etude.json` actuel, mais reformaté en objet `mandat` v2 :
-- Projet : `Le Mandat — outil de cadrage de la délégation IA`
-- Intentions : conserver les formulations actuelles (cas-etude.json), adapter au nouveau positionnement gouvernance
-- Tensions, arbitrages, garde-fous : conserver, retraduire en formulation directe (pas de récit narratif, juste les valeurs)
+```json
+{
+  "id": "meta",
+  "label": "Le Mandat construit avec sa propre démarche",
+  "version": 2,
+  "mandat": {
+    "projet": {
+      "nom": "Le Mandat — outil de cadrage de la délégation IA",
+      "contexte": "Refonte d'un projet existant (Arbre d'Intention) pour le rendre concrètement utilisable. Le projet s'inscrit dans la recherche d'un stage ou d'une alternance sur la gouvernance IA, en réponse à l'Article 4 du EU AI Act applicable depuis février 2025."
+    },
+    "strategique": {
+      "porteur": "Floryan Leblanc, dans son rôle de candidat positionné sur la gouvernance IA",
+      "intention": "Démontrer une pensée structurée sur la gouvernance de la délégation à un système d'IA, matérialisée dans un outil concret et utilisable de bout en bout, aligné avec l'esprit de l'Article 4 du EU AI Act.",
+      "testInvalidation": "L'outil est techniquement parfait, mais un recruteur ou un décideur qui l'ouvre ne comprend pas en moins d'une minute de quoi il s'agit, ni pourquoi c'est pertinent au regard de l'Article 4."
+    },
+    "tactique": {
+      "porteur": "Floryan Leblanc, dans son rôle de concepteur et développeur",
+      "intention": "Produire une page web qui se lit naturellement (scroll), fonctionne aussi bien sur mobile que desktop, et qui mène le visiteur à un livrable utilisable sans avoir à lire la méthode complète au préalable.",
+      "testInvalidation": "La page est belle et la méthode est documentée, mais le visiteur n'arrive pas à produire un mandat utilisable parce que le parcours est confus ou la mindmap remplace l'action."
+    },
+    "operationnel": {
+      "porteur": "Claude Code — l'IA qui exécute le développement",
+      "intention": "Construire l'outil en JavaScript vanilla, sans build ni framework, en réutilisant D3.js et jsPDF déjà en place, et en garantissant que les données de l'utilisateur ne quittent jamais son navigateur.",
+      "testInvalidation": "Le code est propre et bien architecturé, mais la page nécessite un build, ne charge pas correctement sur GitHub Pages, ou envoie des données utilisateur à un serveur tiers."
+    },
+    "tensions": {
+      "strat-tact": "Le stratégique veut un positionnement gouvernance fort (institutionnel, sérieux, EU AI Act explicite) ; le tactique veut un parcours rapide et concret qui n'effraie pas un visiteur grand public.",
+      "tact-op": "Le tactique veut un aperçu live riche et un effet « wow » à la fin du parcours ; l'opérationnel constate que la richesse visuelle augmente la complexité du code vanilla et le coût de maintenance.",
+      "strat-op": "Le stratégique veut un rendu visuel professionnel proche d'une page institutionnelle ; l'opérationnel travaille sans designer, sans framework CSS, en vanilla."
+    },
+    "arbitrages": {
+      "strat-tact": {
+        "prime": "tactique",
+        "sacrifice": "On accepte que la dimension gouvernance ne soit pas dans le hero. Elle vit dans une bande basse avant le footer. Le hero est 100 % orienté usage."
+      },
+      "tact-op": {
+        "prime": "operationnel",
+        "sacrifice": "Pas de live preview type SaaS moderne. L'aperçu est du Markdown brut formaté avec un soin minimaliste. Pas de framework de composants, pas d'animations complexes."
+      },
+      "strat-op": {
+        "prime": "strategique",
+        "sacrifice": "On accepte une palette minimaliste et une typographie unique (Inter). Le sérieux passe par la justesse du contenu, pas par le polish visuel."
+      }
+    },
+    "gardeFous": {
+      "interdictions": "Ne jamais introduire de jargon technique (D3.js, LLM, API) dans le hero ou les accroches. Ne jamais ajouter de tracking, d'analytics tiers, ou de stockage serveur. Ne jamais générer le PNG OG via un script Node — la procédure reste manuelle et documentée.",
+      "seuils": "S'arrêter et demander quand un changement structurel touche plus de trois fichiers simultanément. S'arrêter et demander quand le ton institutionnel ou la formulation EU AI Act est en jeu. S'arrêter quand une dépendance externe (CDN ou autre) doit être ajoutée.",
+      "test3phrases": "1) Le visiteur comprend en moins d'une minute ce qu'est Le Mandat et pourquoi il existe au regard de l'Article 4. 2) Il peut produire un mandat utilisable sans avoir lu la méthode complète. 3) La page fonctionne aussi bien sur mobile que sur desktop, sans dégradation."
+    }
+  }
+}
+```
 
-### A.2 Cas RSE Banque de Polynésie
+### A.2 Cas RSE — Banque de Polynésie / Société Générale
 
-Brief brut (à étoffer en P3) :
-> En tant qu'expert RSE de la Banque de Polynésie, filiale de Société Générale, accompagner de A à Z un client dans sa transition énergétique depuis la détection du risque ESG jusqu'à la mise en place d'actions concrètes RSE pour atteindre des objectifs de réduction de CO₂.
+```json
+{
+  "id": "rse-bdp",
+  "label": "Expert RSE BdP accompagnant un client en transition énergétique",
+  "version": 2,
+  "mandat": {
+    "projet": {
+      "nom": "Accompagnement client BdP en transition énergétique",
+      "contexte": "La Banque de Polynésie, filiale Société Générale, lance un service d'accompagnement RSE pour ses clients PME polynésiennes. Le contexte réglementaire (CSRD, taxonomie verte européenne, exigences groupe SG) impose une approche traçable et auditable. L'expert RSE accompagne le client de la détection du risque ESG jusqu'au plan d'action chiffré pour réduire les émissions de CO₂."
+    },
+    "strategique": {
+      "porteur": "Le directeur RSE de la Banque de Polynésie, validateur de la démarche au nom de la maison-mère SG",
+      "intention": "Démontrer un accompagnement de bout en bout, chiffré et auditable, qui rassure simultanément le client polynésien (sur le sérieux du conseil) et la maison-mère SG (sur le respect des standards groupe et des exigences CSRD).",
+      "testInvalidation": "L'accompagnement est techniquement complet et le client est satisfait, mais un audit groupe SG ne peut pas tracer l'origine des chiffres ou la cohérence avec les référentiels CSRD."
+    },
+    "tactique": {
+      "porteur": "L'expert RSE BdP qui pilote l'accompagnement au quotidien et anime les réunions client",
+      "intention": "Produire à chaque étape des livrables intermédiaires (cartographie des risques ESG, plan d'action, tableau de bord CO₂) directement utilisables en réunion client, sans préparation supplémentaire de plus de quinze minutes.",
+      "testInvalidation": "Le livrable est rigoureux et auditable, mais demande une heure de retraitement avant chaque réunion client pour être présentable."
+    },
+    "operationnel": {
+      "porteur": "Le système d'IA assistant l'expert RSE dans la production des livrables intermédiaires",
+      "intention": "S'appuyer exclusivement sur les données SG/BdP existantes et les référentiels CSRD officiels. Ne jamais inventer de chiffres, de cas client ou de références réglementaires. Quand une donnée locale manque, l'expliciter dans le livrable plutôt que la combler par estimation.",
+      "testInvalidation": "Un livrable contient un chiffre, une référence ou un cas client qui ne peut être tracé jusqu'à sa source primaire."
+    },
+    "tensions": {
+      "strat-tact": "Le stratégique veut un livrable exhaustif et auditable jusqu'à la note de bas de page ; le tactique veut un livrable directement présentable en réunion (concis, lisible, non technique).",
+      "tact-op": "Le tactique veut couvrir beaucoup de terrain en réunion (livrables denses) ; l'opérationnel ne s'appuie que sur des données vérifiables, ce qui limite parfois la densité.",
+      "strat-op": "Le stratégique veut s'aligner sur le standard groupe SG ; l'opérationnel constate que les données BdP locales sont parfois absentes des référentiels groupe."
+    },
+    "arbitrages": {
+      "strat-tact": {
+        "prime": "strategique",
+        "sacrifice": "Quand un livrable parfait visuellement ne tient pas l'auditabilité, on simplifie le livrable. Lisibilité réunion ≤ exigence d'audit."
+      },
+      "tact-op": {
+        "prime": "tactique",
+        "sacrifice": "Quand une donnée manque, on propose une fourchette sourcée plutôt qu'une absence. La densité tactique l'emporte sur le purisme opérationnel, à condition que les hypothèses soient nommées."
+      },
+      "strat-op": {
+        "prime": "strategique",
+        "sacrifice": "Quand une donnée locale BdP n'est pas dans les référentiels groupe SG, on l'explicite comme exception documentée dans le livrable, plutôt que de l'aligner artificiellement sur une donnée groupe."
+      }
+    },
+    "gardeFous": {
+      "interdictions": "Ne jamais inventer de chiffres, de références réglementaires (CSRD, taxonomie verte, droit polynésien), ou de cas client. Ne jamais produire un plan d'action sans préciser explicitement les hypothèses sous-jacentes et leur source.",
+      "seuils": "S'arrêter et demander quand une donnée client semble incohérente avec son secteur d'activité. S'arrêter et demander quand un livrable touche à un sujet juridique (RGPD, droit du travail polynésien, fiscalité ESG). S'arrêter quand une référence réglementaire n'est pas trouvable dans les sources officielles.",
+      "test3phrases": "1) Le client comprend ses risques ESG et la logique du plan d'action en lisant le livrable seul, sans présentation orale. 2) Un auditeur SG peut tracer chaque chiffre du livrable jusqu'à sa source primaire. 3) Le plan d'action tient en une page A4."
+    }
+  }
+}
+```
 
-Contenu cible (extrait du format A déjà rédigé en § 7.2) :
-- Projet : Accompagnement client BdP en transition énergétique
-- Stratégique : Démontrer un accompagnement bout-en-bout, chiffré et auditable
-- Tactique : Produire des livrables intermédiaires utilisables en réunion client
-- Opérationnel : S'appuyer sur les données SG/BdP existantes et CSRD ; ne pas inventer de chiffres
-- Garde-fous : Ne jamais inventer chiffres, références, cas client ; demander si donnée client incohérente ou sujet juridique
-- Test des 3 phrases : (cf. § 7.2)
+### A.3 Note pour P3
+
+Ces objets sont la **source de vérité éditoriale** des deux cas. La phase P3 :
+1. Les sérialise dans `data/exemple-meta.json` et `data/exemple-rse-bdp.json`
+2. Les charge à la demande quand l'utilisateur clique sur la mini-modale « Voir un exemple »
+3. Les utilise pour démontrer les deux formats de livrable (prompt court A et CLAUDE.md étendu B)
+
+Toute reformulation éditoriale future passe par une mise à jour de cette annexe d'abord, puis répercussion dans les fichiers JSON.
 
 ---
 
