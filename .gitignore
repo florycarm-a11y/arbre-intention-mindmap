@@ -1,0 +1,9 @@
+# Worktrees git locaux (isolation des feature branches)
+.worktrees/
+
+# Claude Code internal state
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
