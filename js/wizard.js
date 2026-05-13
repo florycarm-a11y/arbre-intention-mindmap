@@ -148,7 +148,11 @@
         const valid = isStepValid(etape);
         const nextLabel = isLast ? 'Terminer' : 'Suivant →';
         const nextDisabled = valid ? '' : 'disabled';
+        const retourApercu = window._returnToOverview
+            ? '<button class="wizard__btn wizard__btn--retour-apercu" data-action="back-to-overview">↑ Retour à l\'aperçu</button>'
+            : '';
         return `
+            ${retourApercu}
             ${isFirst ? '' : '<button class="wizard__btn wizard__btn--retour" data-action="prev">← Retour</button>'}
             <button class="wizard__btn wizard__btn--suivant" data-action="next" ${nextDisabled}>${nextLabel}</button>
         `;
@@ -315,6 +319,10 @@
                 if (action === 'prev') gotoStep(_currentIdx - 1);
                 else if (action === 'next') handleNext(etape);
                 else if (action === 'complete') _onComplete(_mandat);
+                else if (action === 'back-to-overview') {
+                    window._returnToOverview = false;
+                    document.getElementById('mindmap-container').scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     }

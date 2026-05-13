@@ -1185,3 +1185,69 @@ body.mode-fill .fab-export {
         border-top: 1px solid #E7E5E4;
     }
 }
+
+.wizard__btn--retour-apercu {
+    background: #FAFAF9;
+    color: #57534E;
+    border-color: #D6D3D1;
+    margin-right: auto; /* pousse les autres boutons à droite */
+}
+
+/* ========================================
+   Mindmap récap — P3
+   ======================================== */
+#mindmap-container {
+    max-width: 960px;
+    margin: 4rem auto;
+    padding: 1rem;
+    text-align: center;
+}
+.mindmap-recap__svg {
+    width: 100%;
+    height: auto;
+    max-height: 540px;
+}
+.mindmap-recap__svg--mobile {
+    max-width: 320px;
+    margin: 0 auto;
+    display: block;
+}
+.mindmap-recap__node text { pointer-events: none; }
+.mindmap-recap__tooltip {
+    position: fixed;
+    background: #1C1917;
+    color: #FFFFFF;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    max-width: 320px;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.mindmap-recap__tooltip strong { display: block; margin-bottom: 0.5rem; }
+.mindmap-recap__tooltip p { margin: 0.25rem 0; line-height: 1.4; }
+
+.mindmap-recap__accordion { text-align: left; margin-top: 1.5rem; }
+.mindmap-recap__accordion details {
+    border-top: 1px solid #E7E5E4;
+    padding: 0.75rem 0;
+}
+.mindmap-recap__accordion summary {
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0;
+}
+.mindmap-recap__accordion p { color: #44403C; line-height: 1.5; }
+.mindmap-recap__accordion p strong { color: #1C1917; }
+.mindmap-recap__modify-btn {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #1C1917;
+    background: transparent;
+    color: #1C1917;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+}

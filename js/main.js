@@ -36,9 +36,25 @@
             mandat: mandat || LeMandatStorage.emptyMandat(),
             container: wizardContainer,
             onComplete: (m) => {
-                console.log('Wizard completed', m);
-                // P4 : afficher le livrable. Pour P2, on log seulement.
+                // Affiche la mindmap récap juste sous le wizard
+                const mmContainer = document.getElementById('mindmap-container');
+                LeMandatMindmap.render({
+                    schema,
+                    mandat: m,
+                    container: mmContainer,
+                    onNodeClick: (stepIdx) => {
+                        LeMandatWizard.gotoStep(stepIdx);
+                        // Active le mode "modification depuis l'aperçu"
+                        window._returnToOverview = true;
+                    }
+                });
+                mmContainer.scrollIntoView({ behavior: 'smooth' });
             }
+        });
+        // À chaque modif, mettre à jour la mindmap si elle est déjà rendue
+        LeMandatWizard.subscribe((m) => {
+            const mmContainer = document.getElementById('mindmap-container');
+            if (!mmContainer.hidden) LeMandatMindmap.update(m);
         });
         wizardContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
