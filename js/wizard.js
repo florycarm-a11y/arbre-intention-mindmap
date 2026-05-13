@@ -54,6 +54,16 @@
         return typeof value === 'string' && value.trim().length > 0;
     }
 
+    // Échappe le contenu utilisateur avant injection en HTML brut (XSS).
+    function escapeHtml(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     function isStepValid(etape) {
         if (etape.lectureSeule) return true;
         const champsObligatoires = (etape.champs || []).filter(c => c.obligatoire);
@@ -116,7 +126,7 @@
     }
 
     function fieldHtml(stepKey, champ, value, obligatoire) {
-        const safeValue = (value || '').replace(/"/g, '&quot;');
+        const safeValue = escapeHtml(value);
         return `
             <label class="wizard__field ${obligatoire ? 'wizard__field--obligatoire' : ''}">
                 ${obligatoire ? '<span class="wizard__field-dot"></span>' : ''}
@@ -145,7 +155,6 @@
     }
 
     function renderArbitrages(etape, numero, totalSteps, colorStyle) {
-        // Implémenté en Task 2.5 — pour l'instant, placeholder fonctionnel
         const tensionsRemplies = Object.entries(_mandat.tensions).filter(([, v]) => isFieldFilled(v));
         if (tensionsRemplies.length === 0) {
             return `
@@ -183,12 +192,12 @@
             return `
                 <fieldset class="wizard__arbitrage-bloc">
                     <legend class="wizard__arbitrage-legend">${labelsTension[key]}</legend>
-                    <p class="wizard__arbitrage-tension">« ${tensionTexte} »</p>
+                    <p class="wizard__arbitrage-tension">« ${escapeHtml(tensionTexte)} »</p>
                     <p class="wizard__arbitrage-prompt">Qui prime ?</p>
                     <div class="wizard__radios">${radios}</div>
                     <label class="wizard__field">
                         <span class="wizard__field-label">Sacrifice consenti (optionnel)</span>
-                        <textarea class="wizard__field-input" data-arb="${key}" data-arb-field="sacrifice" rows="2">${(arb.sacrifice || '').replace(/"/g, '&quot;')}</textarea>
+                        <textarea class="wizard__field-input" data-arb="${key}" data-arb-field="sacrifice" rows="2">${escapeHtml(arb.sacrifice)}</textarea>
                     </label>
                 </fieldset>
             `;
@@ -261,10 +270,10 @@
         const op = _mandat.operationnel.intention || '(non rempli)';
         return `
             <dl class="wizard__recap-liste">
-                <dt>Projet</dt><dd>${projet}</dd>
-                <dt>Stratégique</dt><dd>${strat}</dd>
-                <dt>Tactique</dt><dd>${tact}</dd>
-                <dt>Opérationnel</dt><dd>${op}</dd>
+                <dt>Projet</dt><dd>${escapeHtml(projet)}</dd>
+                <dt>Stratégique</dt><dd>${escapeHtml(strat)}</dd>
+                <dt>Tactique</dt><dd>${escapeHtml(tact)}</dd>
+                <dt>Opérationnel</dt><dd>${escapeHtml(op)}</dd>
             </dl>
         `;
     }
@@ -283,15 +292,12 @@
             }, 300));
         });
 
-        // Tensions textarea (étape 5 standard, mais data-step="tensions")
-        // déjà couvert par data-step.
-
         // Arbitrages — radios et sacrifice
         _container.querySelectorAll('[data-arb]').forEach(el => {
             const key = el.dataset.arb;
             const field = el.dataset.arbField;
             const handler = () => {
-                _mandat.arbitrages[key][field] = el.type === 'radio' ? el.value : el.value;
+                _mandat.arbitrages[key][field] = el.value;
                 LeMandatStorage.save(_mandat);
                 notify();
             };
