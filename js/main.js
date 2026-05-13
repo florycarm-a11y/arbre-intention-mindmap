@@ -66,9 +66,50 @@
         startWizard(mandat);
     });
 
-    ctaExemple.addEventListener('click', () => {
-        // P3 : ouvrir la mini-modale. Pour P2, on log seulement.
-        alert('« Voir un exemple » sera disponible en P3.');
+    // --- Mini-modale "Voir un exemple" ---
+    const exempleModal = document.getElementById('exemple-modal');
+    const exempleClose = document.getElementById('exemple-modal-close');
+
+    ctaExemple.addEventListener('click', () => { exempleModal.hidden = false; });
+    exempleClose.addEventListener('click', () => { exempleModal.hidden = true; });
+    exempleModal.addEventListener('click', (e) => {
+        if (e.target === exempleModal) exempleModal.hidden = true;
+    });
+
+    async function loadExemple(id) {
+        const filename = id === 'meta' ? 'exemple-meta.json' : 'exemple-rse-bdp.json';
+        const res = await fetch('data/' + filename);
+        const data = await res.json();
+        return data.mandat;
+    }
+
+    exempleModal.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const action = btn.dataset.action;
+            const id = btn.dataset.exempleId;
+            const mandat = await loadExemple(id);
+            const fullMandat = { version: 2, updatedAt: new Date().toISOString(), ...mandat };
+            LeMandatStorage.save(fullMandat);
+            exempleModal.hidden = true;
+
+            if (action === 'prefill') {
+                startWizard(fullMandat);
+            } else if (action === 'view') {
+                // Affiche directement la mindmap récap (livrable arrive en P4)
+                startWizard(fullMandat);
+                // Va directement à l'étape 8 (synthèse) puis affiche la mindmap
+                LeMandatWizard.gotoStep(7);
+                const mmContainer = document.getElementById('mindmap-container');
+                LeMandatMindmap.render({
+                    schema, mandat: fullMandat, container: mmContainer,
+                    onNodeClick: (idx) => {
+                        LeMandatWizard.gotoStep(idx);
+                        window._returnToOverview = true;
+                    }
+                });
+                mmContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
 
     function showRestoreBanner(mandat) {

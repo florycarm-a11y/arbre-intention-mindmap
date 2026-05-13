@@ -92,6 +92,33 @@
         <p class="footer__credit">Construit avec Claude Code</p>
     </footer>
 
+    <!-- Mini-modale "Voir un exemple" -->
+    <div class="exemple-modal-overlay" id="exemple-modal" hidden>
+        <div class="exemple-modal" role="dialog" aria-labelledby="exemple-modal-title" aria-modal="true">
+            <button class="exemple-modal__close" id="exemple-modal-close" aria-label="Fermer">✕</button>
+            <h2 class="exemple-modal__title" id="exemple-modal-title">Voir un exemple</h2>
+            <p class="exemple-modal__intro">Choisissez un exemple, puis ce que vous voulez en faire.</p>
+            <div class="exemple-modal__cas">
+                <article class="exemple-modal__cas-bloc" data-exemple-id="meta">
+                    <h3>Le Mandat construit avec sa propre démarche</h3>
+                    <p>Cas méta : la méthode appliquée à la conception de cet outil même.</p>
+                    <div class="exemple-modal__actions">
+                        <button class="exemple-modal__btn" data-action="prefill" data-exemple-id="meta">Charger dans le formulaire</button>
+                        <button class="exemple-modal__btn exemple-modal__btn--primary" data-action="view" data-exemple-id="meta">Voir le mandat fini</button>
+                    </div>
+                </article>
+                <article class="exemple-modal__cas-bloc" data-exemple-id="rse-bdp">
+                    <h3>Expert RSE — Banque de Polynésie / Société Générale</h3>
+                    <p>Cas universel : accompagnement client en transition énergétique, du risque ESG au plan d'action CO₂.</p>
+                    <div class="exemple-modal__actions">
+                        <button class="exemple-modal__btn" data-action="prefill" data-exemple-id="rse-bdp">Charger dans le formulaire</button>
+                        <button class="exemple-modal__btn exemple-modal__btn--primary" data-action="view" data-exemple-id="rse-bdp">Voir le mandat fini</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js" defer></script>
     <script src="js/storage.js" defer></script>
     <script src="js/wizard.js" defer></script>

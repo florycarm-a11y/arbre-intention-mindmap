@@ -1251,3 +1251,63 @@ body.mode-fill .fab-export {
     font-family: inherit;
     font-size: 0.85rem;
 }
+
+/* ========================================
+   Mini-modale "Voir un exemple" — P3
+   ======================================== */
+.exemple-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+.exemple-modal-overlay[hidden] { display: none; }
+.exemple-modal {
+    background: #FFFFFF;
+    max-width: 640px;
+    width: 100%;
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.exemple-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #57534E;
+}
+.exemple-modal__title { margin: 0 0 0.5rem; font-size: 1.5rem; }
+.exemple-modal__intro { color: #57534E; margin: 0 0 1.5rem; }
+.exemple-modal__cas-bloc {
+    border: 1px solid #E7E5E4;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.exemple-modal__cas-bloc h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+.exemple-modal__cas-bloc p { color: #57534E; margin: 0 0 0.75rem; line-height: 1.4; }
+.exemple-modal__actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.exemple-modal__btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #1C1917;
+    background: #FFFFFF;
+    color: #1C1917;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+.exemple-modal__btn--primary {
+    background: #1C1917;
+    color: #FFFFFF;
+}
