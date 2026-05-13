@@ -1,0 +1,50 @@
+{
+  "id": "meta",
+  "label": "Le Mandat construit avec sa propre démarche",
+  "version": 2,
+  "mandat": {
+    "projet": {
+      "nom": "Le Mandat — outil de cadrage de la délégation IA",
+      "contexte": "Refonte d'un projet existant (Arbre d'Intention) pour le rendre concrètement utilisable. Le projet s'inscrit dans la recherche d'un stage ou d'une alternance sur la gouvernance IA, en réponse à l'Article 4 du EU AI Act applicable depuis février 2025."
+    },
+    "strategique": {
+      "porteur": "Floryan Leblanc, dans son rôle de candidat positionné sur la gouvernance IA",
+      "intention": "Démontrer une pensée structurée sur la gouvernance de la délégation à un système d'IA, matérialisée dans un outil concret et utilisable de bout en bout, aligné avec l'esprit de l'Article 4 du EU AI Act.",
+      "testInvalidation": "L'outil est techniquement parfait, mais un recruteur ou un décideur qui l'ouvre ne comprend pas en moins d'une minute de quoi il s'agit, ni pourquoi c'est pertinent au regard de l'Article 4."
+    },
+    "tactique": {
+      "porteur": "Floryan Leblanc, dans son rôle de concepteur et développeur",
+      "intention": "Produire une page web qui se lit naturellement (scroll), fonctionne aussi bien sur mobile que desktop, et qui mène le visiteur à un livrable utilisable sans avoir à lire la méthode complète au préalable.",
+      "testInvalidation": "La page est belle et la méthode est documentée, mais le visiteur n'arrive pas à produire un mandat utilisable parce que le parcours est confus ou la mindmap remplace l'action."
+    },
+    "operationnel": {
+      "porteur": "Claude Code — l'IA qui exécute le développement",
+      "intention": "Construire l'outil en JavaScript vanilla, sans build ni framework, en réutilisant D3.js et jsPDF déjà en place, et en garantissant que les données de l'utilisateur ne quittent jamais son navigateur.",
+      "testInvalidation": "Le code est propre et bien architecturé, mais la page nécessite un build, ne charge pas correctement sur GitHub Pages, ou envoie des données utilisateur à un serveur tiers."
+    },
+    "tensions": {
+      "stratTact": "Le stratégique veut un positionnement gouvernance fort (institutionnel, sérieux, EU AI Act explicite) ; le tactique veut un parcours rapide et concret qui n'effraie pas un visiteur grand public.",
+      "tactOp": "Le tactique veut un aperçu live riche et un effet « wow » à la fin du parcours ; l'opérationnel constate que la richesse visuelle augmente la complexité du code vanilla et le coût de maintenance.",
+      "stratOp": "Le stratégique veut un rendu visuel professionnel proche d'une page institutionnelle ; l'opérationnel travaille sans designer, sans framework CSS, en vanilla."
+    },
+    "arbitrages": {
+      "stratTact": {
+        "prime": "tactique",
+        "sacrifice": "On accepte que la dimension gouvernance ne soit pas dans le hero. Elle vit dans une bande basse avant le footer. Le hero est 100 % orienté usage."
+      },
+      "tactOp": {
+        "prime": "operationnel",
+        "sacrifice": "Pas de live preview type SaaS moderne. L'aperçu est du Markdown brut formaté avec un soin minimaliste. Pas de framework de composants, pas d'animations complexes."
+      },
+      "stratOp": {
+        "prime": "strategique",
+        "sacrifice": "On accepte une palette minimaliste et une typographie unique (Inter). Le sérieux passe par la justesse du contenu, pas par le polish visuel."
+      }
+    },
+    "gardeFous": {
+      "interdictions": "Ne jamais introduire de jargon technique (D3.js, LLM, API) dans le hero ou les accroches. Ne jamais ajouter de tracking, d'analytics tiers, ou de stockage serveur. Ne jamais générer le PNG OG via un script Node — la procédure reste manuelle et documentée.",
+      "seuils": "S'arrêter et demander quand un changement structurel touche plus de trois fichiers simultanément. S'arrêter et demander quand le ton institutionnel ou la formulation EU AI Act est en jeu. S'arrêter quand une dépendance externe (CDN ou autre) doit être ajoutée.",
+      "test3phrases": "1) Le visiteur comprend en moins d'une minute ce qu'est Le Mandat et pourquoi il existe au regard de l'Article 4. 2) Il peut produire un mandat utilisable sans avoir lu la méthode complète. 3) La page fonctionne aussi bien sur mobile que sur desktop, sans dégradation."
+    }
+  }
+}
