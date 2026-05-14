@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "etapes": {
+    "01": {
+      "comprendre": "Avant de déléguer quoi que ce soit à une IA, la première question est : sur quoi travaille-t-on exactement ? Un projet flou produit des instructions floues, qui produisent des résultats à côté. Nommer le projet, c'est poser le cadre — un nom opérationnel, pas une catégorie. « Refondre le site » ne dit rien à l'IA. « Page contacts du site corporate, version mobile-first, conformité RGPD à valider » lui dit où elle met les pieds. Le contexte ajoute le pourquoi : ce que vous ne lui écrivez pas, elle ne le sait pas.",
+      "exemple": "Cas méta — Le projet a été nommé « Le Mandat — outil de cadrage de la délégation IA ». Le contexte précisait la recherche de stage et le positionnement Article 4."
+    },
+    "02": {
+      "comprendre": "L'intention stratégique est la finalité ultime — pas un objectif chiffré, pas un livrable. La raison pour laquelle le projet existe. Si elle n'est pas satisfaite, rien d'autre ne compte, même si tout le reste est techniquement parfait. Le porteur stratégique est celui qui juge le succès dans son ensemble : sponsor, DG, client final. Le test d'invalidation est l'outil clé : décrivez une situation où l'exécution est techniquement réussie mais l'intention est violée. Si vous ne trouvez pas ce scénario, votre intention est probablement trop vague pour servir de boussole.",
+      "exemple": "Cas méta — « Démontrer une pensée structurée sur la gouvernance IA, matérialisée dans un outil concret aligné Article 4. » Test d'invalidation : un outil parfait mais qu'un recruteur ne comprend pas en moins d'une minute."
+    },
+    "03": {
+      "comprendre": "L'intention tactique traduit la stratégie en plan d'action. Le porteur tactique pilote au quotidien : il choisit les priorités, séquence les étapes, arbitre les compromis terrain. Sa définition du succès n'est pas la même que celle du stratégique — et c'est normal. Quand l'intention tactique n'est pas explicite, l'IA optimise pour la stratégie sans tenir compte des contraintes de pilotage. Le résultat est techniquement aligné mais ingouvernable. Le test d'invalidation : le stratégique est satisfait, mais le pilotage devient un cauchemar.",
+      "exemple": "Cas méta — « Produire une page narrative scrollable, fonctionnant sur mobile, qui mène le visiteur au livrable sans avoir à lire la méthode. » Test : la page est belle mais le visiteur n'arrive pas au livrable."
+    },
+    "04": {
+      "comprendre": "L'intention opérationnelle est celle de la personne (ou de l'IA) qui a les mains sur le clavier. Ses contraintes sont réelles : temps, compétences, outils, dette technique. Les ignorer produit un plan que personne ne peut exécuter. Pour la délégation IA, l'intention opérationnelle décrit ce que l'IA doit concrètement produire, dans quel périmètre, avec quelles contraintes. Sans intention opérationnelle explicite, l'IA fait des choix techniques arbitraires. Avec, elle comprend non seulement ce qu'elle doit faire, mais pourquoi.",
+      "exemple": "Cas méta — « Construire en vanilla JS sans build, en réutilisant D3.js et jsPDF, sans tracking ni stockage serveur. » Test : code propre mais build cassé sur GitHub Pages."
+    },
+    "05": {
+      "comprendre": "Une tension n'est pas un problème — c'est un signal que votre cadrage est réaliste. Dès que trois niveaux d'intention coexistent, des contradictions apparaissent. Le stratégique veut de l'ambition, le tactique veut de la maîtrise, l'opérationnel veut de la faisabilité. Ces trois demandes sont légitimes et incompatibles à 100 %. Si vous ne trouvez aucune tension, c'est que vos intentions sont trop vagues, ou identiques. Le travail ici : nommer la contradiction concrète. Quelle action un niveau prescrit que l'autre interdit ? Cette précision permet l'arbitrage suivant.",
+      "exemple": "Cas méta — Stratégique veut un positionnement gouvernance ; tactique veut un parcours grand public. Tactique veut un effet wow ; opérationnel veut du vanilla simple."
+    },
+    "06": {
+      "comprendre": "L'arbitrage est l'étape que tout le monde veut éviter. Trancher signifie qu'une intention légitime va être sacrifiée — partiellement ou totalement — au profit d'une autre. Si personne ne perd rien, vous n'avez pas arbitré, vous avez reformulé le problème. Pour chaque tension : quelle intention prime ? Et surtout : quel est le sacrifice ? Nommer ce qui est perdu est aussi important que nommer ce qui est gardé. Sans arbitrage explicite, l'IA arbitre pour vous — silencieusement, selon ses propres heuristiques.",
+      "exemple": "Cas méta — Tactique > Stratégique : la dimension gouvernance vit dans une bande basse, pas dans le hero. Sacrifice : pas d'effet « page institutionnelle » dès la première vue."
+    },
+    "07": {
+      "comprendre": "Les garde-fous ne sont pas des bonnes pratiques génériques (« ne pas introduire de bugs »). Ce sont les lignes rouges spécifiques à ce projet — les actions que l'IA ne doit jamais entreprendre, les situations où elle doit s'arrêter et demander. Les interdictions définissent le périmètre. Les seuils définissent les frontières de l'autonomie. Le test des 3 phrases est l'outil de validation finale : 3 phrases qu'un observateur indépendant utiliserait pour juger le résultat conforme — sans avoir besoin de vous poser une question. Si vous ne pouvez pas les écrire, vos intentions ne sont pas assez claires.",
+      "exemple": "Cas méta — Jamais introduire de jargon dans le hero. S'arrêter quand un changement touche plus de 3 fichiers. Test : « la page se comprend en moins d'une minute », « livrable utilisable sans lire la méthode », « parité mobile/desktop »."
+    },
+    "08": {
+      "comprendre": "La synthèse est le moment de vérité. Votre mandat est-il complet ? Les champs essentiels (projet nommé, trois intentions) sont-ils remplis ? Les tensions sont-elles identifiées et arbitrées ? Les garde-fous sont-ils posés ? Le diagnostic distingue l'essentiel (sans quoi le mandat ne tient pas) de l'important (qui renforce la qualité du cadrage). Un mandat avec uniquement les champs essentiels est utilisable. Un mandat avec tous les champs est robuste. Le résultat final est un document structuré, prêt à coller dans une session IA ou à déposer comme CLAUDE.md à la racine d'un projet.",
+      "exemple": "Cas méta — Diagnostic complet : 4/4 essentiel, 4/4 important. Le mandat a effectivement guidé le développement de cet outil."
+    }
+  }
+}
