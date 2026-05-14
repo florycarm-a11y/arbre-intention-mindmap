@@ -1,5 +1,5 @@
 /* ========================================
-   Arbre d'Intention v2 — Styles
+   Le Mandat — Styles
    ======================================== */
 
 /* --- Reset --- */
@@ -7,6 +7,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* --- Accessibility : focus visible global --- */
+:focus-visible {
+    outline: 2px solid var(--etape-color, #1C1917);
+    outline-offset: 2px;
 }
 
 /* --- Variables --- */
