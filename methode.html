@@ -4,139 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La méthode — Le Mandat</title>
-    <meta name="description" content="Le Mandat est un instrument de littératie IA. Cadrez votre délégation à un système d'IA en 8 étapes structurées et obtenez un prompt système ou un CLAUDE.md prêt à utiliser. Open source, dans l'esprit de l'Article 4 du EU AI Act.">
+    <meta name="description" content="La méthode complète du Mandat — 8 étapes pour cadrer la délégation à une IA, avec un cas d'étude méta : Le Mandat construit avec sa propre démarche.">
     <link rel="canonical" href="https://florycarm-a11y.github.io/le-mandat/methode.html">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Le Mandat — Cadrer la délégation à une IA en 8 étapes">
-    <meta property="og:description" content="Cadrez votre délégation en 8 étapes — pour passer de l'usage à la maîtrise de l'IA. Un instrument de littératie IA, dans l'esprit de l'Article 4 du EU AI Act.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://florycarm-a11y.github.io/le-mandat/">
+    <meta property="og:title" content="La méthode — Le Mandat">
+    <meta property="og:description" content="La méthode complète : 8 étapes pour cadrer la délégation à une IA, avec un cas d'étude.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://florycarm-a11y.github.io/le-mandat/methode.html">
     <meta property="og:image" content="https://florycarm-a11y.github.io/le-mandat/assets/og-cover.png">
-    <meta property="og:locale" content="fr_FR">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Le Mandat — Cadrer la délégation à une IA en 8 étapes">
-    <meta name="twitter:description" content="Cadrez votre délégation en 8 étapes — pour passer de l'usage à la maîtrise de l'IA. Instrument de littératie IA aligné Article 4 EU AI Act.">
-    <meta name="twitter:image" content="https://florycarm-a11y.github.io/le-mandat/assets/og-cover.png">
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Le Mandat",
-        "alternateName": "Le Mandat — Cadrage de la délégation IA",
-        "description": "Instrument de littératie IA pour cadrer la délégation à un système d'IA en 8 étapes. Produit un prompt système ou un CLAUDE.md à coller. Aligné avec l'Article 4 du EU AI Act.",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "browserRequirements": "JavaScript",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-        "author": {
-            "@type": "Person",
-            "name": "Floryan Leblanc",
-            "url": "https://florycarm-a11y.github.io/PORTFOLIO/"
-        }
-    }
-    </script>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/methode.css">
 </head>
-<body>
+<body class="page-methode">
     <a href="#main-content" class="skip-link">Passer au contenu</a>
 
-    <!-- Navigation -->
     <nav class="nav" aria-label="Navigation principale">
-        <a class="nav__logo" href="#">L'Arbre d'Intention</a>
-        <button class="nav__fill-btn" id="fill-toggle" aria-label="Remplir mon arbre">✏ Mon arbre</button>
-        <div class="nav__toggle-wrapper">
-            <button class="nav__toggle" id="mode-toggle" aria-label="Basculer entre mode Framework et Cas d'étude">
-                <span class="nav__toggle-option nav__toggle-option--framework">Méthode</span>
-                <span class="nav__toggle-option nav__toggle-option--casestudy nav__toggle-option--active">Cas d'étude</span>
-            </button>
-        </div>
+        <a class="nav__logo" href="/">Le Mandat</a>
+        <a class="nav__methode-link nav__methode-link--active" aria-current="page" href="methode.html">Méthode</a>
     </nav>
 
-    <!-- Hero -->
-    <header class="hero">
-        <h1 class="hero__title">L'Arbre d'Intention</h1>
-        <p class="hero__subtitle">Une méthode de cadrage pour structurer ce que vous attendez d'une IA — avant de lui donner les clés.</p>
-        <div class="hero__actions">
-            <a class="hero__cta hero__cta--primary" href="#etape-01" data-mode="framework">Découvrir la méthode</a>
-            <a class="hero__cta hero__cta--secondary" href="#etape-01" data-mode="casestudy">Voir le cas d'étude</a>
-            <a class="hero__cta hero__cta--fill" href="#etape-01" id="fill-cta">Remplir mon arbre</a>
+    <header class="methode-hero">
+        <p class="methode-hero__pretitre">La méthode</p>
+        <h1 class="methode-hero__title">8 étapes pour cadrer une délégation à une IA</h1>
+        <p class="methode-hero__subtitle">L'enchaînement complet, avec un cas d'étude : Le Mandat construit avec sa propre démarche.</p>
+        <div class="methode-hero__actions">
+            <a class="methode-hero__cta" href="/">← Aller à l'outil</a>
         </div>
-        <p class="hero__context">Vous pouvez déléguer une tâche entière à une IA. Mais sans cadrage, elle optimise ce que vous avez dit — pas ce que vous vouliez. Ce qui se joue avant la première instruction détermine 80% du résultat.</p>
-        <aside class="hero__aside">
-            <p>L'Article 4 de l'EU AI Act impose aux organisations de garantir la littératie IA de leurs équipes. L'Arbre d'Intention est une réponse concrète : 8 étapes pour passer de <em>« j'utilise l'IA »</em> à <em>« je sais cadrer ce que je lui délègue »</em>.</p>
-        </aside>
     </header>
 
-    <!-- Restore banner -->
-    <div class="restore-banner" id="restore-banner" hidden>
-        <p>Vous avez un arbre en cours.</p>
-        <div class="restore-banner__actions">
-            <button class="restore-banner__btn" id="restore-resume">Reprendre</button>
-            <button class="restore-banner__btn restore-banner__btn--secondary" id="restore-restart">Recommencer</button>
-        </div>
-    </div>
-
     <main id="main-content">
-        <!-- Mindmap (desktop) / Progress bar (mobile) -->
-        <section class="overview" id="overview">
-            <div class="overview__mindmap" id="mindmap-container" aria-hidden="true"></div>
-            <nav class="overview__progress" id="progress-bar" aria-label="Navigation par étape"></nav>
-        </section>
-
-        <!-- Sections generated by JS from arbre.json -->
-        <div id="sections-container"></div>
+        <div id="methode-sections"></div>
     </main>
 
-    <!-- Floating "show map" button -->
-    <button class="fab-map" id="fab-map" aria-label="Voir la carte">Carte</button>
-
-    <!-- Floating export button (fill mode only) -->
-    <button class="fab-export" id="fab-export" aria-label="Exporter mon arbre">Exporter mon arbre</button>
-
-    <!-- Export modal -->
-    <div class="modal-overlay" id="export-modal" hidden>
-        <div class="modal">
-            <div class="modal__header">
-                <h2 class="modal__title">Exporter votre Arbre d'Intention</h2>
-                <button class="modal__close" id="modal-close" aria-label="Fermer">✕</button>
-            </div>
-            <div class="modal__preview" id="modal-preview"></div>
-            <div class="modal__diagnostic" id="modal-diagnostic"></div>
-            <div class="modal__actions">
-                <button class="modal__btn" id="export-md">Télécharger en Markdown</button>
-                <button class="modal__btn modal__btn--primary" id="export-pdf">Télécharger en PDF</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
     <footer class="footer">
-        <p>L'Arbre d'Intention — une méthode de cadrage par <a href="https://florycarm-a11y.github.io/PORTFOLIO/" target="_blank" rel="noopener noreferrer">Floryan Leblanc</a></p>
+        <p>Le Mandat — un instrument de littératie IA par <a href="https://florycarm-a11y.github.io/PORTFOLIO/" target="_blank" rel="noopener noreferrer">Floryan Leblanc</a></p>
         <nav class="footer__links" aria-label="Liens">
+            <a class="footer__link" href="/">L'outil</a>
             <a class="footer__link" href="https://florycarm-a11y.github.io/PORTFOLIO/" target="_blank" rel="noopener noreferrer">Portfolio</a>
-            <a class="footer__link" href="https://github.com/florycarm-a11y/arbre-intention-mindmap" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="footer__link" href="https://github.com/florycarm-a11y/le-mandat" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a class="footer__link" href="https://www.linkedin.com/in/fleblanc17" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
-        <p class="footer__credit">Construit avec Claude Code</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
-    <script src="js/mindmap-legacy.js"></script>
-    <script src="js/methode-legacy.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-    <script src="js/fill-mode.js"></script>
+    <script src="js/methode.js" defer></script>
 </body>
 </html>
