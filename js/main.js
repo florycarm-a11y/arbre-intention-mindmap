@@ -48,13 +48,18 @@
                         window._returnToOverview = true;
                     }
                 });
+                // Puis le livrable juste sous la mindmap
+                const livrableContainer = document.getElementById('livrable-container');
+                LeMandatLivrable.render({ mandat: m, container: livrableContainer });
                 mmContainer.scrollIntoView({ behavior: 'smooth' });
             }
         });
-        // À chaque modif, mettre à jour la mindmap si elle est déjà rendue
+        // À chaque modif, mettre à jour la mindmap + le livrable s'ils sont déjà rendus
         LeMandatWizard.subscribe((m) => {
             const mmContainer = document.getElementById('mindmap-container');
             if (!mmContainer.hidden) LeMandatMindmap.update(m);
+            const livrableContainer = document.getElementById('livrable-container');
+            if (!livrableContainer.hidden) LeMandatLivrable.update(m);
         });
         wizardContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -95,7 +100,7 @@
             if (action === 'prefill') {
                 startWizard(fullMandat);
             } else if (action === 'view') {
-                // Affiche directement la mindmap récap (livrable arrive en P4)
+                // Affiche directement la mindmap récap + le livrable
                 startWizard(fullMandat);
                 // Va directement à l'étape 8 (synthèse) puis affiche la mindmap
                 LeMandatWizard.gotoStep(7);
@@ -107,6 +112,8 @@
                         window._returnToOverview = true;
                     }
                 });
+                const livrableContainer = document.getElementById('livrable-container');
+                LeMandatLivrable.render({ mandat: fullMandat, container: livrableContainer });
                 mmContainer.scrollIntoView({ behavior: 'smooth' });
             }
         });
