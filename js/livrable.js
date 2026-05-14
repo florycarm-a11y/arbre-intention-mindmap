@@ -17,6 +17,7 @@
         _mandat = mandat;
         _container = container;
         _container.hidden = false;
+        // renderUI fait _container.innerHTML = `...`, donc idempotent par construction
         renderUI();
     }
 

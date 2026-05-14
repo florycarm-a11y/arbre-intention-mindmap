@@ -20,6 +20,7 @@
         _container = container;
         _onNodeClick = onNodeClick || (() => {});
         _container.hidden = false;
+        _container.innerHTML = ''; // idempotence : pas d'empilement de SVG sur appels successifs
 
         if (window.matchMedia('(max-width: 720px)').matches) {
             renderMobile();
