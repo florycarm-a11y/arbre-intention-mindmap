@@ -1439,3 +1439,38 @@ body.mode-fill .fab-export {
     .livrable__actions { flex-direction: column; }
     .livrable__btn { width: 100%; }
 }
+
+/* ========================================
+   Bande Article 4 — P5
+   ======================================== */
+.article4-band {
+    background: #1C1917;
+    color: #FAFAF9;
+    padding: 3rem 1.5rem;
+    margin-top: 6rem;
+}
+.article4-band__inner {
+    max-width: 720px;
+    margin: 0 auto;
+}
+.article4-band__pretitre {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #A8A29E;
+    margin: 0 0 1rem;
+}
+.article4-band__texte {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+}
+.article4-band__texte strong { color: #FAFAF9; font-weight: 600; }
+.article4-band__lien {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #FAFAF9;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.article4-band__lien:hover { color: #FBBF24; }
