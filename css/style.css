@@ -1,5 +1,5 @@
 /* ========================================
-   Arbre d'Intention v2 — Styles
+   Le Mandat — Styles
    ======================================== */
 
 /* --- Reset --- */
@@ -7,6 +7,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* --- Accessibility : focus visible global --- */
+:focus-visible {
+    outline: 2px solid var(--etape-color, #1C1917);
+    outline-offset: 2px;
 }
 
 /* --- Variables --- */
@@ -1013,3 +1019,464 @@ body.mode-fill .fab-export {
         display: block;
     }
 }
+
+/* ========================================
+   Wizard — P2
+   ======================================== */
+#wizard-container[hidden],
+#mindmap-container[hidden],
+#livrable-container[hidden] { display: none !important; }
+
+.wizard__etape {
+    max-width: 720px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #FFFFFF;
+    border-radius: 16px;
+    border-left: 6px solid var(--etape-color, #1C1917);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.wizard__etape-header { margin-bottom: 1.5rem; }
+.wizard__progress { font-size: 0.85rem; color: #78716C; letter-spacing: 0.05em; text-transform: uppercase; margin: 0; }
+.wizard__label-meta { font-size: 0.95rem; color: var(--etape-color, #1C1917); font-weight: 600; margin: 0.5rem 0 0.25rem; }
+.wizard__question { font-size: 1.6rem; font-weight: 700; line-height: 1.3; color: #1C1917; margin: 0.5rem 0; }
+.wizard__soustitre { color: #57534E; line-height: 1.5; margin: 0; }
+
+.wizard__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+.wizard__field-label { font-weight: 600; color: #1C1917; }
+.wizard__field-dot {
+    position: absolute;
+    top: 0.4rem;
+    left: -1rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--etape-color, #1C1917);
+}
+.wizard__field-input {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #E7E5E4;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 3rem;
+    line-height: 1.5;
+}
+.wizard__field-input:focus {
+    outline: 2px solid var(--etape-color, #1C1917);
+    outline-offset: 2px;
+}
+
+.wizard__optionnels { margin-top: 0.5rem; }
+.wizard__optionnels summary {
+    cursor: pointer;
+    color: #78716C;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+}
+.wizard__explication { margin-top: 1rem; }
+.wizard__explication summary {
+    cursor: pointer;
+    color: var(--etape-color, #1C1917);
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+}
+.wizard__explication p {
+    color: #44403C;
+    line-height: 1.6;
+    background: #FAFAF9;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin: 0.5rem 0 0;
+}
+
+.wizard__nav {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    justify-content: space-between;
+}
+.wizard__btn {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #1C1917;
+    background: #FFFFFF;
+    color: #1C1917;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+.wizard__btn--suivant {
+    background: var(--etape-color, #1C1917);
+    color: #FFFFFF;
+    border-color: var(--etape-color, #1C1917);
+}
+.wizard__btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+.wizard__radios { display: flex; gap: 1rem; margin: 0.5rem 0 1rem; flex-wrap: wrap; }
+.wizard__radio { display: inline-flex; gap: 0.4rem; align-items: center; cursor: pointer; }
+.wizard__arbitrage-bloc {
+    border: 1px solid #E7E5E4;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0 0 1rem;
+}
+.wizard__arbitrage-legend { font-weight: 600; color: var(--etape-color, #1C1917); padding: 0 0.5rem; }
+.wizard__arbitrage-tension { font-style: italic; color: #57534E; margin: 0.5rem 0; }
+.wizard__arbitrage-prompt { font-weight: 600; margin: 0.75rem 0 0.25rem; }
+
+.wizard__diagnostic, .wizard__recap {
+    background: #FAFAF9;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+}
+.wizard__diagnostic-titre, .wizard__recap-titre {
+    font-weight: 600;
+    margin: 0.75rem 0 0.5rem;
+}
+.wizard__diagnostic ul { padding-left: 1.25rem; margin: 0.25rem 0; }
+.wizard__recap-liste dt { font-weight: 600; margin-top: 0.5rem; }
+.wizard__recap-liste dd { margin: 0 0 0.25rem; color: #44403C; }
+
+/* Restore banner */
+.restore-banner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    background: #FEF3C7;
+    border: 1px solid #F59E0B;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.restore-banner p { margin: 0; font-weight: 600; color: #78350F; }
+.restore-banner__actions { display: flex; gap: 0.5rem; }
+.restore-banner__btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #78350F;
+    background: #78350F;
+    color: #FFFFFF;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+.restore-banner__btn--secondary {
+    background: transparent;
+    color: #78350F;
+}
+
+/* Mobile : nav sticky en bas */
+@media (max-width: 720px) {
+    .wizard__etape { margin: 2rem 1rem; padding: 1.5rem; }
+    .wizard__nav {
+        position: sticky;
+        bottom: 0;
+        background: #FFFFFF;
+        padding: 1rem 1.5rem;
+        margin: 1rem -1.5rem -1.5rem;
+        border-top: 1px solid #E7E5E4;
+    }
+}
+
+.wizard__btn--retour-apercu {
+    background: #FAFAF9;
+    color: #57534E;
+    border-color: #D6D3D1;
+    margin-right: auto; /* pousse les autres boutons à droite */
+}
+
+/* ========================================
+   Mindmap récap — P3
+   ======================================== */
+#mindmap-container {
+    max-width: 960px;
+    margin: 4rem auto;
+    padding: 1rem;
+    text-align: center;
+}
+.mindmap-recap__svg {
+    width: 100%;
+    height: auto;
+    max-height: 540px;
+}
+.mindmap-recap__svg--mobile {
+    max-width: 320px;
+    margin: 0 auto;
+    display: block;
+}
+.mindmap-recap__node text { pointer-events: none; }
+.mindmap-recap__tooltip {
+    position: fixed;
+    background: #1C1917;
+    color: #FFFFFF;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    max-width: 320px;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.mindmap-recap__tooltip strong { display: block; margin-bottom: 0.5rem; }
+.mindmap-recap__tooltip p { margin: 0.25rem 0; line-height: 1.4; }
+
+.mindmap-recap__accordion { text-align: left; margin-top: 1.5rem; }
+.mindmap-recap__accordion details {
+    border-top: 1px solid #E7E5E4;
+    padding: 0.75rem 0;
+}
+.mindmap-recap__accordion summary {
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0;
+}
+.mindmap-recap__accordion p { color: #44403C; line-height: 1.5; }
+.mindmap-recap__accordion p strong { color: #1C1917; }
+.mindmap-recap__modify-btn {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #1C1917;
+    background: transparent;
+    color: #1C1917;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   Mini-modale "Voir un exemple" — P3
+   ======================================== */
+.exemple-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+.exemple-modal-overlay[hidden] { display: none; }
+.exemple-modal {
+    background: #FFFFFF;
+    max-width: 640px;
+    width: 100%;
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.exemple-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #57534E;
+}
+.exemple-modal__title { margin: 0 0 0.5rem; font-size: 1.5rem; }
+.exemple-modal__intro { color: #57534E; margin: 0 0 1.5rem; }
+.exemple-modal__cas-bloc {
+    border: 1px solid #E7E5E4;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.exemple-modal__cas-bloc h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+.exemple-modal__cas-bloc p { color: #57534E; margin: 0 0 0.75rem; line-height: 1.4; }
+.exemple-modal__actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.exemple-modal__btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #1C1917;
+    background: #FFFFFF;
+    color: #1C1917;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+.exemple-modal__btn--primary {
+    background: #1C1917;
+    color: #FFFFFF;
+}
+
+/* ========================================
+   Livrable — P4
+   ======================================== */
+#livrable-container {
+    max-width: 720px;
+    margin: 4rem auto;
+    padding: 1rem;
+}
+.livrable__header { margin-bottom: 1.5rem; }
+.livrable__progress {
+    font-size: 0.85rem;
+    color: #78716C;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+.livrable__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    color: #1C1917;
+}
+.livrable__tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #E7E5E4;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+}
+.livrable__tab {
+    flex: 1 1 200px;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #78716C;
+    cursor: pointer;
+    margin-bottom: -2px;
+}
+.livrable__tab--active {
+    color: #1C1917;
+    border-bottom-color: #1C1917;
+    font-weight: 600;
+}
+.livrable__apercu {
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    background: #FAFAF9;
+    color: #1C1917;
+    padding: 1.5rem;
+    border-radius: 0 0 8px 8px;
+    border: 2px solid #E7E5E4;
+    border-top: none;
+    overflow-x: auto;
+    max-height: 480px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.livrable__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+.livrable__btn {
+    padding: 0.6rem 1rem;
+    border: 1px solid #1C1917;
+    background: #1C1917;
+    color: #FFFFFF;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+.livrable__btn:hover { background: #292524; }
+.livrable__help { margin-top: 1.5rem; }
+.livrable__help summary {
+    cursor: pointer;
+    color: #78716C;
+    font-size: 0.9rem;
+}
+.livrable__help p {
+    color: #44403C;
+    line-height: 1.5;
+    background: #FAFAF9;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+.livrable__help code {
+    background: #1C1917;
+    color: #FAFAF9;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+.livrable__flash {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #047857;
+    color: #FFFFFF;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 1100;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 720px) {
+    .livrable__tabs { flex-direction: column; border-bottom: none; }
+    .livrable__tab {
+        text-align: left;
+        border: 1px solid #E7E5E4;
+        border-bottom: none;
+        margin: 0;
+    }
+    .livrable__tab:last-child { border-bottom: 1px solid #E7E5E4; }
+    .livrable__tab--active { background: #1C1917; color: #FFFFFF; }
+    .livrable__apercu { border: 2px solid #E7E5E4; border-radius: 8px; }
+    .livrable__actions { flex-direction: column; }
+    .livrable__btn { width: 100%; }
+}
+
+/* ========================================
+   Bande Article 4 — P5
+   ======================================== */
+.article4-band {
+    background: #1C1917;
+    color: #FAFAF9;
+    padding: 3rem 1.5rem;
+    margin-top: 6rem;
+}
+.article4-band__inner {
+    max-width: 720px;
+    margin: 0 auto;
+}
+.article4-band__pretitre {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #A8A29E;
+    margin: 0 0 1rem;
+}
+.article4-band__texte {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+}
+.article4-band__texte strong { color: #FAFAF9; font-weight: 600; }
+.article4-band__lien {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #FAFAF9;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.article4-band__lien:hover { color: #FBBF24; }

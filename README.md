@@ -1,50 +1,54 @@
-# L'Arbre d'Intention — Méthode de cadrage pour la délégation IA
+# Le Mandat
 
-Une méthode en 8 étapes pour structurer ce que vous attendez d'une IA avant de lui donner les clés.
+**Cadrez votre délégation en 8 étapes — pour passer de l'usage à la maîtrise de l'IA.**
 
-## Aperçu
+Le Mandat est un instrument de littératie IA, en réponse à l'Article 4
+du EU AI Act. Il fait pratiquer la réflexion structurée avant chaque
+délégation à un système d'IA, et produit un livrable utilisable
+directement (prompt système ou CLAUDE.md).
 
-Page narrative interactive avec :
-- **8 sections** expliquant chaque étape de la méthode
-- **Cas d'étude concret** : la méthode appliquée à son propre développement
-- **Mindmap D3.js** en vue d'ensemble et navigation (desktop)
-- **Barre de progression** pour la navigation mobile
-- **Toggle** Framework / Cas d'étude
+## Usage
 
-## Utilisation
+Vous remplissez 8 étapes (projet, intentions stratégique / tactique /
+opérationnelle, tensions, arbitrages, garde-fous, synthèse) et vous
+repartez avec :
 
-Ouvrir dans un navigateur :
+- un **prompt système court** à coller en début de session ChatGPT,
+  Claude, Cursor, ou comme `system` d'une API call ;
+- un **CLAUDE.md complet** à déposer à la racine d'un projet, qui
+  sert aussi de trace écrite de gouvernance.
 
-```bash
-open index.html
-```
+Accéder à l'outil : https://florycarm-a11y.github.io/le-mandat/
 
-Ou servir localement (recommandé pour le chargement des JSON) :
+En local :
 
-```bash
-python3 -m http.server 8080
-# puis http://localhost:8080
-```
+    python3 -m http.server 8080
+
+## Contexte réglementaire
+
+L'Article 4 du EU AI Act, applicable depuis février 2025, impose
+à toute organisation utilisant un système d'IA de garantir la
+littératie de ses équipes. Le Mandat est un instrument concret
+de cette exigence : il ne remplace pas un programme de formation,
+il en est un composant pratique qui transforme la réflexion
+structurée en livrable réutilisable.
+
+## Méthode
+
+La méthode complète vit sur [/methode](https://florycarm-a11y.github.io/le-mandat/methode.html).
 
 ## Stack
 
-- HTML + CSS + JS (vanilla, pas de framework)
-- D3.js v7 via CDN (mindmap uniquement)
-- Données en JSON (`data/arbre.json`, `data/cas-etude.json`)
-- Aucune dépendance locale, aucun build
+HTML + CSS + JS vanilla, D3.js v7 (mindmap récap), jsPDF (export PDF).
+Pas de build, pas de bundler, pas de tracking. Le mandat ne quitte
+jamais votre navigateur.
 
-## Structure
+## Régénération de l'OG cover
 
-```
-├── index.html          Page principale
-├── css/style.css       Styles
-├── js/main.js          Orchestration, toggle, sections
-├── js/mindmap.js       Rendu D3.js de la mindmap
-├── data/arbre.json     Structure du framework
-├── data/cas-etude.json Cas d'étude concret
-└── assets/             Images et OG cover
-```
+La source est `assets/og-cover.svg`. Pour produire le PNG :
+ouvrir le SVG dans un éditeur vectoriel (Inkscape, Figma, Aperçu macOS)
+et exporter en PNG 1200 × 630 vers `assets/og-cover.png`.
 
-## Contexte
+---
 
-Ce projet s'inscrit dans une réflexion sur la **littératie IA** et l'**Article 4 de l'EU AI Act**, qui impose aux organisations de garantir la compétence de leurs équipes dans l'usage des systèmes d'IA.
+Auteur : [Floryan Leblanc](https://florycarm-a11y.github.io/PORTFOLIO/)

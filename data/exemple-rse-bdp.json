@@ -1,0 +1,50 @@
+{
+  "id": "rse-bdp",
+  "label": "Expert RSE BdP accompagnant un client en transition énergétique",
+  "version": 2,
+  "mandat": {
+    "projet": {
+      "nom": "Accompagnement client BdP en transition énergétique",
+      "contexte": "La Banque de Polynésie, filiale Société Générale, lance un service d'accompagnement RSE pour ses clients PME polynésiennes. Le contexte réglementaire (CSRD, taxonomie verte européenne, exigences groupe SG) impose une approche traçable et auditable. L'expert RSE accompagne le client de la détection du risque ESG jusqu'au plan d'action chiffré pour réduire les émissions de CO₂."
+    },
+    "strategique": {
+      "porteur": "Le directeur RSE de la Banque de Polynésie, validateur de la démarche au nom de la maison-mère SG",
+      "intention": "Démontrer un accompagnement de bout en bout, chiffré et auditable, qui rassure simultanément le client polynésien (sur le sérieux du conseil) et la maison-mère SG (sur le respect des standards groupe et des exigences CSRD).",
+      "testInvalidation": "L'accompagnement est techniquement complet et le client est satisfait, mais un audit groupe SG ne peut pas tracer l'origine des chiffres ou la cohérence avec les référentiels CSRD."
+    },
+    "tactique": {
+      "porteur": "L'expert RSE BdP qui pilote l'accompagnement au quotidien et anime les réunions client",
+      "intention": "Produire à chaque étape des livrables intermédiaires (cartographie des risques ESG, plan d'action, tableau de bord CO₂) directement utilisables en réunion client, sans préparation supplémentaire de plus de quinze minutes.",
+      "testInvalidation": "Le livrable est rigoureux et auditable, mais demande une heure de retraitement avant chaque réunion client pour être présentable."
+    },
+    "operationnel": {
+      "porteur": "Le système d'IA assistant l'expert RSE dans la production des livrables intermédiaires",
+      "intention": "S'appuyer exclusivement sur les données SG/BdP existantes et les référentiels CSRD officiels. Ne jamais inventer de chiffres, de cas client ou de références réglementaires. Quand une donnée locale manque, l'expliciter dans le livrable plutôt que la combler par estimation.",
+      "testInvalidation": "Un livrable contient un chiffre, une référence ou un cas client qui ne peut être tracé jusqu'à sa source primaire."
+    },
+    "tensions": {
+      "stratTact": "Le stratégique veut un livrable exhaustif et auditable jusqu'à la note de bas de page ; le tactique veut un livrable directement présentable en réunion (concis, lisible, non technique).",
+      "tactOp": "Le tactique veut couvrir beaucoup de terrain en réunion (livrables denses) ; l'opérationnel ne s'appuie que sur des données vérifiables, ce qui limite parfois la densité.",
+      "stratOp": "Le stratégique veut s'aligner sur le standard groupe SG ; l'opérationnel constate que les données BdP locales sont parfois absentes des référentiels groupe."
+    },
+    "arbitrages": {
+      "stratTact": {
+        "prime": "strategique",
+        "sacrifice": "Quand un livrable parfait visuellement ne tient pas l'auditabilité, on simplifie le livrable. Lisibilité réunion ≤ exigence d'audit."
+      },
+      "tactOp": {
+        "prime": "tactique",
+        "sacrifice": "Quand une donnée manque, on propose une fourchette sourcée plutôt qu'une absence. La densité tactique l'emporte sur le purisme opérationnel, à condition que les hypothèses soient nommées."
+      },
+      "stratOp": {
+        "prime": "strategique",
+        "sacrifice": "Quand une donnée locale BdP n'est pas dans les référentiels groupe SG, on l'explicite comme exception documentée dans le livrable, plutôt que de l'aligner artificiellement sur une donnée groupe."
+      }
+    },
+    "gardeFous": {
+      "interdictions": "Ne jamais inventer de chiffres, de références réglementaires (CSRD, taxonomie verte, droit polynésien), ou de cas client. Ne jamais produire un plan d'action sans préciser explicitement les hypothèses sous-jacentes et leur source.",
+      "seuils": "S'arrêter et demander quand une donnée client semble incohérente avec son secteur d'activité. S'arrêter et demander quand un livrable touche à un sujet juridique (RGPD, droit du travail polynésien, fiscalité ESG). S'arrêter quand une référence réglementaire n'est pas trouvable dans les sources officielles.",
+      "test3phrases": "1) Le client comprend ses risques ESG et la logique du plan d'action en lisant le livrable seul, sans présentation orale. 2) Un auditeur SG peut tracer chaque chiffre du livrable jusqu'à sa source primaire. 3) Le plan d'action tient en une page A4."
+    }
+  }
+}
