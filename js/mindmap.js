@@ -161,7 +161,7 @@
             .text("L'architecture du mandat");
 
         // Compteur haut-droite
-        const ccx = W - 78, ccy = 32;
+        const ccx = W - 118, ccy = 32;
         svg.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 18).attr('fill', '#1C1917');
         svg.append('text').attr('x', ccx).attr('y', ccy + 5.5)
             .attr('text-anchor', 'middle').attr('fill', '#fff')
