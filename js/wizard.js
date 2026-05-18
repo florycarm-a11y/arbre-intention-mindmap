@@ -64,6 +64,11 @@
             .replace(/'/g, '&#39;');
     }
 
+    function phaseLineFor(etape) {
+        const phase = (_schema.phases || []).find(p => p.key === etape.phase);
+        return phase ? `Phase ${phase.numero}/4 · ${phase.label}` : '';
+    }
+
     function isStepValid(etape) {
         if (etape.lectureSeule) return true;
         const champsObligatoires = (etape.champs || []).filter(c => c.obligatoire);
@@ -108,7 +113,7 @@
         return `
             <article class="wizard__etape" ${colorStyle}>
                 <header class="wizard__etape-header">
-                    <p class="wizard__progress">Étape ${numero}/${totalSteps}</p>
+                    <p class="wizard__progress">Étape ${numero}/${totalSteps} · ${phaseLineFor(etape)}</p>
                     <p class="wizard__label-meta">${etape.id} · ${etape.label}</p>
                     <h2 class="wizard__question">${etape.question}</h2>
                     <p class="wizard__soustitre">${etape.soustitre}</p>
@@ -164,7 +169,7 @@
             return `
                 <article class="wizard__etape" ${colorStyle}>
                     <header class="wizard__etape-header">
-                        <p class="wizard__progress">Étape ${numero}/${totalSteps}</p>
+                        <p class="wizard__progress">Étape ${numero}/${totalSteps} · ${phaseLineFor(etape)}</p>
                         <p class="wizard__label-meta">${etape.id} · ${etape.label}</p>
                         <h2 class="wizard__question">${etape.question}</h2>
                         <p class="wizard__soustitre">Aucune tension nommée — rien à arbitrer ici.</p>
@@ -210,7 +215,7 @@
         return `
             <article class="wizard__etape" ${colorStyle}>
                 <header class="wizard__etape-header">
-                    <p class="wizard__progress">Étape ${numero}/${totalSteps}</p>
+                    <p class="wizard__progress">Étape ${numero}/${totalSteps} · ${phaseLineFor(etape)}</p>
                     <p class="wizard__label-meta">${etape.id} · ${etape.label}</p>
                     <h2 class="wizard__question">${etape.question}</h2>
                     <p class="wizard__soustitre">${etape.soustitre}</p>
@@ -228,7 +233,7 @@
         return `
             <article class="wizard__etape wizard__etape--synthese" ${colorStyle}>
                 <header class="wizard__etape-header">
-                    <p class="wizard__progress">Étape ${numero}/${totalSteps}</p>
+                    <p class="wizard__progress">Étape ${numero}/${totalSteps} · ${phaseLineFor(etape)}</p>
                     <h2 class="wizard__question">${etape.question}</h2>
                     <p class="wizard__soustitre">${etape.soustitre}</p>
                 </header>
@@ -275,9 +280,9 @@
         return `
             <dl class="wizard__recap-liste">
                 <dt>Projet</dt><dd>${escapeHtml(projet)}</dd>
-                <dt>Stratégique</dt><dd>${escapeHtml(strat)}</dd>
-                <dt>Tactique</dt><dd>${escapeHtml(tact)}</dd>
-                <dt>Opérationnel</dt><dd>${escapeHtml(op)}</dd>
+                <dt>Intention stratégique</dt><dd>${escapeHtml(strat)}</dd>
+                <dt>Intention tactique</dt><dd>${escapeHtml(tact)}</dd>
+                <dt>Intention opérationnelle</dt><dd>${escapeHtml(op)}</dd>
             </dl>
         `;
     }
