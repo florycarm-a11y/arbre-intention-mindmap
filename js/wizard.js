@@ -82,8 +82,39 @@
     function render() {
         const etape = _schema.etapes[_currentIdx];
         _container.hidden = false;
-        _container.innerHTML = renderStep(etape);
+        _container.innerHTML = renderProgressBar(_currentIdx, _schema.etapes.length) + renderStep(etape);
         attachHandlers(etape);
+    }
+
+    // Barre fine 8 segments groupés par phase (1 | 2-3-4 | 5-6 | 7-8).
+    // Complétés : --mandat-accent. Courant : --mandat-accent-tint. À venir :
+    // --found-ink-faint. Affichée au-dessus du stepper textuel, sur toutes
+    // les étapes du wizard.
+    const PHASE_GROUPS = [[1], [2, 3, 4], [5, 6], [7, 8]];
+
+    function renderProgressBar(currentIdx, total) {
+        const groupesHtml = PHASE_GROUPS.map(groupe => {
+            const segments = groupe.map(numero => {
+                const idx = numero - 1;
+                let modifier = 'avenir';
+                if (idx < currentIdx) modifier = 'complete';
+                else if (idx === currentIdx) modifier = 'courant';
+                return `<span class="wizard__progressbar-segment wizard__progressbar-segment--${modifier}"></span>`;
+            }).join('');
+            return `<div class="wizard__progressbar-groupe">${segments}</div>`;
+        }).join('');
+        const pct = Math.round(((currentIdx + 1) / total) * 100);
+        return `
+            <div class="wizard__progressbar"
+                 role="progressbar"
+                 aria-label="Progression du mandat"
+                 aria-valuenow="${currentIdx + 1}"
+                 aria-valuemin="1"
+                 aria-valuemax="${total}"
+                 aria-valuetext="Étape ${currentIdx + 1} sur ${total} (${pct}%)">
+                ${groupesHtml}
+            </div>
+        `;
     }
 
     function renderStep(etape) {
@@ -117,6 +148,10 @@
         // sur l'étape Tensions où la cohérence des 3 niveaux est centrale.
         const rappelHtml = etape.key === 'tensions' ? renderRappelIntentions() : '';
 
+        // Mini-schéma de hiérarchie sur les 3 étapes Intentions : situe
+        // visuellement le niveau courant dans la pile Stratégique/Tactique/Opérationnelle.
+        const hierarchieHtml = etape.phase === 'intentions' ? renderHierarchieIntentions(etape.key) : '';
+
         return `
             <article class="wizard__etape" ${colorStyle}>
                 <header class="wizard__etape-header">
@@ -125,6 +160,7 @@
                     <h2 class="wizard__question">${etape.question}</h2>
                     <p class="wizard__soustitre">${etape.soustitre}</p>
                 </header>
+                ${hierarchieHtml}
                 ${rappelHtml}
                 <div class="wizard__champs">
                     ${fieldsHtml}
@@ -149,6 +185,22 @@
         if (typeof s !== 'string') return '';
         const t = s.trim();
         return t.length > max ? t.slice(0, max).trimEnd() + '…' : t;
+    }
+
+    // Mini-schéma 3 lignes : situe le niveau courant dans la hiérarchie
+    // Stratégique → Tactique → Opérationnelle. Affiché sur les étapes 2/3/4.
+    function renderHierarchieIntentions(currentKey) {
+        const lignes = RAPPEL_NIVEAUX.map(n => {
+            const actif = n.key === currentKey;
+            const classe = `wizard__hierarchie-ligne${actif ? ' wizard__hierarchie-ligne--actif' : ''}`;
+            const aria = actif ? ' aria-current="step"' : '';
+            return `<li class="${classe}"${aria}>${n.label}</li>`;
+        }).join('');
+        return `
+            <nav class="wizard__hierarchie" aria-label="Position dans la hiérarchie des intentions">
+                <ol class="wizard__hierarchie-liste">${lignes}</ol>
+            </nav>
+        `;
     }
 
     function renderRappelIntentions() {
