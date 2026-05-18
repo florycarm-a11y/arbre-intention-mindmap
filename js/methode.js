@@ -23,7 +23,21 @@
         return;
     }
 
-    container.innerHTML = schema.etapes.map(etape => renderSection(etape, content.etapes[etape.id], exempleMeta.mandat)).join('');
+    container.innerHTML = schema.phases.map(phase => {
+        const etapesPhase = schema.etapes.filter(e => e.phase === phase.key);
+        const sectionsHtml = etapesPhase
+            .map(e => renderSection(e, content.etapes[e.id], exempleMeta.mandat))
+            .join('');
+        return `
+            <section class="methode__phase" id="phase-${phase.key}">
+                <header class="methode__phase-header">
+                    <p class="methode__phase-numero">Phase ${phase.numero}/4</p>
+                    <h2 class="methode__phase-title">${escapeHtml(phase.label)}</h2>
+                </header>
+                ${sectionsHtml}
+            </section>
+        `;
+    }).join('');
 
     function escapeHtml(s) {
         return String(s == null ? '' : s)

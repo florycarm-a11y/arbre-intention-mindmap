@@ -37,6 +37,32 @@
 }
 .methode-hero__cta:hover { background: #1C1917; color: #FFFFFF; }
 
+.methode__phase {
+    max-width: 880px;
+    margin: 4rem auto 0;
+    padding: 0 1.5rem;
+}
+.methode__phase-header {
+    border-bottom: 1px solid #E7E5E4;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+.methode__phase-numero {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    color: #78716C;
+    margin: 0;
+}
+.methode__phase-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1C1917;
+    margin: 0.25rem 0 0;
+}
+/* Sections imbriquées dans une phase : retirer leur grand margin-top */
+.methode__phase .methode__section { margin-top: 2rem; }
+
 .methode__section {
     max-width: 880px;
     margin: 4rem auto;

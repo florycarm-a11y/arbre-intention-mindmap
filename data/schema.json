@@ -1,10 +1,17 @@
 {
   "version": 2,
+  "phases": [
+    { "key": "cadrage",    "numero": 1, "label": "Cadrage" },
+    { "key": "intentions", "numero": 2, "label": "Intentions" },
+    { "key": "friction",   "numero": 3, "label": "Friction" },
+    { "key": "sortie",     "numero": 4, "label": "Sortie" }
+  ],
   "etapes": [
     {
       "id": "01",
       "key": "projet",
-      "label": "Le projet",
+      "phase": "cadrage",
+      "label": "Projet",
       "color": "#64748B",
       "question": "Quel est le projet ?",
       "soustitre": "Donnez-lui un nom opérationnel — pas une catégorie.",
@@ -17,7 +24,8 @@
     {
       "id": "02",
       "key": "strategique",
-      "label": "L'intention stratégique",
+      "phase": "intentions",
+      "label": "Intention stratégique",
       "color": "#B91C1C",
       "question": "Pourquoi ce projet existe ?",
       "soustitre": "La finalité ultime — celle qui, si elle est ratée, rend le reste inutile.",
@@ -31,7 +39,8 @@
     {
       "id": "03",
       "key": "tactique",
-      "label": "L'intention tactique",
+      "phase": "intentions",
+      "label": "Intention tactique",
       "color": "#EA580C",
       "question": "Comment on s'y prend ?",
       "soustitre": "Le pilotage au quotidien — qui choisit les priorités et arbitre le terrain.",
@@ -45,7 +54,8 @@
     {
       "id": "04",
       "key": "operationnel",
-      "label": "L'intention opérationnelle",
+      "phase": "intentions",
+      "label": "Intention opérationnelle",
       "color": "#047857",
       "question": "Que doit produire l'IA, concrètement ?",
       "soustitre": "Les contraintes du clavier — temps, outils, périmètre, dette technique.",
@@ -59,7 +69,8 @@
     {
       "id": "05",
       "key": "tensions",
-      "label": "Les tensions",
+      "phase": "friction",
+      "label": "Tensions",
       "color": "#7C3AED",
       "question": "Quelles contradictions ?",
       "soustitre": "Trois paires d'intentions, trois contradictions possibles. Si vous n'en trouvez aucune, vous n'avez pas assez cherché.",
@@ -74,7 +85,8 @@
     {
       "id": "06",
       "key": "arbitrages",
-      "label": "Arbitrage",
+      "phase": "friction",
+      "label": "Arbitrages",
       "color": "#4338CA",
       "question": "Pour chaque tension : qui prime ?",
       "soustitre": "Trancher signifie qu'une intention légitime perd. Si personne ne perd rien, vous n'avez pas tranché.",
@@ -85,6 +97,7 @@
     {
       "id": "07",
       "key": "gardeFous",
+      "phase": "sortie",
       "label": "Garde-fous",
       "color": "#B45309",
       "question": "Ce que l'IA ne doit JAMAIS faire ?",
@@ -99,6 +112,7 @@
     {
       "id": "08",
       "key": "synthese",
+      "phase": "sortie",
       "label": "Synthèse",
       "color": "#1C1917",
       "question": "Votre mandat est prêt.",
