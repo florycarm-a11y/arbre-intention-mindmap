@@ -1,6 +1,6 @@
 # Le Mandat
 
-**Cadrez votre délégation en 8 étapes — pour passer de l'usage à la maîtrise de l'IA.**
+**Cadrez votre délégation en 8 étapes, pour passer de l'usage à la délégation maîtrisée.**
 
 Le Mandat est un instrument de littératie IA, en réponse à l'Article 4
 de l'EU AI Act. Il fait pratiquer la réflexion structurée avant chaque
