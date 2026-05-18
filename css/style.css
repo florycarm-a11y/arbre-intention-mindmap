@@ -1035,9 +1035,38 @@ body.mode-fill .fab-export {
 #mindmap-container[hidden],
 #livrable-container[hidden] { display: none !important; }
 
+/* Barre de progression — 8 segments groupés par phase, fine, posée
+   au-dessus du stepper textuel. Largeur alignée sur la carte d'étape
+   (max 720px, centrée). Hauteur 4px mobile, 6px desktop. */
+.wizard__progressbar {
+    max-width: 720px;
+    margin: 3rem auto 0;
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+.wizard__progressbar-groupe {
+    flex: 1;
+    display: flex;
+    gap: 2px;
+}
+.wizard__progressbar-segment {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--found-ink-faint);
+    transition: background 200ms ease;
+}
+.wizard__progressbar-segment--complete { background: var(--mandat-accent); }
+.wizard__progressbar-segment--courant  { background: var(--mandat-accent-tint); }
+
+@media (min-width: 768px) {
+    .wizard__progressbar-segment { height: 6px; border-radius: 3px; }
+}
+
 .wizard__etape {
     max-width: 720px;
-    margin: 4rem auto;
+    margin: 1.25rem auto 4rem;
     padding: 2rem;
     background: var(--found-surface-raised);
     border: 1px solid var(--found-line-strong);
