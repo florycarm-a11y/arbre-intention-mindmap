@@ -113,6 +113,10 @@
             ? `<details class="wizard__optionnels"><summary>+ détails (${champsOptionnels.map(c => c.label.toLowerCase()).join(', ')})</summary>${champsOptionnels.map(c => fieldHtml(etape.key, c, data[c.key], false)).join('')}</details>`
             : '';
 
+        // Rappel des intentions saisies aux étapes 2-3-4, affiché uniquement
+        // sur l'étape Tensions où la cohérence des 3 niveaux est centrale.
+        const rappelHtml = etape.key === 'tensions' ? renderRappelIntentions() : '';
+
         return `
             <article class="wizard__etape" ${colorStyle}>
                 <header class="wizard__etape-header">
@@ -121,6 +125,7 @@
                     <h2 class="wizard__question">${etape.question}</h2>
                     <p class="wizard__soustitre">${etape.soustitre}</p>
                 </header>
+                ${rappelHtml}
                 <div class="wizard__champs">
                     ${fieldsHtml}
                     ${optionnelsHtml}
@@ -130,6 +135,51 @@
                     ${navButtonsHtml(etape)}
                 </footer>
             </article>
+        `;
+    }
+
+    // Index 0-based des étapes 2-3-4 (Stratégie / Tactique / Opération).
+    const RAPPEL_NIVEAUX = [
+        { key: 'strategique',  label: 'Stratégique',   stepIdx: 1 },
+        { key: 'tactique',     label: 'Tactique',      stepIdx: 2 },
+        { key: 'operationnel', label: 'Opérationnelle', stepIdx: 3 }
+    ];
+
+    function tronquer(s, max) {
+        if (typeof s !== 'string') return '';
+        const t = s.trim();
+        return t.length > max ? t.slice(0, max).trimEnd() + '…' : t;
+    }
+
+    function renderRappelIntentions() {
+        const cartes = RAPPEL_NIVEAUX.map(n => {
+            const intention = (_mandat[n.key] || {}).intention || '';
+            if (isFieldFilled(intention)) {
+                return `
+                    <article class="wizard__rappel-carte">
+                        <p class="wizard__rappel-label">${n.label}</p>
+                        <p class="wizard__rappel-contenu">${escapeHtml(tronquer(intention, 120))}</p>
+                    </article>
+                `;
+            }
+            const stepNumero = n.stepIdx + 1;
+            return `
+                <article class="wizard__rappel-carte wizard__rappel-carte--vide">
+                    <p class="wizard__rappel-label">${n.label}</p>
+                    <p class="wizard__rappel-contenu">
+                        <span class="wizard__rappel-vide">Non renseigné —</span>
+                        <button type="button" class="wizard__rappel-lien" data-action="goto" data-step-idx="${n.stepIdx}">
+                            revenir à l'étape ${stepNumero}
+                        </button>
+                    </p>
+                </article>
+            `;
+        }).join('');
+        return `
+            <aside class="wizard__rappel" aria-label="Rappel des intentions saisies">
+                <p class="wizard__rappel-titre">Vos intentions</p>
+                <div class="wizard__rappel-grille">${cartes}</div>
+            </aside>
         `;
     }
 
@@ -326,6 +376,10 @@
                 const action = btn.dataset.action;
                 if (action === 'prev') gotoStep(_currentIdx - 1);
                 else if (action === 'next') handleNext(etape);
+                else if (action === 'goto') {
+                    const idx = parseInt(btn.dataset.stepIdx, 10);
+                    if (!Number.isNaN(idx)) gotoStep(idx);
+                }
                 else if (action === 'complete') _onComplete(_mandat);
                 else if (action === 'back-to-overview') {
                     window._returnToOverview = false;
