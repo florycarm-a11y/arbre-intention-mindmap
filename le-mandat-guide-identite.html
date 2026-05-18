@@ -1,0 +1,1417 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Mandat — Guide d'identité · Direction A — Doctrine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   LE MANDAT — SYSTÈME DE TOKENS
+   Synchronisé sur le récap verrouillé « L'architecture du mandat ».
+   Deux couches :
+   · FONDATIONS  (--found-*)               base sobre et durable
+   · SURFACE     (--mandat-* / --step-*)    couche d'identité
+   ============================================================ */
+:root {
+
+  /* ---------- COUCHE 1 — FONDATIONS ------------------------ */
+
+  /* Surfaces — crème pâle du récap */
+  --found-surface:         #F4F1E8;  /* fond général                   */
+  --found-surface-raised:  #FCFBF6;  /* cartes, éléments posés         */
+  --found-surface-sunken:  #EAE6D9;  /* zones de phase, encarts        */
+
+  /* Encre — quasi-noir chaud */
+  --found-ink:             #1C1A15;  /* texte principal   15,4:1       */
+  --found-ink-soft:        #5A5345;  /* texte secondaire   6,7:1       */
+  --found-ink-faint:       #6B6254;  /* méta, légendes     5,3:1       */
+
+  /* Filets */
+  --found-line:            #DDD6C5;  /* séparateurs décoratifs         */
+  --found-line-strong:     #CABE9F;  /* bord de carte, contour de nœud */
+
+  /* Familles */
+  --found-font-serif: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --found-font-sans:  'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Échelle typographique */
+  --found-text-display: 2.75rem;
+  --found-text-h1:      2.125rem;
+  --found-text-h2:      1.5rem;
+  --found-text-h3:      1.1875rem;
+  --found-text-lead:    1.1875rem;
+  --found-text-body:    1.0625rem;
+  --found-text-small:   0.9375rem;
+  --found-text-micro:   0.75rem;
+
+  /* Interlignes */
+  --found-leading-tight: 1.16;
+  --found-leading-snug:  1.34;
+  --found-leading-body:  1.62;
+
+  /* Graisses */
+  --found-weight-regular:  400;
+  --found-weight-medium:   500;
+  --found-weight-semibold: 600;
+  --found-weight-bold:     700;
+
+  /* Interlettrage */
+  --found-tracking-label: 0.10em;
+  --found-tracking-tight: -0.012em;
+
+  /* Espacements — échelle 4 px */
+  --found-space-1: 4px;   --found-space-2: 8px;
+  --found-space-3: 12px;  --found-space-4: 16px;
+  --found-space-5: 24px;  --found-space-6: 32px;
+  --found-space-7: 48px;  --found-space-8: 64px;
+  --found-space-9: 96px;
+
+  /* Rayons */
+  --found-radius-control: 3px;
+  --found-radius-card:    6px;
+  --found-radius-pill:    999px;
+
+  /* Ombre — minime ; le relief vient du filet et de la valeur */
+  --found-shadow-card: 0 1px 2px rgba(28,26,21,.05), 0 1px 1px rgba(28,26,21,.04);
+
+  /* Mise en page */
+  --found-wrap:    1120px;
+  --found-measure: 68ch;
+
+  /* ---------- COUCHE 2 — SURFACE --------------------------- */
+
+  /* Accent structurel — quasi-noir. Le système est monochrome
+     pour tout ce qui relève de la structure (marque, action,
+     focus) ; la couleur est réservée aux huit étapes. */
+  --mandat-accent:        #201D17;
+  --mandat-accent-strong: #14110D;  /* survol / pressé        */
+  --mandat-accent-tint:   #ECE8DC;  /* fond pâle d'appui      */
+  --mandat-accent-on:     #F7F4EA;  /* texte sur aplat accent */
+  --mandat-focus:         #201D17;  /* anneau de focus        */
+
+  /* Les 8 couleurs d'étape — relevées sur le récap verrouillé.
+     Une couleur par étape (pas par phase). Chaque étape a sa
+     teinte (nœud) et son encre (texte sur crème, >= 4,5:1). */
+  --step-01: #6D7789;  --step-01-ink: #616A7A;  /* Le projet   */
+  --step-02: #AF2025;  --step-02-ink: #AF2025;  /* Stratégie   */
+  --step-03: #E8661B;  --step-03-ink: #AE4C14;  /* Tactique    */
+  --step-04: #0E7B58;  --step-04-ink: #0E7755;  /* Opération   */
+  --step-05: #7C3FEA;  --step-05-ink: #7C3FEA;  /* Tensions    */
+  --step-06: #4537CE;  --step-06-ink: #4537CE;  /* Arbitrages  */
+  --step-07: #9F4F13;  --step-07-ink: #9F4F13;  /* Garde-fous  */
+  --step-08: #181410;  --step-08-ink: #181410;  /* Synthèse    */
+
+  /* Regroupement structurel des phases (aucune couleur propre) :
+     Phase 1 Cadrage   = étape 1
+     Phase 2 Intentions= étapes 2 · 3 · 4
+     Phase 3 Friction  = étapes 5 · 6
+     Phase 4 Sortie    = étapes 7 · 8 */
+}
+
+/* ============================================================ BASE */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--found-surface);
+  color: var(--found-ink);
+  font-family: var(--found-font-serif);
+  font-size: var(--found-text-body);
+  line-height: var(--found-leading-body);
+  font-feature-settings: "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0; font-weight: var(--found-weight-semibold); line-height: var(--found-leading-tight); }
+p { margin: 0; }
+a { color: var(--mandat-accent); }
+:focus-visible { outline: 2px solid var(--mandat-focus); outline-offset: 3px; border-radius: 2px; }
+code { font-family: var(--found-font-sans); font-size: .85em; }
+
+/* ============================================================ LAYOUT */
+.wrap { max-width: var(--found-wrap); margin: 0 auto; padding: 0 var(--found-space-6); }
+.measure { max-width: var(--found-measure); }
+
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--found-surface) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--found-line);
+}
+.topbar__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--found-space-4);
+  padding: var(--found-space-3) var(--found-space-6);
+  max-width: var(--found-wrap); margin: 0 auto;
+}
+.topbar__meta {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  color: var(--found-ink-faint);
+}
+
+section { padding: var(--found-space-9) 0; border-top: 1px solid var(--found-line); }
+section:first-of-type { border-top: 0; }
+
+.eyebrow {
+  display: inline-block; font-family: var(--found-font-sans);
+  font-size: var(--found-text-micro); font-weight: var(--found-weight-semibold);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  color: var(--mandat-accent); margin-bottom: var(--found-space-3);
+}
+.section-title { font-size: var(--found-text-h1); letter-spacing: var(--found-tracking-tight); }
+.section-intro {
+  margin-top: var(--found-space-4); font-size: var(--found-text-lead);
+  color: var(--found-ink-soft); line-height: var(--found-leading-snug);
+}
+.block-title {
+  font-size: var(--found-text-h2); margin: var(--found-space-8) 0 var(--found-space-4);
+  letter-spacing: var(--found-tracking-tight);
+}
+.note-line { font-size: var(--found-text-small); color: var(--found-ink-faint); margin-top: var(--found-space-3); }
+
+/* ============================================================ ANIMATION */
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.reveal { animation: rise .55s cubic-bezier(.2,.6,.2,1) both; }
+@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
+
+/* ============================================================ MASTHEAD */
+.masthead { padding: var(--found-space-9) 0 var(--found-space-8); }
+.wordmark {
+  font-family: var(--found-font-serif); letter-spacing: var(--found-tracking-tight);
+  line-height: 1; display: inline-flex; align-items: center; gap: .42em;
+}
+.wordmark .le { font-weight: var(--found-weight-regular); }
+.wordmark .mn { font-weight: var(--found-weight-semibold); }
+.wordmark--accent { color: var(--mandat-accent); }
+.node-mark {
+  display: inline-block; border-radius: 50%; background: var(--mandat-accent);
+  width: .52em; height: .52em; transform: translateY(-.02em);
+}
+.masthead .wordmark { font-size: var(--found-text-display); }
+.masthead__sub {
+  margin-top: var(--found-space-5); font-size: var(--found-text-lead);
+  color: var(--found-ink-soft); line-height: var(--found-leading-snug);
+}
+.masthead__tags { margin-top: var(--found-space-6); display: flex; flex-wrap: wrap; gap: var(--found-space-2); }
+.tag {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  font-weight: var(--found-weight-medium); color: var(--found-ink-soft);
+  background: var(--found-surface-sunken); border: 1px solid var(--found-line-strong);
+  border-radius: var(--found-radius-pill); padding: 5px 12px;
+}
+
+/* Note de synchronisation */
+.advisory {
+  margin-top: var(--found-space-7); background: var(--found-surface-sunken);
+  border-left: 3px solid var(--mandat-accent);
+  border-radius: 0 var(--found-radius-card) var(--found-radius-card) 0;
+  padding: var(--found-space-5) var(--found-space-6);
+}
+.advisory h2 {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  color: var(--mandat-accent); margin-bottom: var(--found-space-3);
+}
+.advisory p { font-size: var(--found-text-small); color: var(--found-ink-soft); }
+.advisory p + p { margin-top: var(--found-space-2); }
+.advisory code {
+  background: var(--found-surface-raised); border: 1px solid var(--found-line-strong);
+  padding: 1px 5px; border-radius: 3px;
+}
+
+/* ============================================================ NUANCIERS */
+.swatch-grid {
+  display: grid; gap: var(--found-space-4);
+  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+}
+.swatch {
+  border: 1px solid var(--found-line-strong); border-radius: var(--found-radius-card);
+  overflow: hidden; background: var(--found-surface-raised);
+}
+.swatch__chip {
+  height: 84px; border-bottom: 1px solid var(--found-line-strong);
+  display: flex; align-items: flex-end; justify-content: flex-end; padding: 8px;
+}
+.swatch__num {
+  font-family: var(--found-font-sans); font-weight: var(--found-weight-semibold);
+  font-size: var(--found-text-small); color: #fff;
+}
+.swatch__body { padding: var(--found-space-3) var(--found-space-4) var(--found-space-4); }
+.swatch__name { font-family: var(--found-font-sans); font-size: var(--found-text-small); font-weight: var(--found-weight-semibold); }
+.swatch__var { font-family: var(--found-font-sans); font-size: var(--found-text-micro); color: var(--found-ink-faint); margin-top: 2px; }
+.swatch__hex {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: .04em; color: var(--found-ink-soft); margin-top: var(--found-space-2);
+}
+.swatch__use { font-size: var(--found-text-small); color: var(--found-ink-soft); margin-top: var(--found-space-2); line-height: var(--found-leading-snug); }
+
+/* ============================================================ TABLEAU */
+.ptable { width: 100%; border-collapse: collapse; margin-top: var(--found-space-5); }
+.ptable th, .ptable td {
+  text-align: left; padding: var(--found-space-3) var(--found-space-4);
+  border-bottom: 1px solid var(--found-line); font-size: var(--found-text-small); vertical-align: middle;
+}
+.ptable th {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  color: var(--found-ink-faint); font-weight: var(--found-weight-semibold);
+}
+.ptable td.var { font-family: var(--found-font-sans); font-size: var(--found-text-micro); }
+.ptable .dot {
+  display: inline-block; width: 16px; height: 16px; border-radius: 4px;
+  border: 1px solid rgba(28,26,21,.2); vertical-align: -3px; margin-right: var(--found-space-2);
+}
+.ratio-ok { font-family: var(--found-font-sans); font-size: var(--found-text-micro); font-weight: var(--found-weight-semibold); color: var(--step-04-ink); }
+.ratio-tight { font-family: var(--found-font-sans); font-size: var(--found-text-micro); font-weight: var(--found-weight-semibold); color: var(--step-03-ink); }
+
+/* ============================================================ TYPOGRAPHIE */
+.type-row {
+  display: grid; grid-template-columns: 150px 1fr; gap: var(--found-space-5);
+  align-items: baseline; padding: var(--found-space-4) 0; border-bottom: 1px solid var(--found-line);
+}
+.type-row__meta { font-family: var(--found-font-sans); font-size: var(--found-text-micro); color: var(--found-ink-faint); line-height: var(--found-leading-snug); }
+.type-row__meta strong {
+  display: block; color: var(--found-ink); font-weight: var(--found-weight-semibold);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase; margin-bottom: 3px;
+}
+.specimen-display { font-size: var(--found-text-display); letter-spacing: var(--found-tracking-tight); line-height: 1; }
+.specimen-h1 { font-size: var(--found-text-h1); letter-spacing: var(--found-tracking-tight); }
+.specimen-h2 { font-size: var(--found-text-h2); }
+.specimen-h3 { font-size: var(--found-text-h3); font-weight: var(--found-weight-semibold); }
+.specimen-lead { font-size: var(--found-text-lead); color: var(--found-ink-soft); }
+.specimen-body { font-size: var(--found-text-body); }
+.specimen-label {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  font-weight: var(--found-weight-semibold); color: var(--found-ink-soft);
+}
+.weight-strip { display: flex; flex-wrap: wrap; gap: var(--found-space-5); margin-top: var(--found-space-4); }
+.weight-strip span { font-size: 1.6rem; }
+.font-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--found-space-5); margin-top: var(--found-space-5); }
+.font-card { border: 1px solid var(--found-line-strong); border-radius: var(--found-radius-card); padding: var(--found-space-5); background: var(--found-surface-raised); }
+.font-card .glyphs { font-size: 2.4rem; line-height: 1.1; }
+.font-card .glyphs.sans { font-family: var(--found-font-sans); }
+.font-card .role {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  color: var(--found-ink-faint); margin-top: var(--found-space-4);
+}
+
+/* ============================================================ BOUTONS */
+.btn {
+  font-family: var(--found-font-sans); font-size: var(--found-text-small);
+  font-weight: var(--found-weight-medium); line-height: 1; cursor: pointer;
+  padding: 12px 22px; border-radius: var(--found-radius-control); border: 1px solid transparent;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn-primary { background: var(--mandat-accent); color: var(--mandat-accent-on); }
+.btn-primary:hover { background: var(--mandat-accent-strong); }
+.btn-secondary { background: transparent; color: var(--found-ink); border-color: var(--found-ink-soft); }
+.btn-secondary:hover { background: var(--found-surface-sunken); }
+.btn-link {
+  background: none; border: 0; padding: 12px 6px; color: var(--mandat-accent);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+}
+.btn-link:hover { text-decoration-thickness: 2px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: .42; cursor: not-allowed; }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--found-space-3); align-items: center; }
+
+/* ============================================================ STEPPER */
+.stepper {
+  background: var(--found-surface-raised); border: 1px solid var(--found-line-strong);
+  border-radius: var(--found-radius-card); padding: var(--found-space-6);
+}
+.stepper__readout {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  color: var(--found-ink-faint); margin-bottom: var(--found-space-6);
+}
+.stepper__readout b, .stepper__readout .ph { color: var(--found-ink); font-weight: var(--found-weight-semibold); }
+
+.track { display: flex; gap: var(--found-space-3); align-items: flex-start; }
+.phase-seg { min-width: 0; }
+.phase-seg__label {
+  font-family: var(--found-font-sans); font-size: 10px; letter-spacing: var(--found-tracking-label);
+  text-transform: uppercase; font-weight: var(--found-weight-semibold);
+  color: var(--found-ink-soft); margin-bottom: var(--found-space-3);
+  padding-bottom: var(--found-space-2); border-bottom: 1px solid var(--found-line);
+}
+.phase-seg__label span { color: var(--found-ink-faint); font-weight: var(--found-weight-medium); }
+.phase-seg__nodes { display: flex; gap: var(--found-space-4); }
+.node-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 64px; }
+.node {
+  --c: var(--found-line-strong);
+  position: relative; width: 42px; height: 42px; flex: none; border-radius: 50%;
+  background: var(--found-surface); border: 1.5px solid rgba(28,26,21,.16);
+  color: var(--found-ink-faint);
+  font-family: var(--found-font-sans); font-size: .98rem; font-weight: var(--found-weight-semibold);
+  display: grid; place-items: center; cursor: pointer;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.node:hover { transform: translateY(-2px); }
+.node.is-done, .node.is-current {
+  background: var(--c); border-color: rgba(28,26,21,.16); color: #fff;
+  box-shadow: var(--found-shadow-card);
+}
+.node.is-current { box-shadow: 0 0 0 4px var(--found-surface-raised), 0 0 0 5.5px var(--c); }
+.node.is-bookend { width: 48px; height: 48px; }
+.node__check {
+  position: absolute; top: -3px; right: -3px; width: 16px; height: 16px;
+  background: var(--found-surface-raised); border-radius: 50%;
+  display: grid; place-items: center; box-shadow: 0 0 0 1px rgba(28,26,21,.12);
+}
+.node-name {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  color: var(--found-ink-soft); text-align: center; line-height: 1.25;
+}
+
+/* ============================================================ CARTES */
+.card-grid { display: grid; gap: var(--found-space-5); grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.card {
+  background: var(--found-surface-raised); border: 1px solid var(--found-line-strong);
+  border-radius: var(--found-radius-card); padding: var(--found-space-6); box-shadow: var(--found-shadow-card);
+}
+.card__kicker {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  color: var(--found-ink-faint); margin-bottom: var(--found-space-2);
+}
+.card__title { font-size: var(--found-text-h3); }
+.card__text { margin-top: var(--found-space-3); color: var(--found-ink-soft); font-size: var(--found-text-small); }
+.step-card { display: flex; gap: var(--found-space-4); align-items: flex-start; }
+.pastille {
+  --c: var(--mandat-accent); flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--c); color: #fff; display: grid; place-items: center;
+  font-family: var(--found-font-sans); font-weight: var(--found-weight-semibold); font-size: 1.05rem;
+  border: 1.5px solid rgba(28,26,21,.16);
+}
+.step-card__meta {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase; color: var(--found-ink-faint);
+}
+
+/* ============================================================ EN-TÊTES DE PHASE */
+.phase-head {
+  background: var(--found-surface-raised); border: 1px solid var(--found-line-strong);
+  border-left: 3px solid var(--mandat-accent);
+  border-radius: 0 var(--found-radius-card) var(--found-radius-card) 0;
+  padding: var(--found-space-5) var(--found-space-6);
+  display: flex; align-items: center; gap: var(--found-space-5); flex-wrap: wrap;
+}
+.phase-head + .phase-head { margin-top: var(--found-space-3); }
+.phase-head__txt { flex: 1; min-width: 220px; }
+.phase-head__eyebrow {
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  font-weight: var(--found-weight-semibold); color: var(--found-ink-faint);
+}
+.phase-head__name { font-size: var(--found-text-h2); margin-top: 4px; letter-spacing: var(--found-tracking-tight); }
+.phase-head__desc { margin-top: 6px; color: var(--found-ink-soft); font-size: var(--found-text-small); }
+.chip-row { display: flex; gap: var(--found-space-2); }
+.chip {
+  --c: var(--mandat-accent); width: 32px; height: 32px; border-radius: 50%;
+  background: var(--c); color: #fff; border: 1.5px solid rgba(28,26,21,.16);
+  display: grid; place-items: center;
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro); font-weight: var(--found-weight-semibold);
+}
+
+/* ============================================================ LIENS / CHAMP */
+.prose-demo {
+  background: var(--found-surface-raised); border: 1px solid var(--found-line-strong);
+  border-radius: var(--found-radius-card); padding: var(--found-space-6); max-width: var(--found-measure);
+}
+.prose-demo a {
+  color: var(--mandat-accent); text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-thickness: 1px; text-decoration-color: var(--found-line-strong);
+}
+.prose-demo a:hover { text-decoration-color: var(--mandat-accent); text-decoration-thickness: 2px; }
+.field { max-width: 440px; }
+.field label {
+  display: block; font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  font-weight: var(--found-weight-semibold); color: var(--found-ink-soft); margin-bottom: var(--found-space-2);
+}
+.field input {
+  width: 100%; font-family: var(--found-font-serif); font-size: var(--found-text-body);
+  color: var(--found-ink); background: var(--found-surface-raised);
+  border: 1.5px solid var(--found-ink-soft); border-radius: var(--found-radius-control); padding: 11px 14px;
+}
+.field input::placeholder { color: var(--found-ink-faint); }
+.field .hint { margin-top: 6px; font-size: var(--found-text-small); color: var(--found-ink-faint); }
+
+/* ============================================================ RYTHME */
+.space-scale { display: flex; flex-direction: column; gap: var(--found-space-3); margin-top: var(--found-space-4); }
+.space-scale__row { display: flex; align-items: center; gap: var(--found-space-4); }
+.space-scale__bar { height: 14px; background: var(--mandat-accent); border-radius: 2px; }
+.space-scale__lbl { font-family: var(--found-font-sans); font-size: var(--found-text-micro); color: var(--found-ink-faint); width: 190px; flex: none; }
+.radius-row { display: flex; gap: var(--found-space-5); flex-wrap: wrap; margin-top: var(--found-space-4); }
+.radius-demo { width: 96px; height: 96px; background: var(--found-surface-raised); border: 1px solid var(--found-line-strong); }
+.radius-cell, .shadow-cell { display: flex; flex-direction: column; gap: var(--found-space-2); align-items: flex-start; }
+.radius-cell span, .shadow-cell span { font-family: var(--found-font-sans); font-size: var(--found-text-micro); color: var(--found-ink-faint); }
+.shadow-row { display: flex; gap: var(--found-space-6); flex-wrap: wrap; margin-top: var(--found-space-4); }
+.shadow-demo { width: 150px; height: 86px; background: var(--found-surface-raised); border: 1px solid var(--found-line); border-radius: var(--found-radius-card); }
+.shadow-demo.has-shadow { box-shadow: var(--found-shadow-card); }
+
+/* ============================================================ ICONOGRAPHIE */
+.icon-row { display: flex; gap: var(--found-space-6); flex-wrap: wrap; margin-top: var(--found-space-4); }
+.icon-cell { display: flex; flex-direction: column; gap: var(--found-space-2); align-items: center; }
+.icon-cell span { font-family: var(--found-font-sans); font-size: var(--found-text-micro); color: var(--found-ink-faint); }
+.motif-card {
+  margin-top: var(--found-space-5); border: 1px solid var(--found-line-strong);
+  border-radius: var(--found-radius-card); background: var(--found-surface-raised); padding: var(--found-space-6);
+}
+
+/* ============================================================ DO / DON'T */
+.dd-grid {
+  display: grid; gap: var(--found-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: var(--found-space-5);
+}
+.dd-card {
+  border: 1px solid var(--found-line-strong); border-radius: var(--found-radius-card);
+  background: var(--found-surface-raised); padding: var(--found-space-5);
+}
+.dd-card__head {
+  display: flex; align-items: center; gap: var(--found-space-2);
+  font-family: var(--found-font-sans); font-size: var(--found-text-micro);
+  letter-spacing: var(--found-tracking-label); text-transform: uppercase;
+  font-weight: var(--found-weight-semibold); margin-bottom: var(--found-space-3);
+}
+.dd-card.do  .dd-card__head { color: var(--step-04-ink); }
+.dd-card.dont .dd-card__head { color: var(--step-02-ink); }
+.dd-mark { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+.dd-card.do  .dd-mark { background: var(--step-04); }
+.dd-card.dont .dd-mark { background: var(--step-02); }
+.dd-card p { font-size: var(--found-text-small); color: var(--found-ink-soft); }
+.dd-card p strong { color: var(--found-ink); font-weight: var(--found-weight-semibold); }
+
+/* ============================================================ ANNEXE TOKENS */
+.token-block {
+  background: var(--found-ink); color: #E9E4D6; border-radius: var(--found-radius-card);
+  padding: var(--found-space-6); overflow-x: auto; margin-top: var(--found-space-5);
+}
+.token-block pre { margin: 0; font-family: var(--found-font-sans); font-size: var(--found-text-small); line-height: 1.7; }
+.token-block .c { color: #9A9482; }
+.token-block .v { color: #C9D3E4; }
+.token-block .h { color: #E8C98C; }
+
+/* ============================================================ PIED */
+footer {
+  border-top: 1px solid var(--found-line); padding: var(--found-space-7) 0 var(--found-space-9);
+  color: var(--found-ink-faint); font-size: var(--found-text-small);
+}
+
+/* ============================================================ RESPONSIVE */
+@media (max-width: 720px) {
+  .wrap { padding: 0 var(--found-space-5); }
+  .topbar__row { padding: var(--found-space-3) var(--found-space-5); }
+  .masthead .wordmark, .specimen-display { font-size: 2.05rem; }
+  .section-title { font-size: 1.7rem; }
+  section { padding: var(--found-space-8) 0; }
+  .type-row { grid-template-columns: 1fr; gap: var(--found-space-2); }
+  .font-pair { grid-template-columns: 1fr; }
+  .track { flex-direction: column; gap: var(--found-space-5); }
+  .phase-seg__label { border-bottom: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar__row">
+    <span class="wordmark wordmark--accent" style="font-size:1.15rem;">
+      <span class="node-mark"></span><span class="le">Le</span>&nbsp;<span class="mn">Mandat</span>
+    </span>
+    <span class="topbar__meta">Guide d'identité · Direction A — Doctrine</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===================== MASTHEAD ===================== -->
+  <header class="masthead reveal">
+    <div class="wordmark" style="margin-bottom:var(--found-space-2);">
+      <span class="node-mark"></span><span class="le">Le</span>&nbsp;<span class="mn">Mandat</span>
+    </div>
+    <p class="masthead__sub measure">
+      Système d'identité visuelle, synchronisé sur le récapitulatif
+      verrouillé « L'architecture du mandat ». Une méthode en huit étapes,
+      groupées en quatre phases, pour cadrer la délégation d'une tâche à une
+      intelligence artificielle — instrument de littératie dans l'esprit de
+      l'Article&nbsp;4 de l'EU&nbsp;AI&nbsp;Act.
+    </p>
+    <div class="masthead__tags">
+      <span class="tag">Direction A — Doctrine</span>
+      <span class="tag">Conforme au récap</span>
+      <span class="tag">8 étapes · 4 phases</span>
+      <span class="tag">HTML / CSS / JS vanilla</span>
+      <span class="tag">WCAG AA</span>
+    </div>
+
+    <div class="advisory" role="note">
+      <h2>Synchronisation &amp; deux points ouverts</h2>
+      <p>
+        Couleurs et structure relevées directement sur le récap&nbsp;:
+        <strong>huit couleurs d'étape</strong> (une par étape, non par phase),
+        phases de tailles inégales (1 · 3 · 2 · 2), crème pâle de fond.
+      </p>
+      <p>
+        <strong>1.</strong> Les huit hex sont lus à l'écran. Pour un
+        verrouillage exact, coller les valeurs depuis la source du récap —
+        elles remplacent le bloc <code>--step-01 … --step-08</code> de la
+        section&nbsp;10. <strong>2.</strong> Le récap est composé en
+        sans-serif&nbsp;; la Direction&nbsp;A pose un sérif (voir
+        section&nbsp;4) — choix à confirmer.
+      </p>
+    </div>
+  </header>
+
+  <!-- ===================== 01 — FONDATIONS ===================== -->
+  <section id="fondations">
+    <span class="eyebrow">01 — Couche Fondations</span>
+    <h1 class="section-title">La base sobre et durable</h1>
+    <p class="section-intro measure">
+      Les Fondations portent ce qui ne doit pas bouger&nbsp;: le crème,
+      l'encre, la typographie, le rythme. Couche neutre par construction.
+      Préfixe&nbsp;: <code>--found-*</code>.
+    </p>
+
+    <h2 class="block-title">Surfaces — le crème du récap</h2>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--found-surface);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Surface</div>
+          <div class="swatch__var">--found-surface</div>
+          <div class="swatch__hex">#F4F1E8</div>
+          <div class="swatch__use">Fond général — crème pâle du récap.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--found-surface-raised);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Surface posée</div>
+          <div class="swatch__var">--found-surface-raised</div>
+          <div class="swatch__hex">#FCFBF6</div>
+          <div class="swatch__use">Cartes et blocs posés sur le fond.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--found-surface-sunken);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Surface en retrait</div>
+          <div class="swatch__var">--found-surface-sunken</div>
+          <div class="swatch__hex">#EAE6D9</div>
+          <div class="swatch__use">Zones de phase, encarts, notes.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="block-title">Encre — quasi-noir chaud</h2>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--found-ink);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Encre</div>
+          <div class="swatch__var">--found-ink</div>
+          <div class="swatch__hex">#1C1A15 · 15,4:1</div>
+          <div class="swatch__use">Texte principal, titres.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--found-ink-soft);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Encre adoucie</div>
+          <div class="swatch__var">--found-ink-soft</div>
+          <div class="swatch__hex">#5A5345 · 6,7:1</div>
+          <div class="swatch__use">Texte secondaire, bord de contrôle.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--found-ink-faint);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Encre ténue</div>
+          <div class="swatch__var">--found-ink-faint</div>
+          <div class="swatch__hex">#6B6254 · 5,3:1</div>
+          <div class="swatch__use">Méta, légendes, étiquettes.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--found-line);border-bottom-color:var(--found-line-strong);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Filets</div>
+          <div class="swatch__var">--found-line / --found-line-strong</div>
+          <div class="swatch__hex">#DDD6C5 · #CABE9F</div>
+          <div class="swatch__use">Séparateurs et bords. Contour de nœud.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 02 — SURFACE ===================== -->
+  <section id="surface">
+    <span class="eyebrow">02 — Couche Surface</span>
+    <h1 class="section-title">Accent monochrome, huit couleurs d'étape</h1>
+    <p class="section-intro measure">
+      Le récap fixe un principe net&nbsp;: <strong>la couleur appartient aux
+      étapes</strong>. Le système n'a donc pas de couleur de marque
+      supplémentaire — tout ce qui est structurel (marque, action, focus)
+      est traité en quasi-noir. La couleur, vive, est strictement réservée
+      aux huit nœuds. Préfixes&nbsp;: <code>--mandat-*</code> et
+      <code>--step-*</code>.
+    </p>
+
+    <h2 class="block-title">Accent structurel</h2>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--mandat-accent);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Accent</div>
+          <div class="swatch__var">--mandat-accent</div>
+          <div class="swatch__hex">#201D17 · 14,9:1</div>
+          <div class="swatch__use">Marque, action primaire, focus. Quasi-noir.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--mandat-accent-strong);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Accent appuyé</div>
+          <div class="swatch__var">--mandat-accent-strong</div>
+          <div class="swatch__hex">#14110D</div>
+          <div class="swatch__use">État survol / pressé.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--mandat-accent-tint);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Accent voilé</div>
+          <div class="swatch__var">--mandat-accent-tint</div>
+          <div class="swatch__hex">#ECE8DC</div>
+          <div class="swatch__use">Fond pâle d'appui, surlignage discret.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--mandat-accent-on);border-bottom-color:var(--found-line-strong);"></div>
+        <div class="swatch__body">
+          <div class="swatch__name">Encre sur accent</div>
+          <div class="swatch__var">--mandat-accent-on</div>
+          <div class="swatch__hex">#F7F4EA · 15,3:1</div>
+          <div class="swatch__use">Texte posé sur un aplat d'accent.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="block-title">Les huit couleurs d'étape</h2>
+    <p class="note-line" style="margin-top:0;margin-bottom:var(--found-space-4);">
+      Chaque étape&nbsp;: une <em>teinte</em> (remplissage du nœud, numéro en
+      blanc) et une <em>encre</em> (<code>-ink</code>, pour du texte de
+      l'étape sur crème, ≥ 4,5:1). Valeurs relevées sur le récap.
+    </p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-01);"><span class="swatch__num">01</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">01 — Le projet</div>
+          <div class="swatch__var">--step-01 · --step-01-ink</div>
+          <div class="swatch__hex">#6D7789 · #616A7A</div>
+          <div class="swatch__use">Phase Cadrage.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-02);"><span class="swatch__num">02</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">02 — Stratégie</div>
+          <div class="swatch__var">--step-02 · --step-02-ink</div>
+          <div class="swatch__hex">#AF2025 · #AF2025</div>
+          <div class="swatch__use">Phase Intentions.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-03);"><span class="swatch__num">03</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">03 — Tactique</div>
+          <div class="swatch__var">--step-03 · --step-03-ink</div>
+          <div class="swatch__hex">#E8661B · #AE4C14</div>
+          <div class="swatch__use">Phase Intentions.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-04);"><span class="swatch__num">04</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">04 — Opération</div>
+          <div class="swatch__var">--step-04 · --step-04-ink</div>
+          <div class="swatch__hex">#0E7B58 · #0E7755</div>
+          <div class="swatch__use">Phase Intentions.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-05);"><span class="swatch__num">05</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">05 — Tensions</div>
+          <div class="swatch__var">--step-05 · --step-05-ink</div>
+          <div class="swatch__hex">#7C3FEA · #7C3FEA</div>
+          <div class="swatch__use">Phase Friction.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-06);"><span class="swatch__num">06</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">06 — Arbitrages</div>
+          <div class="swatch__var">--step-06 · --step-06-ink</div>
+          <div class="swatch__hex">#4537CE · #4537CE</div>
+          <div class="swatch__use">Phase Friction.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-07);"><span class="swatch__num">07</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">07 — Garde-fous</div>
+          <div class="swatch__var">--step-07 · --step-07-ink</div>
+          <div class="swatch__hex">#9F4F13 · #9F4F13</div>
+          <div class="swatch__use">Phase Sortie.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:var(--step-08);"><span class="swatch__num">08</span></div>
+        <div class="swatch__body">
+          <div class="swatch__name">08 — Synthèse</div>
+          <div class="swatch__var">--step-08 · --step-08-ink</div>
+          <div class="swatch__hex">#181410 · #181410</div>
+          <div class="swatch__use">Phase Sortie. Le livrable, quasi-noir.</div>
+        </div>
+      </div>
+    </div>
+    <p class="note-line">
+      L'étape 08 (le livrable) et l'accent structurel partagent le quasi-noir
+      de la marque&nbsp;: la méthode se résout dans sa couleur de marque.
+      Distinction de rôle, pas de teinte — l'un est une étape, l'autre la
+      structure.
+    </p>
+  </section>
+
+  <!-- ===================== 03 — PALETTE / CONTRASTE ===================== -->
+  <section id="palette">
+    <span class="eyebrow">03 — Palette &amp; contraste</span>
+    <h1 class="section-title">Référence vérifiée</h1>
+    <p class="section-intro measure">
+      Contrôles WCAG sur le crème de fond (#F4F1E8). Seuils&nbsp;: AA texte
+      normal ≥ 4,5:1&nbsp;; AA texte large et éléments non textuels ≥ 3:1.
+    </p>
+
+    <table class="ptable">
+      <thead>
+        <tr><th>Étape</th><th>Teinte</th><th>Blanc / teinte</th><th>Encre <code>-ink</code></th><th>-ink / crème</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:#6D7789"></span>01 Le projet</td><td class="var">#6D7789</td><td class="ratio-ok">4,5:1 · AA large</td><td class="var">#616A7A</td><td class="ratio-ok">4,8:1 · AA</td></tr>
+        <tr><td><span class="dot" style="background:#AF2025"></span>02 Stratégie</td><td class="var">#AF2025</td><td class="ratio-ok">6,9:1 · AA</td><td class="var">#AF2025</td><td class="ratio-ok">6,1:1 · AA</td></tr>
+        <tr><td><span class="dot" style="background:#E8661B"></span>03 Tactique</td><td class="var">#E8661B</td><td class="ratio-tight">3,3:1 · large seul.</td><td class="var">#AE4C14</td><td class="ratio-ok">4,8:1 · AA</td></tr>
+        <tr><td><span class="dot" style="background:#0E7B58"></span>04 Opération</td><td class="var">#0E7B58</td><td class="ratio-ok">5,3:1 · AA</td><td class="var">#0E7755</td><td class="ratio-ok">4,9:1 · AA</td></tr>
+        <tr><td><span class="dot" style="background:#7C3FEA"></span>05 Tensions</td><td class="var">#7C3FEA</td><td class="ratio-ok">5,6:1 · AA</td><td class="var">#7C3FEA</td><td class="ratio-ok">5,0:1 · AA</td></tr>
+        <tr><td><span class="dot" style="background:#4537CE"></span>06 Arbitrages</td><td class="var">#4537CE</td><td class="ratio-ok">7,8:1 · AA</td><td class="var">#4537CE</td><td class="ratio-ok">6,9:1 · AA</td></tr>
+        <tr><td><span class="dot" style="background:#9F4F13"></span>07 Garde-fous</td><td class="var">#9F4F13</td><td class="ratio-ok">5,8:1 · AA</td><td class="var">#9F4F13</td><td class="ratio-ok">5,2:1 · AA</td></tr>
+        <tr><td><span class="dot" style="background:#181410"></span>08 Synthèse</td><td class="var">#181410</td><td class="ratio-ok">18,3:1 · AAA</td><td class="var">#181410</td><td class="ratio-ok">16,2:1 · AAA</td></tr>
+      </tbody>
+    </table>
+    <p class="note-line">
+      Deux règles à tenir. <strong>Un —</strong> pour du texte de taille
+      normale en couleur d'étape, employer <code>-ink</code>. La teinte pleine
+      sert aux nœuds&nbsp;: les numéros y sont gros et gras (texte large,
+      seuil ≥ 3:1). <strong>Deux —</strong> l'orange 03 est le point tendu
+      (blanc à 3,3:1, teinte sur crème à 2,9:1)&nbsp;: les nœuds portent donc
+      tous un fin contour, qui assure leur lecture quelle que soit la teinte.
+      Après collage des hex exacts du récap, revérifier cette table.
+    </p>
+  </section>
+
+  <!-- ===================== 04 — TYPOGRAPHIE ===================== -->
+  <section id="typographie">
+    <span class="eyebrow">04 — Typographie</span>
+    <h1 class="section-title">Deux familles, un registre</h1>
+    <p class="section-intro measure">
+      Un sérif transitional porte le discours&nbsp;; un grotesque neutre
+      porte les étiquettes fonctionnelles et les numéros.
+    </p>
+
+    <div class="advisory" role="note" style="margin-top:var(--found-space-5);">
+      <h2>Point à confirmer — sérif ou sans</h2>
+      <p>
+        Le récap est composé en sans-serif. La Direction&nbsp;A « Doctrine »,
+        que tu as retenue, pose un sérif transitional comme trait central&nbsp;:
+        c'est lui qui ancre le registre « institut » que vise le brief, là où
+        la couleur vive du récap tire vers le produit. La typographie n'étant
+        pas dans le périmètre verrouillé (couleurs + crème), j'ai conservé le
+        sérif. Les numéros et libellés d'interface, eux, sont déjà en
+        sans — comme dans le récap. Pour aligner aussi le discours sur le
+        sans, c'est une bascule d'une seule paire&nbsp;: <code>--found-font-serif</code>.
+      </p>
+    </div>
+
+    <div class="font-pair">
+      <div class="font-card">
+        <div class="glyphs">Aa Gg Mm 1234</div>
+        <div class="role">Source Serif 4 — sérif principal · 400 / 500 / 600 / 700 · titres, texte courant, wordmark</div>
+      </div>
+      <div class="font-card">
+        <div class="glyphs sans">Aa Gg Mm 1234</div>
+        <div class="role">IBM Plex Sans — grotesque fonctionnel · 400 / 500 / 600 · étiquettes, numéros de nœud, méta</div>
+      </div>
+    </div>
+
+    <h2 class="block-title">Échelle</h2>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Display</strong>2,75 rem · 600<br>wordmark, ouverture</div>
+      <div class="specimen-display">L'architecture du mandat</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Titre 1</strong>2,125 rem · 600<br>titre de section</div>
+      <div class="specimen-h1">Cadrer la délégation</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Titre 2</strong>1,5 rem · 600<br>titre de bloc</div>
+      <div class="specimen-h2">Huit étapes, quatre phases</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Titre 3</strong>1,1875 rem · 600<br>titre de carte</div>
+      <div class="specimen-h3">Périmètre de la tâche</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Chapô</strong>1,1875 rem · 400<br>introduction</div>
+      <div class="specimen-lead">Un usage délibéré de l'IA suppose d'expliciter ce que l'on attend avant de déléguer.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Texte</strong>1,0625 rem · 400<br>corps, interligne 1,62</div>
+      <div class="specimen-body">Le Mandat n'automatise pas le jugement&nbsp;: il le structure. Chaque étape rend visible une décision restée, autrement, implicite.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Étiquette</strong>0,75 rem · 600<br>capitales · interlettrage 0,10 em · sans</div>
+      <div class="specimen-label">Étape 04 / 08 · Phase 02 / 04</div>
+    </div>
+
+    <h2 class="block-title">Graisses du sérif</h2>
+    <div class="weight-strip">
+      <span style="font-weight:400;">Regular 400</span>
+      <span style="font-weight:500;">Medium 500</span>
+      <span style="font-weight:600;">Semibold 600</span>
+      <span style="font-weight:700;">Bold 700</span>
+      <span style="font-weight:400;font-style:italic;">Italic 400</span>
+    </div>
+  </section>
+
+  <!-- ===================== 05 — WORDMARK ===================== -->
+  <section id="wordmark">
+    <span class="eyebrow">05 — Wordmark</span>
+    <h1 class="section-title">« Le Mandat »</h1>
+    <p class="section-intro measure">
+      Source Serif 4, casse normale. « Le » en Regular, « Mandat » en
+      Semibold&nbsp;: l'objet prime sur l'article.
+    </p>
+
+    <div class="card-grid" style="margin-top:var(--found-space-6);">
+      <div class="card">
+        <div class="card__kicker">Version encre — usage courant</div>
+        <div class="wordmark" style="font-size:2.1rem;margin-top:var(--found-space-3);">
+          <span class="le">Le</span>&nbsp;<span class="mn">Mandat</span>
+        </div>
+        <p class="card__text">Sur fond crème, dans le texte et les en-têtes neutres.</p>
+      </div>
+      <div class="card">
+        <div class="card__kicker">Version accent — marque</div>
+        <div class="wordmark wordmark--accent" style="font-size:2.1rem;margin-top:var(--found-space-3);">
+          <span class="le">Le</span>&nbsp;<span class="mn">Mandat</span>
+        </div>
+        <p class="card__text">Quasi-noir, sur les éléments de marque&nbsp;: en-tête, pied, couverture.</p>
+      </div>
+      <div class="card">
+        <div class="card__kicker">Avec marque-nœud</div>
+        <div class="wordmark wordmark--accent" style="font-size:2.1rem;margin-top:var(--found-space-3);">
+          <span class="node-mark"></span><span class="le">Le</span>&nbsp;<span class="mn">Mandat</span>
+        </div>
+        <p class="card__text">Le nœud — unité de la méthode — précède le mot. Diamètre 0,52 em.</p>
+      </div>
+    </div>
+
+    <h2 class="block-title">Zone de protection &amp; règles</h2>
+    <div class="card" style="max-width:var(--found-measure);">
+      <p class="card__text" style="color:var(--found-ink);">
+        <strong style="font-weight:var(--found-weight-semibold);">Zone de protection</strong> — réserver autour du wordmark un
+        espace libre égal à la hauteur de capitale du « M ».
+      </p>
+      <p class="card__text">
+        Taille minimale&nbsp;: 18 px de corps. En deçà, employer la
+        marque-nœud seule. Le wordmark ne s'incline pas, ne s'étire pas, ne se
+        recolore pas hors palette et ne se pose pas sur un fond chargé — y
+        compris sur une couleur d'étape.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 06 — COMPOSANTS ===================== -->
+  <section id="composants">
+    <span class="eyebrow">06 — Composants en situation</span>
+    <h1 class="section-title">Le système appliqué</h1>
+    <p class="section-intro measure">
+      Composants rendus avec les tokens réels. Focus visible au clavier&nbsp;:
+      anneau d'accent à 2 px, retrait 3 px.
+    </p>
+
+    <h2 class="block-title">Boutons</h2>
+    <div class="btn-row">
+      <button class="btn btn-primary">Étape suivante</button>
+      <button class="btn btn-secondary">Revenir</button>
+      <button class="btn btn-link">Enregistrer le brouillon</button>
+      <button class="btn btn-primary" aria-disabled="true" disabled>Indisponible</button>
+    </div>
+    <p class="note-line">
+      Action structurelle&nbsp;: quasi-noir, jamais une couleur d'étape. Un
+      seul bouton primaire par écran. Libellés en IBM Plex Sans.
+    </p>
+
+    <h2 class="block-title">Stepper du wizard</h2>
+    <div class="stepper" id="stepper">
+      <div class="stepper__readout" id="readout" aria-live="polite">
+        <b id="ro-step">Étape 04 / 08</b> · <span class="ph" id="ro-phase">Phase 02 / 04 — Intentions</span>
+      </div>
+      <div class="track" id="track"><!-- généré par JS --></div>
+    </div>
+    <p class="note-line">
+      Huit nœuds, quatre phases de tailles inégales (Cadrage 1 · Intentions 3 ·
+      Friction 2 · Sortie 2), conformément au récap. Trois états&nbsp;: fait
+      (rempli + coche), courant (rempli + halo), à venir (contour). Cliquer un
+      nœud déplace la position. Les nœuds 01 et 08 — origine et livrable —
+      sont les bornes, légèrement agrandies.
+    </p>
+
+    <h2 class="block-title">Cartes</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card__kicker">Carte de contenu</div>
+        <h3 class="card__title">Périmètre de la tâche</h3>
+        <p class="card__text">Surface posée, filet d'un point, rayon de 6 px. Le relief vient de la valeur et du filet.</p>
+      </div>
+      <div class="card">
+        <div class="card__kicker">Carte d'étape</div>
+        <div class="step-card">
+          <div class="pastille" style="--c:var(--step-03);">3</div>
+          <div>
+            <div class="step-card__meta">Étape 3 — Phase Intentions</div>
+            <h3 class="card__title" style="margin-top:3px;">Tactique</h3>
+            <p class="card__text">La pastille porte la couleur de l'étape.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__kicker">Carte d'étape</div>
+        <div class="step-card">
+          <div class="pastille" style="--c:var(--step-06);">6</div>
+          <div>
+            <div class="step-card__meta">Étape 6 — Phase Friction</div>
+            <h3 class="card__title" style="margin-top:3px;">Arbitrages</h3>
+            <p class="card__text">La couleur situe sans envahir&nbsp;: elle reste dans la pastille.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="block-title">En-têtes de phase</h2>
+    <p class="note-line" style="margin-top:0;margin-bottom:var(--found-space-4);">
+      La phase est un regroupement <em>structurel</em> — neutre, sans couleur
+      propre. Les pastilles d'étape, elles, portent leurs teintes.
+    </p>
+    <div class="phase-head">
+      <div class="phase-head__txt">
+        <div class="phase-head__eyebrow">Phase 01 / 04 · 1 étape</div>
+        <h3 class="phase-head__name">Cadrage</h3>
+        <p class="phase-head__desc">Délimiter la tâche et son périmètre.</p>
+      </div>
+      <div class="chip-row">
+        <div class="chip" style="--c:var(--step-01);">01</div>
+      </div>
+    </div>
+    <div class="phase-head">
+      <div class="phase-head__txt">
+        <div class="phase-head__eyebrow">Phase 02 / 04 · 3 étapes</div>
+        <h3 class="phase-head__name">Intentions</h3>
+        <p class="phase-head__desc">Stratégie, tactique, opération — expliciter le résultat attendu.</p>
+      </div>
+      <div class="chip-row">
+        <div class="chip" style="--c:var(--step-02);">02</div>
+        <div class="chip" style="--c:var(--step-03);">03</div>
+        <div class="chip" style="--c:var(--step-04);">04</div>
+      </div>
+    </div>
+    <div class="phase-head">
+      <div class="phase-head__txt">
+        <div class="phase-head__eyebrow">Phase 03 / 04 · 2 étapes</div>
+        <h3 class="phase-head__name">Friction</h3>
+        <p class="phase-head__desc">Éprouver les tensions et les arbitrer.</p>
+      </div>
+      <div class="chip-row">
+        <div class="chip" style="--c:var(--step-05);">05</div>
+        <div class="chip" style="--c:var(--step-06);">06</div>
+      </div>
+    </div>
+    <div class="phase-head">
+      <div class="phase-head__txt">
+        <div class="phase-head__eyebrow">Phase 04 / 04 · 2 étapes</div>
+        <h3 class="phase-head__name">Sortie</h3>
+        <p class="phase-head__desc">Garde-fous puis synthèse — filtrer et arrêter le livrable.</p>
+      </div>
+      <div class="chip-row">
+        <div class="chip" style="--c:var(--step-07);">07</div>
+        <div class="chip" style="--c:var(--step-08);">08</div>
+      </div>
+    </div>
+
+    <h2 class="block-title">Liens &amp; champ de saisie</h2>
+    <div class="card-grid">
+      <div class="prose-demo">
+        <p class="card__text" style="color:var(--found-ink);font-size:var(--found-text-body);">
+          Dans le texte courant, un <a href="#composants">lien se distingue
+          par un soulignement discret</a> qui s'affirme au survol. Le lien
+          reste en encre&nbsp;: il ne recourt pas à une couleur d'étape.
+        </p>
+      </div>
+      <div class="card">
+        <div class="field">
+          <label for="demo-input">Intitulé de la tâche</label>
+          <input id="demo-input" type="text" placeholder="Rédiger une note de cadrage…">
+          <p class="hint">Bord en encre adoucie — contraste assuré. Focus visible au clavier.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 07 — RYTHME SPATIAL ===================== -->
+  <section id="rythme">
+    <span class="eyebrow">07 — Rythme spatial</span>
+    <h1 class="section-title">Espacements, rayons, ombres</h1>
+    <p class="section-intro measure">
+      Une échelle unique de 4 px gouverne tous les écarts.
+    </p>
+
+    <h2 class="block-title">Échelle d'espacement</h2>
+    <div class="space-scale">
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-1 · 4 px</span><div class="space-scale__bar" style="width:4px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-2 · 8 px</span><div class="space-scale__bar" style="width:8px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-3 · 12 px</span><div class="space-scale__bar" style="width:12px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-4 · 16 px</span><div class="space-scale__bar" style="width:16px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-5 · 24 px</span><div class="space-scale__bar" style="width:24px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-6 · 32 px</span><div class="space-scale__bar" style="width:32px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-7 · 48 px</span><div class="space-scale__bar" style="width:48px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-8 · 64 px</span><div class="space-scale__bar" style="width:64px;"></div></div>
+      <div class="space-scale__row"><span class="space-scale__lbl">--found-space-9 · 96 px</span><div class="space-scale__bar" style="width:96px;"></div></div>
+    </div>
+
+    <h2 class="block-title">Rayons</h2>
+    <div class="radius-row">
+      <div class="radius-cell"><div class="radius-demo" style="border-radius:var(--found-radius-control);"></div><span>--found-radius-control · 3 px</span></div>
+      <div class="radius-cell"><div class="radius-demo" style="border-radius:var(--found-radius-card);"></div><span>--found-radius-card · 6 px</span></div>
+      <div class="radius-cell"><div class="radius-demo" style="border-radius:var(--found-radius-pill);"></div><span>--found-radius-pill · 999 px · nœuds</span></div>
+    </div>
+    <p class="note-line">
+      Direction A retient des rayons restreints. Le récap emploie aujourd'hui
+      des arrondis plus généreux sur ses cartes&nbsp;: si tu veux un calage
+      exact sur le récap plutôt que le registre plus institutionnel de la
+      Direction A, relever <code>--found-radius-card</code>. Choix ouvert.
+    </p>
+
+    <h2 class="block-title">Ombre</h2>
+    <div class="shadow-row">
+      <div class="shadow-cell"><div class="shadow-demo"></div><span>Aucune ombre — défaut</span></div>
+      <div class="shadow-cell"><div class="shadow-demo has-shadow"></div><span>--found-shadow-card · soulèvement minime</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== 08 — ICONOGRAPHIE ===================== -->
+  <section id="iconographie">
+    <span class="eyebrow">08 — Iconographie</span>
+    <h1 class="section-title">Trait, pas illustration</h1>
+    <p class="section-intro measure">
+      Pas d'illustration ni de photographie. Un jeu d'icônes linéaires en
+      encre, et le motif du nœud — la langue du récap.
+    </p>
+
+    <div class="icon-row">
+      <div class="icon-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#1C1A15" stroke-width="1.5"><rect x="8" y="8" width="24" height="24" rx="1.5"/></svg>
+        <span>Cadrer</span>
+      </div>
+      <div class="icon-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#1C1A15" stroke-width="1.5"><circle cx="20" cy="20" r="12"/><circle cx="20" cy="20" r="3" fill="#1C1A15" stroke="none"/></svg>
+        <span>Intention</span>
+      </div>
+      <div class="icon-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#1C1A15" stroke-width="1.5" stroke-linecap="round"><path d="M14 10 L26 20 L14 30"/><path d="M26 10 L14 20 L26 30"/></svg>
+        <span>Friction</span>
+      </div>
+      <div class="icon-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#1C1A15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 21 L17 28 L30 12"/></svg>
+        <span>Sortie</span>
+      </div>
+    </div>
+    <p class="note-line">Trait uniforme de 1,5 px, géométrie simple, encre monochrome, jamais de remplissage coloré.</p>
+
+    <div class="motif-card">
+      <div class="card__kicker">Motif système — huit nœuds, quatre phases (1 · 3 · 2 · 2)</div>
+      <svg width="100%" height="72" viewBox="0 0 460 72" style="margin-top:var(--found-space-3);max-width:460px;">
+        <line x1="24" y1="36" x2="436" y2="36" stroke="#CABE9F" stroke-width="1.5"/>
+        <circle cx="24"  cy="36" r="11" fill="#6D7789"/>
+        <circle cx="106" cy="36" r="10" fill="#AF2025"/>
+        <circle cx="165" cy="36" r="10" fill="#E8661B"/>
+        <circle cx="224" cy="36" r="10" fill="#0E7B58"/>
+        <circle cx="300" cy="36" r="10" fill="#7C3FEA"/>
+        <circle cx="359" cy="36" r="10" fill="#4537CE"/>
+        <circle cx="418" cy="36" r="10" fill="#9F4F13"/>
+        <circle cx="436" cy="36" r="11" fill="#181410"/>
+      </svg>
+      <p class="card__text">
+        Le nœud isolé est la marque atomique&nbsp;; la constellation des huit
+        nœuds est le motif étendu — ouvertures de section, couvertures.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 09 — DO / DON'T ===================== -->
+  <section id="regles">
+    <span class="eyebrow">09 — Règles</span>
+    <h1 class="section-title">Quatre arbitrages</h1>
+    <p class="section-intro measure">
+      Les principes qui tiennent le registre « institut » malgré une palette
+      d'étapes volontairement vive.
+    </p>
+
+    <div class="dd-grid">
+      <div class="dd-card do">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.4 L4.2 7.5 L8 2.5"/></svg></span>
+          Recommandé
+        </div>
+        <p><strong>Confiner la couleur au nœud.</strong> Les huit teintes vivent dans les pastilles et les nœuds&nbsp;; tout le reste est crème et encre.</p>
+      </div>
+      <div class="dd-card dont">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 2.5 L7.5 7.5 M7.5 2.5 L2.5 7.5"/></svg></span>
+          À éviter
+        </div>
+        <p><strong>Étendre une couleur d'étape en aplat.</strong> Fond plein, bandeau, grande surface colorée&nbsp;: la teinte vive perd sa fonction de repère et l'écran vire au « produit ».</p>
+      </div>
+
+      <div class="dd-card do">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.4 L4.2 7.5 L8 2.5"/></svg></span>
+          Recommandé
+        </div>
+        <p><strong>Garder la structure monochrome.</strong> Boutons, liens, focus, en-têtes&nbsp;: en quasi-noir. La sobriété de l'ensemble tient la couleur.</p>
+      </div>
+      <div class="dd-card dont">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 2.5 L7.5 7.5 M7.5 2.5 L2.5 7.5"/></svg></span>
+          À éviter
+        </div>
+        <p><strong>Introduire une 9ᵉ couleur.</strong> Un accent de marque chromatique concurrencerait les huit étapes et brouillerait la lecture du système.</p>
+      </div>
+
+      <div class="dd-card do">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.4 L4.2 7.5 L8 2.5"/></svg></span>
+          Recommandé
+        </div>
+        <p><strong>Texte de couleur&nbsp;: la variante <code>-ink</code>.</strong> Pour nommer une étape en couleur dans le texte, utiliser le jeton assombri, qui passe l'AA.</p>
+      </div>
+      <div class="dd-card dont">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 2.5 L7.5 7.5 M7.5 2.5 L2.5 7.5"/></svg></span>
+          À éviter
+        </div>
+        <p><strong>Poser du texte fin dans la teinte pleine.</strong> L'orange et le bleu-gris, en petit corps, échouent au contraste&nbsp;: réservés aux nœuds.</p>
+      </div>
+
+      <div class="dd-card do">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.4 L4.2 7.5 L8 2.5"/></svg></span>
+          Recommandé
+        </div>
+        <p><strong>Laisser le crème respirer.</strong> Marges larges, une idée par bloc, hiérarchie obtenue par la taille et la graisse.</p>
+      </div>
+      <div class="dd-card dont">
+        <div class="dd-card__head">
+          <span class="dd-mark"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 2.5 L7.5 7.5 M7.5 2.5 L2.5 7.5"/></svg></span>
+          À éviter
+        </div>
+        <p><strong>Déformer le wordmark.</strong> Inclinaison, dégradé, ombre, recolorisation hors palette, pose sur une couleur d'étape.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 10 — ANNEXE TOKENS ===================== -->
+  <section id="tokens">
+    <span class="eyebrow">10 — Annexe</span>
+    <h1 class="section-title">Design tokens — bloc complet</h1>
+    <p class="section-intro measure">
+      À copier dans la feuille de style du site. Les huit valeurs
+      <code>--step-*</code> sont relevées sur le récap&nbsp;: les remplacer
+      par les hex exacts de la source pour un verrouillage parfait.
+    </p>
+
+    <div class="token-block">
+<pre><span class="c">/* ============================================================
+   LE MANDAT — DESIGN TOKENS · Direction A — Doctrine
+   Couche 1 : FONDATIONS  (--found-*)
+   Couche 2 : SURFACE     (--mandat-* / --step-*)
+   ============================================================ */</span>
+<span class="v">:root</span> {
+
+  <span class="c">/* ---------- COUCHE 1 — FONDATIONS ---------- */</span>
+  <span class="v">--found-surface</span>:         <span class="h">#F4F1E8</span>;
+  <span class="v">--found-surface-raised</span>:  <span class="h">#FCFBF6</span>;
+  <span class="v">--found-surface-sunken</span>:  <span class="h">#EAE6D9</span>;
+
+  <span class="v">--found-ink</span>:             <span class="h">#1C1A15</span>;
+  <span class="v">--found-ink-soft</span>:        <span class="h">#5A5345</span>;
+  <span class="v">--found-ink-faint</span>:       <span class="h">#6B6254</span>;
+
+  <span class="v">--found-line</span>:            <span class="h">#DDD6C5</span>;
+  <span class="v">--found-line-strong</span>:     <span class="h">#CABE9F</span>;
+
+  <span class="v">--found-font-serif</span>: <span class="h">'Source Serif 4', Georgia, serif</span>;
+  <span class="v">--found-font-sans</span>:  <span class="h">'IBM Plex Sans', Arial, sans-serif</span>;
+  <span class="v">--found-text-display</span>: <span class="h">2.75rem</span>;   <span class="v">--found-text-h1</span>:    <span class="h">2.125rem</span>;
+  <span class="v">--found-text-h2</span>:      <span class="h">1.5rem</span>;     <span class="v">--found-text-h3</span>:    <span class="h">1.1875rem</span>;
+  <span class="v">--found-text-lead</span>:    <span class="h">1.1875rem</span>;  <span class="v">--found-text-body</span>:  <span class="h">1.0625rem</span>;
+  <span class="v">--found-text-small</span>:   <span class="h">0.9375rem</span>;  <span class="v">--found-text-micro</span>: <span class="h">0.75rem</span>;
+  <span class="v">--found-leading-tight</span>: <span class="h">1.16</span>;  <span class="v">--found-leading-snug</span>: <span class="h">1.34</span>;  <span class="v">--found-leading-body</span>: <span class="h">1.62</span>;
+  <span class="v">--found-weight-regular</span>: <span class="h">400</span>;  <span class="v">--found-weight-medium</span>:  <span class="h">500</span>;
+  <span class="v">--found-weight-semibold</span>:<span class="h">600</span>;  <span class="v">--found-weight-bold</span>:    <span class="h">700</span>;
+  <span class="v">--found-tracking-label</span>: <span class="h">0.10em</span>;  <span class="v">--found-tracking-tight</span>: <span class="h">-0.012em</span>;
+
+  <span class="c">/* Espacements — échelle 4 px */</span>
+  <span class="v">--found-space-1</span>: <span class="h">4px</span>;   <span class="v">--found-space-2</span>: <span class="h">8px</span>;   <span class="v">--found-space-3</span>: <span class="h">12px</span>;
+  <span class="v">--found-space-4</span>: <span class="h">16px</span>;  <span class="v">--found-space-5</span>: <span class="h">24px</span>;  <span class="v">--found-space-6</span>: <span class="h">32px</span>;
+  <span class="v">--found-space-7</span>: <span class="h">48px</span>;  <span class="v">--found-space-8</span>: <span class="h">64px</span>;  <span class="v">--found-space-9</span>: <span class="h">96px</span>;
+
+  <span class="v">--found-radius-control</span>: <span class="h">3px</span>;
+  <span class="v">--found-radius-card</span>:    <span class="h">6px</span>;
+  <span class="v">--found-radius-pill</span>:    <span class="h">999px</span>;
+  <span class="v">--found-shadow-card</span>: <span class="h">0 1px 2px rgba(28,26,21,.05),
+                             0 1px 1px rgba(28,26,21,.04)</span>;
+
+  <span class="c">/* ---------- COUCHE 2 — SURFACE ---------- */</span>
+  <span class="c">/* Accent structurel — quasi-noir. Pas de couleur de marque
+     supplémentaire : la couleur appartient aux étapes. */</span>
+  <span class="v">--mandat-accent</span>:        <span class="h">#201D17</span>;
+  <span class="v">--mandat-accent-strong</span>: <span class="h">#14110D</span>;
+  <span class="v">--mandat-accent-tint</span>:   <span class="h">#ECE8DC</span>;
+  <span class="v">--mandat-accent-on</span>:     <span class="h">#F7F4EA</span>;
+  <span class="v">--mandat-focus</span>:         <span class="h">#201D17</span>;
+
+  <span class="c">/* 8 couleurs d'étape — relevées sur le récap verrouillé.
+     teinte (nœud) + -ink (texte sur crème, AA).
+     >>> remplacer par les hex exacts de la source du récap <<< */</span>
+  <span class="v">--step-01</span>: <span class="h">#6D7789</span>;  <span class="v">--step-01-ink</span>: <span class="h">#616A7A</span>;  <span class="c">/* Le projet  */</span>
+  <span class="v">--step-02</span>: <span class="h">#AF2025</span>;  <span class="v">--step-02-ink</span>: <span class="h">#AF2025</span>;  <span class="c">/* Stratégie  */</span>
+  <span class="v">--step-03</span>: <span class="h">#E8661B</span>;  <span class="v">--step-03-ink</span>: <span class="h">#AE4C14</span>;  <span class="c">/* Tactique   */</span>
+  <span class="v">--step-04</span>: <span class="h">#0E7B58</span>;  <span class="v">--step-04-ink</span>: <span class="h">#0E7755</span>;  <span class="c">/* Opération  */</span>
+  <span class="v">--step-05</span>: <span class="h">#7C3FEA</span>;  <span class="v">--step-05-ink</span>: <span class="h">#7C3FEA</span>;  <span class="c">/* Tensions   */</span>
+  <span class="v">--step-06</span>: <span class="h">#4537CE</span>;  <span class="v">--step-06-ink</span>: <span class="h">#4537CE</span>;  <span class="c">/* Arbitrages */</span>
+  <span class="v">--step-07</span>: <span class="h">#9F4F13</span>;  <span class="v">--step-07-ink</span>: <span class="h">#9F4F13</span>;  <span class="c">/* Garde-fous */</span>
+  <span class="v">--step-08</span>: <span class="h">#181410</span>;  <span class="v">--step-08-ink</span>: <span class="h">#181410</span>;  <span class="c">/* Synthèse   */</span>
+
+  <span class="c">/* Phases — regroupement structurel, sans couleur propre :
+     1 Cadrage = 01 · 2 Intentions = 02·03·04
+     3 Friction = 05·06 · 4 Sortie = 07·08 */</span>
+}</pre>
+    </div>
+  </section>
+
+  <footer>
+    <strong style="color:var(--found-ink);font-weight:var(--found-weight-semibold);font-family:var(--found-font-serif);">Le Mandat</strong>
+    — Guide d'identité, Direction A « Doctrine », synchronisé sur le récap
+    « L'architecture du mandat ». Tokens en deux couches&nbsp;: Fondations ·
+    Surface. Composé en Source Serif 4 &amp; IBM Plex Sans.
+  </footer>
+
+</div>
+
+<script>
+/* Stepper — 8 étapes, 4 phases inégales (1 · 3 · 2 · 2) */
+(function () {
+  var steps = [
+    { n:1, name:'Le projet',  v:'--step-01', phase:1, bookend:true  },
+    { n:2, name:'Stratégie',  v:'--step-02', phase:2 },
+    { n:3, name:'Tactique',   v:'--step-03', phase:2 },
+    { n:4, name:'Opération',  v:'--step-04', phase:2 },
+    { n:5, name:'Tensions',   v:'--step-05', phase:3 },
+    { n:6, name:'Arbitrages', v:'--step-06', phase:3 },
+    { n:7, name:'Garde-fous', v:'--step-07', phase:4 },
+    { n:8, name:'Synthèse',   v:'--step-08', phase:4, bookend:true }
+  ];
+  var phaseNames = ['Cadrage', 'Intentions', 'Friction', 'Sortie'];
+  var track   = document.getElementById('track');
+  var roStep  = document.getElementById('ro-step');
+  var roPhase = document.getElementById('ro-phase');
+  var current = 4;
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  var check = '<span class="node__check"><svg width="9" height="9" viewBox="0 0 10 10" '
+    + 'fill="none" stroke="#0E7B58" stroke-width="2" stroke-linecap="round" '
+    + 'stroke-linejoin="round"><path d="M2 5.2 L4.2 7.4 L8 2.6"/></svg></span>';
+
+  function render() {
+    track.innerHTML = '';
+    [1, 2, 3, 4].forEach(function (ph) {
+      var inPhase = steps.filter(function (s) { return s.phase === ph; });
+      var seg = document.createElement('div');
+      seg.className = 'phase-seg';
+      seg.style.flexGrow = inPhase.length;
+
+      var label = document.createElement('div');
+      label.className = 'phase-seg__label';
+      label.innerHTML = phaseNames[ph - 1] + ' <span>· ' + inPhase.length
+        + (inPhase.length > 1 ? ' étapes' : ' étape') + '</span>';
+      seg.appendChild(label);
+
+      var nodes = document.createElement('div');
+      nodes.className = 'phase-seg__nodes';
+      inPhase.forEach(function (s) {
+        var wrap = document.createElement('div');
+        wrap.className = 'node-wrap';
+
+        var btn = document.createElement('button');
+        btn.className = 'node' + (s.bookend ? ' is-bookend' : '');
+        btn.style.setProperty('--c', 'var(' + s.v + ')');
+        btn.innerHTML = pad(s.n);
+        btn.setAttribute('aria-label',
+          'Étape ' + s.n + ' sur 8, ' + s.name + ', phase ' + phaseNames[ph - 1]);
+        if (s.n < current) { btn.classList.add('is-done'); btn.innerHTML += check; }
+        if (s.n === current) { btn.classList.add('is-current'); btn.setAttribute('aria-current', 'step'); }
+        btn.addEventListener('click', (function (n) {
+          return function () { current = n; render(); };
+        })(s.n));
+        wrap.appendChild(btn);
+
+        var nm = document.createElement('div');
+        nm.className = 'node-name';
+        nm.textContent = s.name;
+        wrap.appendChild(nm);
+
+        nodes.appendChild(wrap);
+      });
+      seg.appendChild(nodes);
+      track.appendChild(seg);
+    });
+
+    var p = steps[current - 1].phase;
+    roStep.textContent  = 'Étape ' + pad(current) + ' / 08';
+    roPhase.textContent = 'Phase ' + pad(p) + ' / 04 — ' + phaseNames[p - 1];
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>

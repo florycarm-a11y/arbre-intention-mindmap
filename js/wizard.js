@@ -89,7 +89,10 @@
     function renderStep(etape) {
         const totalSteps = _schema.etapes.length;
         const numero = _currentIdx + 1;
-        const colorStyle = `style="--etape-color: ${etape.color}"`;
+        // La couleur d'étape est dérivée de l'id (1..8) via le token --step-0N
+        // défini dans css/tokens.css — plus de hex codé en dur côté données.
+        const stepVar = `var(--step-${String(etape.id).padStart(2, '0')})`;
+        const colorStyle = `style="--etape-color: ${stepVar}"`;
 
         if (etape.lectureSeule) {
             return renderSynthese(etape, numero, totalSteps, colorStyle);

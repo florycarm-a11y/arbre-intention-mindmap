@@ -11,6 +11,17 @@
 
     let _schema = null, _mandat = null, _container = null, _onNodeClick = null;
 
+    // ── Résolution des couleurs depuis les tokens CSS (css/tokens.css) ──
+    // SVG ne peut pas consommer directement var(--step-01) sur ses attributs,
+    // donc on résout la valeur effective depuis :root au moment du rendu.
+    function cssVar(name) {
+        return getComputedStyle(document.documentElement)
+            .getPropertyValue(name).trim();
+    }
+    function stepColor(id) {
+        return cssVar('--step-' + String(id).padStart(2, '0'));
+    }
+
     // Phases : 4 colonnes horizontales
     const PHASES = [
         { label: 'CADRAGE',    steps: [0],       nums: '01' },
@@ -19,19 +30,21 @@
         { label: 'SORTIE',     steps: [6, 7],    nums: '07 · 08' },
     ];
 
-    // Arêtes fixes (indices 0-based dans etapes[])
+    // Arêtes fixes (indices 0-based dans etapes[]).
+    // La couleur d'une arête représente l'étape SOURCE — on stocke donc
+    // l'id de l'étape source plutôt qu'un hex codé en dur.
     const EDGES = [
-        { s: 0, t: 1, c: '#64748B' },
-        { s: 0, t: 2, c: '#64748B' },
-        { s: 0, t: 3, c: '#64748B' },
-        { s: 1, t: 4, c: '#B91C1C' },
-        { s: 2, t: 4, c: '#EA580C' },
-        { s: 3, t: 4, c: '#047857' },
-        { s: 1, t: 5, c: '#EA580C' },
-        { s: 4, t: 5, c: '#7C3AED' },
-        { s: 4, t: 6, c: '#7C3AED' },
-        { s: 5, t: 7, c: '#4338CA' },
-        { s: 6, t: 7, c: '#B45309' },
+        { s: 0, t: 1, src: 1 },
+        { s: 0, t: 2, src: 1 },
+        { s: 0, t: 3, src: 1 },
+        { s: 1, t: 4, src: 2 },
+        { s: 2, t: 4, src: 3 },
+        { s: 3, t: 4, src: 4 },
+        { s: 1, t: 5, src: 3 },
+        { s: 4, t: 5, src: 5 },
+        { s: 4, t: 6, src: 5 },
+        { s: 5, t: 7, src: 6 },
+        { s: 6, t: 7, src: 7 },
     ];
 
     // Étiquettes courtes (affichage sous les nœuds)
@@ -130,11 +143,23 @@
             .attr('role', 'img')
             .attr('aria-label', 'Architecture du mandat — récapitulatif');
 
-        // ── Defs : marqueurs flèche (un par couleur unique) ──
+        // Tokens résolus une fois par rendu (lus depuis css/tokens.css)
+        const C_SURFACE_SUNKEN = cssVar('--found-surface-sunken');
+        const C_SURFACE_RAISED = cssVar('--found-surface-raised');
+        const C_INK            = cssVar('--found-ink');
+        const C_INK_SOFT       = cssVar('--found-ink-soft');
+        const C_INK_FAINT      = cssVar('--found-ink-faint');
+        const C_LINE_STRONG    = cssVar('--found-line-strong');
+        const C_ACCENT         = cssVar('--mandat-accent');
+        const C_ACCENT_ON      = cssVar('--mandat-accent-on');
+        const SANS             = cssVar('--found-font-sans');
+
+        // ── Defs : marqueurs flèche (un par étape source) ──
         const defs = svg.append('defs');
-        [...new Set(EDGES.map(e => e.c))].forEach(color => {
+        [...new Set(EDGES.map(e => e.src))].forEach(srcId => {
+            const color = stepColor(srcId);
             defs.append('marker')
-                .attr('id', 'mmarr' + color.slice(1))
+                .attr('id', 'mmarr-' + srcId)
                 .attr('viewBox', '0 0 8 8')
                 .attr('refX', 7).attr('refY', 4)
                 .attr('markerWidth', 4).attr('markerHeight', 4)
@@ -147,27 +172,32 @@
         // ── Fond ──
         svg.append('rect')
             .attr('width', W).attr('height', H)
-            .attr('fill', '#F5F4F0').attr('rx', 12);
+            .attr('fill', C_SURFACE_SUNKEN).attr('rx', 12);
 
         // ── Zone titre ──
         svg.append('text')
             .attr('x', 20).attr('y', 20)
-            .attr('fill', '#A8A29E').attr('font-size', 10).attr('font-weight', 700)
+            .attr('fill', C_INK_FAINT)
+            .attr('font-family', SANS)
+            .attr('font-size', 10).attr('font-weight', 700)
             .attr('letter-spacing', '.1em')
             .text('RÉCAPITULATIF DU MANDAT');
         svg.append('text')
             .attr('x', 20).attr('y', 50)
-            .attr('fill', '#1C1917').attr('font-size', 22).attr('font-weight', 700)
+            .attr('fill', C_INK).attr('font-size', 22).attr('font-weight', 700)
             .text("L'architecture du mandat");
 
         // Compteur haut-droite
         const ccx = W - 118, ccy = 32;
-        svg.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 18).attr('fill', '#1C1917');
+        svg.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 18).attr('fill', C_ACCENT);
         svg.append('text').attr('x', ccx).attr('y', ccy + 5.5)
-            .attr('text-anchor', 'middle').attr('fill', '#fff')
+            .attr('text-anchor', 'middle').attr('fill', C_ACCENT_ON)
+            .attr('font-family', SANS)
             .attr('font-size', 14).attr('font-weight', 700).text(filledCount);
         svg.append('text').attr('x', ccx + 24).attr('y', ccy + 5)
-            .attr('fill', '#44403C').attr('font-size', 12).attr('font-weight', 600)
+            .attr('fill', C_INK_SOFT)
+            .attr('font-family', SANS)
+            .attr('font-size', 12).attr('font-weight', 600)
             .text('/ ' + etapes.length + ' étapes');
 
         // ── Bandes de phases ──
@@ -177,14 +207,18 @@
                 .attr('x', x0 + 4).attr('y', TITLE_H + 4)
                 .attr('width', x1 - x0 - 8)
                 .attr('height', H - TITLE_H - FOOTER_H - 8)
-                .attr('fill', '#EAE8E4').attr('rx', 8).attr('opacity', 0.65);
+                .attr('fill', C_SURFACE_RAISED).attr('rx', 8).attr('opacity', 0.65);
             svg.append('text').attr('x', mx).attr('y', TITLE_H + 24)
                 .attr('text-anchor', 'middle')
-                .attr('fill', '#78716C').attr('font-size', 11).attr('font-weight', 700)
+                .attr('fill', C_INK_FAINT)
+                .attr('font-family', SANS)
+                .attr('font-size', 11).attr('font-weight', 700)
                 .attr('letter-spacing', '.08em').text(ph.label);
             svg.append('text').attr('x', mx).attr('y', TITLE_H + 44)
                 .attr('text-anchor', 'middle')
-                .attr('fill', '#A8A29E').attr('font-size', 10).text(ph.nums);
+                .attr('fill', C_INK_FAINT)
+                .attr('font-family', SANS)
+                .attr('font-size', 10).text(ph.nums);
         });
 
         // Séparateurs en tirets entre phases
@@ -193,14 +227,15 @@
             svg.append('line')
                 .attr('x1', sx).attr('y1', TITLE_H + 10)
                 .attr('x2', sx).attr('y2', H - FOOTER_H - 4)
-                .attr('stroke', '#D6D3D1').attr('stroke-width', 1)
+                .attr('stroke', C_LINE_STRONG).attr('stroke-width', 1)
                 .attr('stroke-dasharray', '4 4');
         }
 
         // ── Arêtes ──
         const eLayer = svg.append('g');
-        EDGES.forEach(({ s, t, c }) => {
+        EDGES.forEach(({ s, t, src }) => {
             const ns = nodes[s], nt = nodes[t];
+            const color = stepColor(src);
             const dx = nt.x - ns.x, dy = nt.y - ns.y;
             const len = Math.hypot(dx, dy) || 1;
             const ux = dx / len, uy = dy / len;
@@ -210,8 +245,8 @@
             eLayer.append('path')
                 .attr('d', `M${sx2},${sy2} C${mx2},${sy2} ${mx2},${ey2} ${ex2},${ey2}`)
                 .attr('fill', 'none')
-                .attr('stroke', c).attr('stroke-width', 1.8).attr('stroke-opacity', 0.65)
-                .attr('marker-end', `url(#mmarr${c.slice(1)})`);
+                .attr('stroke', color).attr('stroke-width', 1.8).attr('stroke-opacity', 0.65)
+                .attr('marker-end', `url(#mmarr-${src})`);
         });
 
         // ── Nœuds ──
@@ -225,41 +260,49 @@
         ng.filter(d => d.large).append('circle')
             .attr('r', d => d.r + 10)
             .attr('fill', 'none')
-            .attr('stroke', d => d.etape.color)
+            .attr('stroke', d => stepColor(d.etape.id))
             .attr('stroke-width', 2.5).attr('stroke-opacity', 0.3);
 
         ng.append('circle').attr('r', d => d.r)
-            .attr('fill', d => d.etape.color)
-            .attr('stroke', '#F5F4F0').attr('stroke-width', 2.5);
+            .attr('fill', d => stepColor(d.etape.id))
+            .attr('stroke', C_SURFACE_SUNKEN).attr('stroke-width', 2.5);
 
         // Numéro d'étape
         ng.append('text').attr('text-anchor', 'middle')
             .attr('y', d => INNER_LABELS[d.idx] ? -5 : 5)
-            .attr('fill', '#fff')
+            .attr('fill', C_ACCENT_ON)
+            .attr('font-family', SANS)
             .attr('font-size', d => d.large ? 18 : 14).attr('font-weight', 700)
             .text(d => d.etape.id);
 
         // Sous-label intérieur (CADRAGE / LIVRABLE)
         ng.filter(d => !!INNER_LABELS[d.idx]).append('text')
             .attr('text-anchor', 'middle').attr('y', 13)
-            .attr('fill', '#fff').attr('font-size', 9).attr('font-weight', 700)
+            .attr('fill', C_ACCENT_ON)
+            .attr('font-family', SANS)
+            .attr('font-size', 9).attr('font-weight', 700)
             .attr('letter-spacing', '.05em').text(d => INNER_LABELS[d.idx]);
 
         // Étiquette externe (sous le cercle)
         ng.append('text').attr('text-anchor', 'middle')
             .attr('y', d => d.r + (d.large ? 20 : 16))
-            .attr('fill', '#1C1917').attr('font-size', 12).attr('font-weight', 600)
+            .attr('fill', C_INK)
+            .attr('font-family', SANS)
+            .attr('font-size', 12).attr('font-weight', 600)
             .text(d => SHORT_LABELS[d.idx]);
 
         // Badge coche conditionnel
         ng.filter(d => d.filled).each(function (d) {
             const g = d3.select(this);
+            const color = stepColor(d.etape.id);
             const bx = d.r * 0.67, by = -d.r * 0.67;
             g.append('circle').attr('cx', bx).attr('cy', by).attr('r', 9)
-                .attr('fill', '#fff').attr('stroke', d.etape.color).attr('stroke-width', 1.5);
+                .attr('fill', C_SURFACE_RAISED).attr('stroke', color).attr('stroke-width', 1.5);
             g.append('text').attr('x', bx).attr('y', by + 4)
                 .attr('text-anchor', 'middle')
-                .attr('fill', d.etape.color).attr('font-size', 10).attr('font-weight', 700)
+                .attr('fill', color)
+                .attr('font-family', SANS)
+                .attr('font-size', 10).attr('font-weight', 700)
                 .text('✓');
         });
 
@@ -270,10 +313,14 @@
         // ── Légende bas ──
         const fy = H - FOOTER_H / 2 + 7;
         svg.append('text').attr('x', 16).attr('y', fy)
-            .attr('fill', '#78716C').attr('font-size', 11)
+            .attr('fill', C_INK_FAINT)
+            .attr('font-family', SANS)
+            .attr('font-size', 11)
             .text("Le projet alimente trois intentions ; leurs tensions s’arbitrent ; les garde-fous filtrent la sortie.");
         svg.append('text').attr('x', W - 16).attr('y', fy)
-            .attr('text-anchor', 'end').attr('fill', '#A8A29E').attr('font-size', 11)
+            .attr('text-anchor', 'end').attr('fill', C_INK_FAINT)
+            .attr('font-family', SANS)
+            .attr('font-size', 11)
             .text('cliquer un nœud → modifier');
     }
 
@@ -335,7 +382,7 @@
                 const filled = isStepFilled(e);
                 const btn = document.createElement('button');
                 btn.className = 'mm-step-btn';
-                btn.style.setProperty('--c', e.color);
+                btn.style.setProperty('--c', stepColor(e.id));
                 btn.setAttribute('aria-label', `Étape ${e.id} : ${SHORT_LABELS[si]}`);
                 btn.innerHTML = `
                     <span class="mm-step-btn__circle">
