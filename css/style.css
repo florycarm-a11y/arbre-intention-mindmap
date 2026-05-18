@@ -1077,6 +1077,42 @@ body.mode-fill .fab-export {
     margin: 0;
 }
 
+/* Mini-schéma hiérarchique — affiché sur les étapes Intentions (2/3/4).
+   Trois lignes empilées qui situent visuellement le niveau courant
+   dans la pile Stratégique → Tactique → Opérationnelle. Discret,
+   sert d'ancrage cognitif sans détourner du contenu principal. */
+.wizard__hierarchie {
+    margin: 0 0 1.5rem;
+}
+.wizard__hierarchie-liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 260px;
+    border: 1px solid var(--found-line);
+    border-radius: var(--found-radius-card);
+    overflow: hidden;
+    background: var(--found-surface);
+}
+.wizard__hierarchie-ligne {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    letter-spacing: var(--found-tracking-label);
+    text-transform: uppercase;
+    color: var(--found-ink-soft);
+    background: transparent;
+    padding: 0.4rem 0.75rem;
+    line-height: 1.3;
+}
+.wizard__hierarchie-ligne--actif {
+    background: var(--mandat-accent);
+    color: var(--mandat-accent-on);
+}
+
 /* Bloc rappel — visible uniquement sur l'étape Tensions.
    Discret, ne doit pas voler l'attention aux textareas. */
 .wizard__rappel {

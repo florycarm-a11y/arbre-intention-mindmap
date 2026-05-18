@@ -117,6 +117,10 @@
         // sur l'étape Tensions où la cohérence des 3 niveaux est centrale.
         const rappelHtml = etape.key === 'tensions' ? renderRappelIntentions() : '';
 
+        // Mini-schéma de hiérarchie sur les 3 étapes Intentions : situe
+        // visuellement le niveau courant dans la pile Stratégique/Tactique/Opérationnelle.
+        const hierarchieHtml = etape.phase === 'intentions' ? renderHierarchieIntentions(etape.key) : '';
+
         return `
             <article class="wizard__etape" ${colorStyle}>
                 <header class="wizard__etape-header">
@@ -125,6 +129,7 @@
                     <h2 class="wizard__question">${etape.question}</h2>
                     <p class="wizard__soustitre">${etape.soustitre}</p>
                 </header>
+                ${hierarchieHtml}
                 ${rappelHtml}
                 <div class="wizard__champs">
                     ${fieldsHtml}
@@ -149,6 +154,22 @@
         if (typeof s !== 'string') return '';
         const t = s.trim();
         return t.length > max ? t.slice(0, max).trimEnd() + '…' : t;
+    }
+
+    // Mini-schéma 3 lignes : situe le niveau courant dans la hiérarchie
+    // Stratégique → Tactique → Opérationnelle. Affiché sur les étapes 2/3/4.
+    function renderHierarchieIntentions(currentKey) {
+        const lignes = RAPPEL_NIVEAUX.map(n => {
+            const actif = n.key === currentKey;
+            const classe = `wizard__hierarchie-ligne${actif ? ' wizard__hierarchie-ligne--actif' : ''}`;
+            const aria = actif ? ' aria-current="step"' : '';
+            return `<li class="${classe}"${aria}>${n.label}</li>`;
+        }).join('');
+        return `
+            <nav class="wizard__hierarchie" aria-label="Position dans la hiérarchie des intentions">
+                <ol class="wizard__hierarchie-liste">${lignes}</ol>
+            </nav>
+        `;
     }
 
     function renderRappelIntentions() {
