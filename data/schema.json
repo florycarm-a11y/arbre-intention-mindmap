@@ -139,25 +139,25 @@
       "phase": "friction",
       "label": "Tensions",
       "question": "Quelles contradictions ?",
-      "soustitre": "Trois paires d'intentions, trois contradictions possibles. Si vous n'en trouvez aucune, vous n'avez pas assez cherché.",
+      "soustitre": "Trois paires d'intentions, trois contradictions à chercher. Commencez par stratégique vs tactique : c'est souvent là que les tensions sont les plus visibles.",
       "champs": [
         {
           "key": "stratTact",
           "label": "Stratégique ↔ Tactique",
           "obligatoire": false,
-          "placeholder": "Quelle action l'une prescrit-elle que l'autre interdit ?"
+          "placeholder": "Ex : la stratégie vise la rétention long terme, mais la tactique pousse à convertir vite. Que faire des prospects fragiles ?"
         },
         {
           "key": "tactOp",
           "label": "Tactique ↔ Opérationnel",
           "obligatoire": false,
-          "placeholder": "Idem, entre tactique et opérationnel"
+          "placeholder": "Ex : la tactique demande de la personnalisation, mais l'IA n'a accès qu'aux données publiques. Jusqu'où improviser ?"
         },
         {
           "key": "stratOp",
           "label": "Stratégique ↔ Opérationnel",
           "obligatoire": false,
-          "placeholder": "Idem, entre stratégique et opérationnel"
+          "placeholder": "Ex : la finalité est éthique, mais les contraintes de temps poussent à copier-coller la première réponse. Qui tranche ?"
         }
       ],
       "explication": "Une tension n'est pas un problème — c'est un signal que votre cadrage est réaliste. Si vous ne trouvez aucune tension, vos intentions sont soit trop vagues, soit identiques.",

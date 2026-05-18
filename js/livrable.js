@@ -51,7 +51,7 @@
                 <details class="livrable__help">
                     <summary>↳ Comment l'utiliser ?</summary>
                     <p>${_activeFormat === 'A'
-                        ? 'Collez ce prompt en début de session ChatGPT, Claude, Cursor, ou utilisez-le comme <code>system</code> d\'un appel API.'
+                        ? 'Collez ce texte au début de votre conversation avec ChatGPT, Claude ou Mistral. Pour un usage avancé : utilisez-le comme <code>system</code> prompt d\'un appel API ou comme instructions de session dans Cursor.'
                         : 'Déposez ce fichier à la racine de votre projet (Claude Code, Cursor, repo Git). Il sert à la fois d\'instruction pour l\'IA et de trace écrite de gouvernance, utilisable comme preuve de réflexion préalable au regard de l\'Article 4.'}</p>
                 </details>
             </article>

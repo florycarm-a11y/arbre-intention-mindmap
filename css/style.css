@@ -1077,6 +1077,72 @@ body.mode-fill .fab-export {
     margin: 0;
 }
 
+/* Bloc rappel — visible uniquement sur l'étape Tensions.
+   Discret, ne doit pas voler l'attention aux textareas. */
+.wizard__rappel {
+    margin: 0 0 1.75rem;
+    padding: 1rem 1.25rem;
+    background: var(--found-surface);
+    border: 1px solid var(--found-line);
+    border-radius: var(--found-radius-card);
+}
+.wizard__rappel-titre {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    letter-spacing: var(--found-tracking-label);
+    text-transform: uppercase;
+    margin: 0 0 0.75rem;
+}
+.wizard__rappel-grille {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+@media (min-width: 720px) {
+    .wizard__rappel-grille { grid-template-columns: repeat(3, 1fr); }
+}
+.wizard__rappel-carte {
+    padding: 0.75rem 0.875rem;
+    background: var(--found-surface-raised);
+    border: 1px solid var(--found-line);
+    border-radius: var(--found-radius-control);
+}
+.wizard__rappel-carte--vide { background: var(--found-surface); }
+.wizard__rappel-label {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    letter-spacing: var(--found-tracking-label);
+    text-transform: uppercase;
+    margin: 0 0 0.35rem;
+}
+.wizard__rappel-contenu {
+    margin: 0;
+    color: var(--found-ink-soft);
+    font-size: var(--found-text-small);
+    line-height: var(--found-leading-snug);
+}
+.wizard__rappel-vide { color: var(--found-ink-faint); font-style: italic; }
+.wizard__rappel-lien {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: var(--etape-color, var(--mandat-accent));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.wizard__rappel-lien:hover { color: var(--mandat-accent-strong); }
+.wizard__rappel-lien:focus-visible {
+    outline: 2px solid var(--mandat-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
 .wizard__field {
     display: flex;
     flex-direction: column;
