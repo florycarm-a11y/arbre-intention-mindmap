@@ -92,6 +92,16 @@
         btn.addEventListener('click', async () => {
             const action = btn.dataset.action;
             const id = btn.dataset.exempleId;
+
+            if (action === 'prefill') {
+                const existant = LeMandatStorage.load();
+                if (existant && !LeMandatStorage.isEmpty(existant)) {
+                    if (!confirm('Cela remplacera votre mandat en cours. Continuer ?')) {
+                        return;
+                    }
+                }
+            }
+
             const mandat = await loadExemple(id);
             const fullMandat = { version: 2, updatedAt: new Date().toISOString(), ...mandat };
             LeMandatStorage.save(fullMandat);
