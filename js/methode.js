@@ -64,7 +64,7 @@
         const exempleMandat = renderExempleEtape(etape, mandatMeta);
 
         return `
-            <section class="methode__section" id="etape-${etape.id}" style="--etape-color: ${etape.color}">
+            <section class="methode__section" id="etape-${etape.id}" style="--etape-color: var(--step-${String(etape.id).padStart(2, '0')})">
                 <header class="methode__section-header">
                     <p class="methode__section-numero">Étape ${etape.id}</p>
                     <h2 class="methode__section-title">${escapeHtml(etape.label)}</h2>
@@ -105,7 +105,7 @@
         if (!valuesHtml) return '';
 
         return `
-            <aside class="methode__exemple" style="border-left-color: ${etape.color}">
+            <aside class="methode__exemple" style="border-left-color: var(--step-${String(etape.id).padStart(2, '0')})">
                 <p class="methode__exemple-titre">Cas d'étude — Le Mandat construit avec sa propre démarche</p>
                 <dl>${valuesHtml}</dl>
             </aside>

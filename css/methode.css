@@ -1,5 +1,6 @@
 /* ========================================
    Le Mandat — Styles spécifiques /methode
+   Palier 2 : entièrement migré sur les tokens.
    ======================================== */
 
 .methode-hero {
@@ -9,33 +10,44 @@
     text-align: center;
 }
 .methode-hero__pretitre {
+    font-family: var(--found-font-sans);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #78716C;
-    font-size: 0.85rem;
+    letter-spacing: var(--found-tracking-label);
+    color: var(--found-ink-faint);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
     margin: 0 0 0.5rem;
 }
 .methode-hero__title {
-    font-size: 2.25rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: #1C1917;
+    font-size: var(--found-text-h1);
+    letter-spacing: var(--found-tracking-tight);
+    font-weight: var(--found-weight-semibold);
+    line-height: var(--found-leading-tight);
+    color: var(--found-ink);
     margin: 0 0 1rem;
 }
 .methode-hero__subtitle {
-    color: #57534E;
-    line-height: 1.5;
+    font-size: var(--found-text-lead);
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
     margin: 0 0 1.5rem;
 }
 .methode-hero__cta {
     display: inline-block;
     padding: 0.6rem 1.25rem;
-    border: 1px solid #1C1917;
-    color: #1C1917;
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-small);
+    font-weight: var(--found-weight-medium);
+    border: 1px solid var(--found-ink-soft);
+    color: var(--found-ink);
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: var(--found-radius-control);
+    transition: background var(--transition), color var(--transition);
 }
-.methode-hero__cta:hover { background: #1C1917; color: #FFFFFF; }
+.methode-hero__cta:hover {
+    background: var(--found-surface-sunken);
+    color: var(--found-ink);
+}
 
 .methode__phase {
     max-width: 880px;
@@ -43,21 +55,24 @@
     padding: 0 1.5rem;
 }
 .methode__phase-header {
-    border-bottom: 1px solid #E7E5E4;
+    border-bottom: 1px solid var(--found-line);
     padding-bottom: 0.75rem;
     margin-bottom: 0.5rem;
 }
 .methode__phase-numero {
+    font-family: var(--found-font-sans);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.8rem;
-    color: #78716C;
+    letter-spacing: var(--found-tracking-label);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
     margin: 0;
 }
 .methode__phase-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1C1917;
+    font-size: var(--found-text-h2);
+    letter-spacing: var(--found-tracking-tight);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
     margin: 0.25rem 0 0;
 }
 /* Sections imbriquées dans une phase : retirer leur grand margin-top */
@@ -67,28 +82,30 @@
     max-width: 880px;
     margin: 4rem auto;
     padding: 0 1.5rem;
-    border-left: 4px solid var(--etape-color);
+    border-left: 4px solid var(--etape-color, var(--mandat-accent));
     padding-left: 2rem;
 }
 .methode__section-header { margin-bottom: 1.5rem; }
 .methode__section-numero {
+    font-family: var(--found-font-sans);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.85rem;
-    color: var(--etape-color);
-    font-weight: 600;
+    letter-spacing: var(--found-tracking-label);
+    font-size: var(--found-text-micro);
+    color: var(--etape-color, var(--mandat-accent));
+    font-weight: var(--found-weight-semibold);
     margin: 0;
 }
 .methode__section-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1C1917;
+    font-size: var(--found-text-h2);
+    letter-spacing: var(--found-tracking-tight);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
     margin: 0.25rem 0 0.5rem;
 }
 .methode__section-question {
-    font-size: 1.1rem;
-    color: #44403C;
-    line-height: 1.4;
+    font-size: var(--found-text-lead);
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
     margin: 0;
 }
 .methode__section-corps {
@@ -97,37 +114,42 @@
     margin-bottom: 1.5rem;
 }
 .methode__comprendre p {
-    color: #44403C;
-    line-height: 1.6;
-    font-size: 1.05rem;
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-body);
+    font-size: var(--found-text-body);
 }
 .methode__comprendre-title,
 .methode__exemple-titre,
 .methode__champs-title {
-    font-weight: 600;
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-weight: var(--found-weight-semibold);
     margin: 0 0 0.5rem;
-    color: #1C1917;
+    color: var(--found-ink-faint);
 }
 .methode__exemple {
-    background: #FAFAF9;
-    border-left: 4px solid var(--etape-color);
+    background: var(--found-surface-sunken);
+    border-left: 4px solid var(--etape-color, var(--mandat-accent));
     padding: 1rem 1.5rem;
-    border-radius: 0 6px 6px 0;
+    border-radius: 0 var(--found-radius-card) var(--found-radius-card) 0;
 }
 .methode__exemple dl { margin: 0; }
-.methode__exemple dt { font-weight: 600; color: #1C1917; margin-top: 0.5rem; }
-.methode__exemple dd { margin: 0 0 0.5rem; color: #44403C; line-height: 1.5; }
+.methode__exemple dt { font-weight: var(--found-weight-semibold); color: var(--found-ink); margin-top: 0.5rem; }
+.methode__exemple dd { margin: 0 0 0.5rem; color: var(--found-ink-soft); line-height: var(--found-leading-snug); }
 
 .methode__champs {
-    background: #FFFFFF;
-    border: 1px solid #E7E5E4;
-    border-radius: 8px;
+    background: var(--found-surface-raised);
+    border: 1px solid var(--found-line-strong);
+    border-radius: var(--found-radius-card);
     padding: 1rem 1.5rem;
+    box-shadow: var(--found-shadow-card);
 }
 .methode__champs ul { list-style: none; padding: 0; margin: 0; }
 .methode__champ {
     padding: 0.5rem 0;
-    border-bottom: 1px solid #F5F5F4;
+    border-bottom: 1px solid var(--found-line);
     display: grid;
     grid-template-columns: 12px auto auto;
     gap: 0.5rem;
@@ -139,29 +161,31 @@
     height: 8px;
     border-radius: 50%;
 }
-.methode__champ-dot--obligatoire { background: var(--etape-color); }
-.methode__champ-dot--optionnel { background: #D6D3D1; }
-.methode__champ-name { font-weight: 600; color: #1C1917; }
+.methode__champ-dot--obligatoire { background: var(--etape-color, var(--mandat-accent)); }
+.methode__champ-dot--optionnel { background: var(--found-line-strong); }
+.methode__champ-name { font-weight: var(--found-weight-semibold); color: var(--found-ink); }
 .methode__champ-badge {
-    font-size: 0.7rem;
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--etape-color);
-    background: rgba(0, 0, 0, 0.03);
+    letter-spacing: var(--found-tracking-label);
+    font-weight: var(--found-weight-semibold);
+    color: var(--etape-color, var(--mandat-accent));
+    background: var(--found-surface-sunken);
     padding: 0.1rem 0.4rem;
-    border-radius: 3px;
+    border-radius: var(--found-radius-control);
 }
 .methode__champ-placeholder {
     grid-column: 1 / -1;
-    color: #78716C;
-    font-size: 0.9rem;
+    color: var(--found-ink-faint);
+    font-size: var(--found-text-small);
     font-style: italic;
     margin: 0.25rem 0 0;
 }
 
 .methode-error {
     text-align: center;
-    color: #B91C1C;
+    color: var(--step-02-ink);
     padding: 2rem;
 }
 

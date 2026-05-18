@@ -1,10 +1,26 @@
 {
   "version": 2,
   "phases": [
-    { "key": "cadrage",    "numero": 1, "label": "Cadrage" },
-    { "key": "intentions", "numero": 2, "label": "Intentions" },
-    { "key": "friction",   "numero": 3, "label": "Friction" },
-    { "key": "sortie",     "numero": 4, "label": "Sortie" }
+    {
+      "key": "cadrage",
+      "numero": 1,
+      "label": "Cadrage"
+    },
+    {
+      "key": "intentions",
+      "numero": 2,
+      "label": "Intentions"
+    },
+    {
+      "key": "friction",
+      "numero": 3,
+      "label": "Friction"
+    },
+    {
+      "key": "sortie",
+      "numero": 4,
+      "label": "Sortie"
+    }
   ],
   "etapes": [
     {
@@ -12,12 +28,21 @@
       "key": "projet",
       "phase": "cadrage",
       "label": "Projet",
-      "color": "#64748B",
       "question": "Quel est le projet ?",
       "soustitre": "Donnez-lui un nom opérationnel — pas une catégorie.",
       "champs": [
-        { "key": "nom", "label": "Nom du projet", "obligatoire": true, "placeholder": "Ex. Refondre la page contacts du site corporate" },
-        { "key": "contexte", "label": "Contexte", "obligatoire": false, "placeholder": "Pourquoi maintenant ? Que doit savoir l'IA que vous ne lui direz pas autrement ?" }
+        {
+          "key": "nom",
+          "label": "Nom du projet",
+          "obligatoire": true,
+          "placeholder": "Ex. Refondre la page contacts du site corporate"
+        },
+        {
+          "key": "contexte",
+          "label": "Contexte",
+          "obligatoire": false,
+          "placeholder": "Pourquoi maintenant ? Que doit savoir l'IA que vous ne lui direz pas autrement ?"
+        }
       ],
       "explication": "Un projet flou produit des instructions floues. Le nom oblige à être précis sur ce que vous construisez. Le contexte ajoute le « pourquoi » : ce que vous ne lui écrivez pas, l'IA ne le sait pas."
     },
@@ -26,13 +51,27 @@
       "key": "strategique",
       "phase": "intentions",
       "label": "Intention stratégique",
-      "color": "#B91C1C",
       "question": "Pourquoi ce projet existe ?",
       "soustitre": "La finalité ultime — celle qui, si elle est ratée, rend le reste inutile.",
       "champs": [
-        { "key": "intention", "label": "Intention", "obligatoire": true, "placeholder": "Ex. Réduire le temps de saisie hebdomadaire des managers" },
-        { "key": "porteur", "label": "Porteur", "obligatoire": false, "placeholder": "Qui juge le succès global ? (sponsor, DG, vous-même en décideur)" },
-        { "key": "testInvalidation", "label": "Test d'invalidation", "obligatoire": false, "placeholder": "Décrivez une exécution réussie où l'intention est quand même violée" }
+        {
+          "key": "intention",
+          "label": "Intention",
+          "obligatoire": true,
+          "placeholder": "Ex. Réduire le temps de saisie hebdomadaire des managers"
+        },
+        {
+          "key": "porteur",
+          "label": "Porteur",
+          "obligatoire": false,
+          "placeholder": "Qui juge le succès global ? (sponsor, DG, vous-même en décideur)"
+        },
+        {
+          "key": "testInvalidation",
+          "label": "Test d'invalidation",
+          "obligatoire": false,
+          "placeholder": "Décrivez une exécution réussie où l'intention est quand même violée"
+        }
       ],
       "explication": "Pas un objectif chiffré, pas un livrable. La raison pour laquelle le projet existe. Si elle n'est pas satisfaite, rien d'autre ne compte."
     },
@@ -41,13 +80,27 @@
       "key": "tactique",
       "phase": "intentions",
       "label": "Intention tactique",
-      "color": "#EA580C",
       "question": "Comment on s'y prend ?",
       "soustitre": "Le pilotage au quotidien — qui choisit les priorités et arbitre le terrain.",
       "champs": [
-        { "key": "intention", "label": "Intention", "obligatoire": true, "placeholder": "Ex. Livrer une page narrative scrollable et mobile, pas une mindmap" },
-        { "key": "porteur", "label": "Porteur", "obligatoire": false, "placeholder": "Qui pilote au quotidien ?" },
-        { "key": "testInvalidation", "label": "Test d'invalidation", "obligatoire": false, "placeholder": "Le stratégique est satisfait, mais le pilotage est ingouvernable" }
+        {
+          "key": "intention",
+          "label": "Intention",
+          "obligatoire": true,
+          "placeholder": "Ex. Livrer une page narrative scrollable et mobile, pas une mindmap"
+        },
+        {
+          "key": "porteur",
+          "label": "Porteur",
+          "obligatoire": false,
+          "placeholder": "Qui pilote au quotidien ?"
+        },
+        {
+          "key": "testInvalidation",
+          "label": "Test d'invalidation",
+          "obligatoire": false,
+          "placeholder": "Le stratégique est satisfait, mais le pilotage est ingouvernable"
+        }
       ],
       "explication": "Traduire la stratégie en plan d'action. Le tactique a sa propre définition du succès — ce n'est pas la même que celle du stratégique, et c'est normal."
     },
@@ -56,13 +109,27 @@
       "key": "operationnel",
       "phase": "intentions",
       "label": "Intention opérationnelle",
-      "color": "#047857",
       "question": "Que doit produire l'IA, concrètement ?",
       "soustitre": "Les contraintes du clavier — temps, outils, périmètre, dette technique.",
       "champs": [
-        { "key": "intention", "label": "Intention", "obligatoire": true, "placeholder": "Ex. Produire les sections en vanilla JS, sans build, en réutilisant D3.js" },
-        { "key": "porteur", "label": "Porteur", "obligatoire": false, "placeholder": "Qui (ou quoi) a les mains sur le clavier ?" },
-        { "key": "testInvalidation", "label": "Test d'invalidation", "obligatoire": false, "placeholder": "L'exécution est techniquement réussie mais l'opérationnel est violé" }
+        {
+          "key": "intention",
+          "label": "Intention",
+          "obligatoire": true,
+          "placeholder": "Ex. Produire les sections en vanilla JS, sans build, en réutilisant D3.js"
+        },
+        {
+          "key": "porteur",
+          "label": "Porteur",
+          "obligatoire": false,
+          "placeholder": "Qui (ou quoi) a les mains sur le clavier ?"
+        },
+        {
+          "key": "testInvalidation",
+          "label": "Test d'invalidation",
+          "obligatoire": false,
+          "placeholder": "L'exécution est techniquement réussie mais l'opérationnel est violé"
+        }
       ],
       "explication": "Le « pourquoi » derrière chaque ligne du prompt. Sans intention opérationnelle explicite, l'IA fait des choix techniques arbitraires."
     },
@@ -71,13 +138,27 @@
       "key": "tensions",
       "phase": "friction",
       "label": "Tensions",
-      "color": "#7C3AED",
       "question": "Quelles contradictions ?",
       "soustitre": "Trois paires d'intentions, trois contradictions possibles. Si vous n'en trouvez aucune, vous n'avez pas assez cherché.",
       "champs": [
-        { "key": "stratTact", "label": "Stratégique ↔ Tactique", "obligatoire": false, "placeholder": "Quelle action l'une prescrit-elle que l'autre interdit ?" },
-        { "key": "tactOp", "label": "Tactique ↔ Opérationnel", "obligatoire": false, "placeholder": "Idem, entre tactique et opérationnel" },
-        { "key": "stratOp", "label": "Stratégique ↔ Opérationnel", "obligatoire": false, "placeholder": "Idem, entre stratégique et opérationnel" }
+        {
+          "key": "stratTact",
+          "label": "Stratégique ↔ Tactique",
+          "obligatoire": false,
+          "placeholder": "Quelle action l'une prescrit-elle que l'autre interdit ?"
+        },
+        {
+          "key": "tactOp",
+          "label": "Tactique ↔ Opérationnel",
+          "obligatoire": false,
+          "placeholder": "Idem, entre tactique et opérationnel"
+        },
+        {
+          "key": "stratOp",
+          "label": "Stratégique ↔ Opérationnel",
+          "obligatoire": false,
+          "placeholder": "Idem, entre stratégique et opérationnel"
+        }
       ],
       "explication": "Une tension n'est pas un problème — c'est un signal que votre cadrage est réaliste. Si vous ne trouvez aucune tension, vos intentions sont soit trop vagues, soit identiques.",
       "avertissement": "La méthode marche mieux si vous nommez au moins une tension. Êtes-vous sûr de continuer sans ?"
@@ -87,7 +168,6 @@
       "key": "arbitrages",
       "phase": "friction",
       "label": "Arbitrages",
-      "color": "#4338CA",
       "question": "Pour chaque tension : qui prime ?",
       "soustitre": "Trancher signifie qu'une intention légitime perd. Si personne ne perd rien, vous n'avez pas tranché.",
       "champs": [],
@@ -99,13 +179,27 @@
       "key": "gardeFous",
       "phase": "sortie",
       "label": "Garde-fous",
-      "color": "#B45309",
       "question": "Ce que l'IA ne doit JAMAIS faire ?",
       "soustitre": "Pas des bonnes pratiques génériques. Les lignes rouges spécifiques à ce projet.",
       "champs": [
-        { "key": "interdictions", "label": "L'IA ne doit JAMAIS…", "obligatoire": true, "placeholder": "Ex. Inventer des chiffres, casser la compatibilité mobile, introduire du jargon technique dans le hero" },
-        { "key": "seuils", "label": "L'IA s'arrête et demande quand…", "obligatoire": false, "placeholder": "Ex. Un changement structurel touche plus de 3 fichiers" },
-        { "key": "test3phrases", "label": "Test des 3 phrases", "obligatoire": false, "placeholder": "3 phrases qu'un observateur indépendant utiliserait pour valider le résultat sans vous poser de question" }
+        {
+          "key": "interdictions",
+          "label": "L'IA ne doit JAMAIS…",
+          "obligatoire": true,
+          "placeholder": "Ex. Inventer des chiffres, casser la compatibilité mobile, introduire du jargon technique dans le hero"
+        },
+        {
+          "key": "seuils",
+          "label": "L'IA s'arrête et demande quand…",
+          "obligatoire": false,
+          "placeholder": "Ex. Un changement structurel touche plus de 3 fichiers"
+        },
+        {
+          "key": "test3phrases",
+          "label": "Test des 3 phrases",
+          "obligatoire": false,
+          "placeholder": "3 phrases qu'un observateur indépendant utiliserait pour valider le résultat sans vous poser de question"
+        }
       ],
       "explication": "Les interdictions définissent le périmètre. Les seuils définissent les frontières de l'autonomie. Le test des 3 phrases valide que vos intentions sont assez claires pour qu'un tiers puisse juger."
     },
@@ -114,7 +208,6 @@
       "key": "synthese",
       "phase": "sortie",
       "label": "Synthèse",
-      "color": "#1C1917",
       "question": "Votre mandat est prêt.",
       "soustitre": "Diagnostic de complétion, puis livrable.",
       "champs": [],
