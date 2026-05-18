@@ -3,7 +3,7 @@
 **Cadrez votre délégation en 8 étapes — pour passer de l'usage à la maîtrise de l'IA.**
 
 Le Mandat est un instrument de littératie IA, en réponse à l'Article 4
-du EU AI Act. Il fait pratiquer la réflexion structurée avant chaque
+de l'EU AI Act. Il fait pratiquer la réflexion structurée avant chaque
 délégation à un système d'IA, et produit un livrable utilisable
 directement (prompt système ou CLAUDE.md).
 
@@ -26,7 +26,7 @@ En local :
 
 ## Contexte réglementaire
 
-L'Article 4 du EU AI Act, applicable depuis février 2025, impose
+L'Article 4 de l'EU AI Act, applicable depuis février 2025, impose
 à toute organisation utilisant un système d'IA de garantir la
 littératie de ses équipes. Le Mandat est un instrument concret
 de cette exigence : il ne remplace pas un programme de formation,
