@@ -26,12 +26,13 @@ En local :
 
 ## Contexte réglementaire
 
-L'Article 4 de l'EU AI Act, applicable depuis février 2025, impose
+L'Article 4 de l'EU AI Act, en vigueur depuis février 2025, impose
 à toute organisation utilisant un système d'IA de garantir la
-littératie de ses équipes. Le Mandat est un instrument concret
-de cette exigence : il ne remplace pas un programme de formation,
-il en est un composant pratique qui transforme la réflexion
-structurée en livrable réutilisable.
+littératie IA de ses équipes, quelle que soit la criticité du
+système. Le Mandat traduit cette exigence en geste concret : il
+installe la posture de supervision décrite à l'Article 14,
+comprendre les limites du système, résister au biais
+d'automatisation, garder la décision, avant chaque délégation.
 
 ## Méthode
 
