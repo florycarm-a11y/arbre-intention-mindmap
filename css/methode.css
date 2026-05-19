@@ -194,3 +194,85 @@
         grid-template-columns: 2fr 1fr;
     }
 }
+
+/* ========================================
+   Autre cas appliqué — section de bas de page
+   ======================================== */
+.methode-autrecas {
+    max-width: 880px;
+    margin: 6rem auto 4rem;
+    padding: 0 1.5rem;
+}
+.methode-autrecas__header {
+    border-top: 1px solid var(--found-line);
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+.methode-autrecas__pretitre {
+    font-family: var(--found-font-sans);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    margin: 0 0 0.5rem;
+}
+.methode-autrecas__title {
+    font-size: var(--found-text-h2);
+    letter-spacing: var(--found-tracking-tight);
+    font-weight: var(--found-weight-semibold);
+    line-height: var(--found-leading-tight);
+    color: var(--found-ink);
+    margin: 0 0 0.75rem;
+}
+.methode-autrecas__intro {
+    font-size: var(--found-text-lead);
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    margin: 0;
+}
+.methode-autrecas__grille {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+    .methode-autrecas__grille { grid-template-columns: repeat(2, 1fr); }
+}
+.methode-autrecas__bloc {
+    background: var(--found-surface-sunken);
+    border-left: 4px solid var(--etape-color, var(--mandat-accent));
+    border-radius: 0 var(--found-radius-card) var(--found-radius-card) 0;
+    padding: 1rem 1.25rem;
+}
+.methode-autrecas__bloc-header { margin-bottom: 0.5rem; }
+.methode-autrecas__bloc-numero {
+    font-family: var(--found-font-sans);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-size: var(--found-text-micro);
+    color: var(--etape-color, var(--mandat-accent));
+    font-weight: var(--found-weight-semibold);
+    margin: 0;
+}
+.methode-autrecas__bloc-titre {
+    font-size: var(--found-text-body);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
+    margin: 0.15rem 0 0;
+    letter-spacing: var(--found-tracking-tight);
+}
+.methode-autrecas__dl { margin: 0; }
+.methode-autrecas__dl dt {
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
+    margin-top: 0.5rem;
+    font-size: var(--found-text-small);
+}
+.methode-autrecas__dl dt:first-child { margin-top: 0; }
+.methode-autrecas__dl dd {
+    margin: 0 0 0.25rem;
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    font-size: var(--found-text-small);
+}

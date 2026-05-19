@@ -9,13 +9,15 @@
     'use strict';
 
     const container = document.getElementById('methode-sections');
+    const autreCasContainer = document.getElementById('methode-autre-cas');
 
-    let schema, content, exempleMeta;
+    let schema, content, exempleMeta, exempleRseBdp;
     try {
-        [schema, content, exempleMeta] = await Promise.all([
+        [schema, content, exempleMeta, exempleRseBdp] = await Promise.all([
             fetch('data/schema.json').then(r => r.json()),
             fetch('data/methode-content.json').then(r => r.json()),
-            fetch('data/exemple-meta.json').then(r => r.json())
+            fetch('data/exemple-meta.json').then(r => r.json()),
+            fetch('data/exemple-rse-bdp.json').then(r => r.json())
         ]);
     } catch (e) {
         container.innerHTML = '<p class="methode-error">Impossible de charger la méthode. Veuillez réessayer.</p>';
@@ -38,6 +40,10 @@
             </section>
         `;
     }).join('');
+
+    // Second cas appliqué — Expert RSE / Banque de Polynésie.
+    // Source : data/exemple-rse-bdp.json (mêmes données que la modale d'accueil).
+    autreCasContainer.innerHTML = renderAutreCas(schema, exempleRseBdp);
 
     function escapeHtml(s) {
         return String(s == null ? '' : s)
@@ -82,26 +88,58 @@
         `;
     }
 
-    function renderExempleEtape(etape, mandatMeta) {
-        const data = mandatMeta[etape.key];
-        if (!data) return '';
+    function renderAutreCas(schema, exemple) {
+        const mandat = exemple.mandat;
+        const blocsHtml = schema.etapes
+            .filter(e => e.key !== 'synthese')
+            .map(e => {
+                const dl = buildExempleDl(e, mandat);
+                if (!dl) return '';
+                const colorVar = `--step-${String(e.id).padStart(2, '0')}`;
+                return `
+                    <article class="methode-autrecas__bloc" style="--etape-color: var(${colorVar})">
+                        <header class="methode-autrecas__bloc-header">
+                            <p class="methode-autrecas__bloc-numero">Étape ${e.id}</p>
+                            <h3 class="methode-autrecas__bloc-titre">${escapeHtml(e.label)}</h3>
+                        </header>
+                        <dl class="methode-autrecas__dl">${dl}</dl>
+                    </article>
+                `;
+            })
+            .join('');
 
-        let valuesHtml = '';
+        return `
+            <section class="methode-autrecas" id="autre-cas-applique" aria-labelledby="autre-cas-applique-title">
+                <header class="methode-autrecas__header">
+                    <p class="methode-autrecas__pretitre">Autre cas appliqué</p>
+                    <h2 class="methode-autrecas__title" id="autre-cas-applique-title">${escapeHtml(exemple.label)}</h2>
+                    <p class="methode-autrecas__intro">La même méthode, appliquée à un cas universel : un expert RSE qui accompagne un client en transition énergétique, du risque ESG au plan d'action CO₂.</p>
+                </header>
+                <div class="methode-autrecas__grille">${blocsHtml}</div>
+            </section>
+        `;
+    }
+
+    function buildExempleDl(etape, mandat) {
+        const data = mandat[etape.key];
+        if (!data) return '';
         if (etape.key === 'tensions') {
             const labels = { stratTact: 'Stratégique ↔ Tactique', tactOp: 'Tactique ↔ Opérationnel', stratOp: 'Stratégique ↔ Opérationnel' };
-            valuesHtml = Object.entries(mandatMeta.tensions).filter(([, v]) => v && v.trim())
+            return Object.entries(mandat.tensions).filter(([, v]) => v && v.trim())
                 .map(([k, v]) => `<dt>${labels[k]}</dt><dd>${escapeHtml(v)}</dd>`).join('');
-        } else if (etape.key === 'arbitrages') {
-            const labels = { stratTact: 'Stratégique ↔ Tactique', tactOp: 'Tactique ↔ Opérationnel', stratOp: 'Stratégique ↔ Opérationnel' };
-            valuesHtml = Object.entries(mandatMeta.arbitrages).filter(([, a]) => a.prime)
-                .map(([k, a]) => `<dt>${labels[k]}</dt><dd><strong>Prime :</strong> ${escapeHtml(a.prime)}<br><strong>Sacrifice :</strong> ${escapeHtml(a.sacrifice)}</dd>`).join('');
-        } else if (etape.key === 'synthese') {
-            return ''; // Pas d'exemple pour la synthèse
-        } else {
-            valuesHtml = Object.entries(data).filter(([, v]) => v && v.trim())
-                .map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('');
         }
+        if (etape.key === 'arbitrages') {
+            const labels = { stratTact: 'Stratégique ↔ Tactique', tactOp: 'Tactique ↔ Opérationnel', stratOp: 'Stratégique ↔ Opérationnel' };
+            return Object.entries(mandat.arbitrages).filter(([, a]) => a.prime)
+                .map(([k, a]) => `<dt>${labels[k]}</dt><dd><strong>Prime :</strong> ${escapeHtml(a.prime)}<br><strong>Sacrifice :</strong> ${escapeHtml(a.sacrifice)}</dd>`).join('');
+        }
+        return Object.entries(data).filter(([, v]) => v && v.trim())
+            .map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('');
+    }
 
+    function renderExempleEtape(etape, mandatMeta) {
+        if (etape.key === 'synthese') return '';
+        const valuesHtml = buildExempleDl(etape, mandatMeta);
         if (!valuesHtml) return '';
 
         return `
