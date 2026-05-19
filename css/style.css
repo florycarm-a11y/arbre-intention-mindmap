@@ -1762,3 +1762,93 @@ body.mode-fill .fab-export {
     text-underline-offset: 4px;
 }
 .article4-band__lien:hover { color: var(--step-03); }
+
+/* ========================================
+   Aperçu du livrable final — page d'accueil
+   ======================================== */
+.apercu-livrable {
+    padding: 4rem 1.5rem 2rem;
+    background: var(--found-surface);
+}
+.apercu-livrable__inner {
+    max-width: 720px;
+    margin: 0 auto;
+}
+.apercu-livrable__pretitre {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    color: var(--found-ink-faint);
+    margin: 0 0 0.5rem;
+}
+.apercu-livrable__titre {
+    font-family: var(--found-font-serif);
+    font-size: var(--found-text-h2);
+    font-weight: var(--found-weight-semibold);
+    letter-spacing: var(--found-tracking-tight);
+    line-height: var(--found-leading-tight);
+    color: var(--found-ink);
+    margin: 0 0 0.75rem;
+}
+.apercu-livrable__intro {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    margin: 0 0 1.25rem;
+}
+.apercu-livrable__bloc {
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--found-ink);
+    background: var(--found-surface-sunken);
+    border: 1px solid var(--found-line);
+    border-radius: var(--found-radius-card);
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    overflow-x: auto;
+    white-space: pre;
+}
+.apercu-livrable__bloc code {
+    font-family: inherit;
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+.apercu-livrable__lien-ligne {
+    margin: 1rem 0 0;
+    text-align: right;
+}
+.apercu-livrable__lien {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-small);
+    font-weight: var(--found-weight-medium);
+    color: var(--found-ink-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--found-line);
+    transition: color var(--transition), text-decoration-color var(--transition);
+}
+.apercu-livrable__lien:hover {
+    color: var(--found-ink);
+    text-decoration-color: currentColor;
+}
+.apercu-livrable__lien:focus-visible {
+    outline: 2px solid var(--mandat-focus, var(--found-ink));
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+@media (max-width: 720px) {
+    .apercu-livrable { padding: 3rem 1rem 1.5rem; }
+    .apercu-livrable__bloc {
+        font-size: 0.75rem;
+        padding: 1rem 1.1rem;
+        white-space: pre;
+    }
+}
