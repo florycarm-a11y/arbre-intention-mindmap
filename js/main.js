@@ -81,6 +81,17 @@
         if (e.target === exempleModal) exempleModal.hidden = true;
     });
 
+    // Lien « Voir le mandat complet » sous l'aperçu : ouvre la modale et
+    // déclenche directement la vue du cas RSE/BdP.
+    const apercuVoirComplet = document.getElementById('apercu-voir-complet');
+    if (apercuVoirComplet) {
+        apercuVoirComplet.addEventListener('click', () => {
+            exempleModal.hidden = false;
+            const btnView = exempleModal.querySelector('[data-action="view"][data-exemple-id="rse-bdp"]');
+            if (btnView) btnView.click();
+        });
+    }
+
     async function loadExemple(id) {
         const filename = id === 'meta' ? 'exemple-meta.json' : 'exemple-rse-bdp.json';
         const res = await fetch('data/' + filename);
