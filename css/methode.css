@@ -32,6 +32,12 @@
     line-height: var(--found-leading-snug);
     margin: 0 0 1.5rem;
 }
+.methode-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
 .methode-hero__cta {
     display: inline-block;
     padding: 0.6rem 1.25rem;
@@ -275,4 +281,148 @@
     color: var(--found-ink-soft);
     line-height: var(--found-leading-snug);
     font-size: var(--found-text-small);
+}
+
+/* ========================================
+   Installer Le Mandat dans une équipe
+   Mode d'emploi de déploiement (4 leviers + kit minimal)
+   ======================================== */
+.methode-install {
+    max-width: 880px;
+    margin: 6rem auto 4rem;
+    padding: 0 1.5rem;
+}
+.methode-install__header {
+    border-top: 1px solid var(--found-line);
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+.methode-install__pretitre {
+    font-family: var(--found-font-sans);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    margin: 0 0 0.5rem;
+}
+.methode-install__title {
+    font-size: var(--found-text-h2);
+    letter-spacing: var(--found-tracking-tight);
+    font-weight: var(--found-weight-semibold);
+    line-height: var(--found-leading-tight);
+    color: var(--found-ink);
+    margin: 0 0 0.75rem;
+}
+.methode-install__intro {
+    font-size: var(--found-text-lead);
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    margin: 0;
+}
+.methode-install__grille {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+    .methode-install__grille { grid-template-columns: repeat(2, 1fr); }
+}
+.methode-install__levier {
+    background: var(--found-surface-raised);
+    border: 1px solid var(--found-line-strong);
+    border-top: 4px solid var(--etape-color, var(--mandat-accent));
+    border-radius: var(--found-radius-card);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--found-shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.methode-install__levier-header { margin-bottom: 0.25rem; }
+.methode-install__levier-numero {
+    font-family: var(--found-font-sans);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-size: var(--found-text-micro);
+    color: var(--etape-color, var(--mandat-accent));
+    font-weight: var(--found-weight-semibold);
+    margin: 0;
+}
+.methode-install__levier-titre {
+    font-size: var(--found-text-h3);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
+    letter-spacing: var(--found-tracking-tight);
+    margin: 0.15rem 0 0.35rem;
+}
+.methode-install__levier-question {
+    font-size: var(--found-text-body);
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    margin: 0;
+}
+.methode-install__levier-corps {
+    display: grid;
+    gap: 0.85rem;
+}
+.methode-install__bloc-label {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    margin: 0 0 0.25rem;
+}
+.methode-install__bloc-text {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-body);
+    font-size: var(--found-text-small);
+    margin: 0;
+}
+.methode-install__kit {
+    margin-top: 2rem;
+    background: var(--found-surface-sunken);
+    border-left: 4px solid var(--mandat-accent);
+    border-radius: 0 var(--found-radius-card) var(--found-radius-card) 0;
+    padding: 1.5rem 1.75rem;
+}
+.methode-install__kit-title {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    margin: 0 0 0.5rem;
+}
+.methode-install__kit-intro {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-body);
+    font-size: var(--found-text-body);
+    margin: 0;
+}
+.methode-install__kit-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+}
+.methode-install__kit-item {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--found-ink);
+    line-height: var(--found-leading-snug);
+    font-size: var(--found-text-small);
+}
+.methode-install__kit-item::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: -0.05em;
+    color: var(--mandat-accent);
+    font-size: 1.15em;
+    line-height: 1;
 }

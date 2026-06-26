@@ -37,6 +37,14 @@ structurée en livrable réutilisable.
 
 La méthode complète vit sur [/methode](https://florycarm-a11y.github.io/le-mandat/methode.html).
 
+## Déployer en équipe
+
+Produire un mandat est un acte individuel ; en faire un réflexe d'équipe
+demande quatre décisions (déclencheur, lieu de vie, propriétaire, preuve).
+Le mode d'emploi de déploiement vit en bas de
+[/methode](https://florycarm-a11y.github.io/le-mandat/methode.html#installer-en-equipe),
+avec un kit minimal en quatre points.
+
 ## Stack
 
 HTML + CSS + JS vanilla, D3.js v7 (mindmap récap), jsPDF (export PDF).
