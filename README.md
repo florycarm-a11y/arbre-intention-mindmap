@@ -45,6 +45,11 @@ Le mode d'emploi de déploiement vit en bas de
 [/methode](https://florycarm-a11y.github.io/le-mandat/methode.html#installer-en-equipe),
 avec un kit minimal en quatre points.
 
+Ce dépôt applique sa propre méthode : le
+[template de pull request](.github/PULL_REQUEST_TEMPLATE.md) exige un lien vers
+le mandat de chaque changement assisté par IA. C'est la *forcing function* du
+déclencheur — un exemple directement réutilisable dans votre propre dépôt.
+
 ## Stack
 
 HTML + CSS + JS vanilla, D3.js v7 (mindmap récap), jsPDF (export PDF).
