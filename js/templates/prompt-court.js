@@ -12,6 +12,13 @@
 
     function isFilled(s) { return typeof s === 'string' && s.trim().length > 0; }
 
+    const NIVEAU_FR = { strategique: 'Stratégique', tactique: 'Tactique', operationnel: 'Opérationnelle' };
+    const TENSION_PAIR = {
+        stratTact: ['strategique', 'tactique'],
+        tactOp: ['tactique', 'operationnel'],
+        stratOp: ['strategique', 'operationnel']
+    };
+
     function render(mandat) {
         const lines = [];
         lines.push('# Mandat de délégation');
@@ -54,11 +61,15 @@
             .filter(([key, a]) => a.prime && isFilled(mandat.tensions[key]));
         if (arbs.length > 0) {
             lines.push('## Quand les finalités s\'opposent');
-            const labels = { stratTact: 'Stratégique', tactOp: 'Tactique', stratOp: 'Stratégique' };
-            const versus = { stratTact: 'Tactique', tactOp: 'Opérationnelle', stratOp: 'Opérationnelle' };
             arbs.forEach(([key, a]) => {
-                const sacrifice = isFilled(a.sacrifice) ? ' ; ' + a.sacrifice.toLowerCase().replace(/\.$/, '') : '';
-                lines.push(`- ${capitalize(a.prime)} > ${(a.prime === labels[key] ? versus[key] : labels[key]).toLowerCase()} : ${humanize(a.prime, key, a)}${sacrifice}.`);
+                const sides = TENSION_PAIR[key] || [];
+                const loser = a.prime === sides[0] ? sides[1] : sides[0];
+                const head = `${NIVEAU_FR[a.prime] || capitalize(a.prime)} prime sur ${(NIVEAU_FR[loser] || loser || '').toLowerCase()}`;
+                if (isFilled(a.sacrifice)) {
+                    lines.push(`- **${head}** — ${a.sacrifice.trim()}`);
+                } else {
+                    lines.push(`- **${head}.**`);
+                }
             });
             lines.push('');
         }
@@ -95,14 +106,6 @@
 
     function capitalize(s) {
         return s.charAt(0).toUpperCase() + s.slice(1);
-    }
-
-    function humanize(prime, key, arb) {
-        // Formulation neutre de la règle d'arbitrage
-        if (prime === 'strategique') return 'la finalité stratégique prime';
-        if (prime === 'tactique') return 'la finalité tactique prime';
-        if (prime === 'operationnel') return 'la finalité opérationnelle prime';
-        return 'priorité à ' + prime;
     }
 
     root.LeMandatTemplatePromptCourt = { render };
