@@ -92,8 +92,14 @@
         });
     }
 
+    const EXEMPLE_FILES = {
+        'meta': 'exemple-meta.json',
+        'rse-bdp': 'exemple-rse-bdp.json',
+        'recrutement': 'exemple-recrutement.json'
+    };
+
     async function loadExemple(id) {
-        const filename = id === 'meta' ? 'exemple-meta.json' : 'exemple-rse-bdp.json';
+        const filename = EXEMPLE_FILES[id] || EXEMPLE_FILES['meta'];
         const res = await fetch('data/' + filename);
         const data = await res.json();
         return data.mandat;

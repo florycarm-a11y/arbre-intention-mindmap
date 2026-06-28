@@ -1,0 +1,51 @@
+{
+  "id": "recrutement",
+  "label": "Recruteur RH triant des candidatures avec une IA",
+  "introMethode": "La même méthode sur un cas à fort enjeu humain et juridique : un recruteur qui délègue à une IA le pré-tri d'un volume de candidatures — un usage que l'EU AI Act classe à haut risque (emploi, annexe III).",
+  "version": 2,
+  "mandat": {
+    "projet": {
+      "nom": "Pré-tri de candidatures pour un poste ouvert",
+      "contexte": "Une ETI reçoit plusieurs centaines de candidatures pour un poste et souhaite s'appuyer sur une IA pour pré-trier les dossiers. Le tri de candidatures à l'embauche est un usage classé à haut risque par l'annexe III de l'EU AI Act, et encadré par le RGPD et le principe de non-discrimination : chaque mise à l'écart doit rester explicable et défendable."
+    },
+    "strategique": {
+      "porteur": "La responsable du recrutement, qui répond du résultat devant la direction et, en cas de litige, devant un candidat ou le juge",
+      "intention": "Recruter la personne la plus adaptée au poste en garantissant une égalité de traitement irréprochable — ne jamais écarter un profil pertinent pour une raison étrangère aux exigences réelles du poste.",
+      "testInvalidation": "Le poste est pourvu rapidement, mais un candidat écarté pourrait démontrer qu'il l'a été sur un critère illégitime (âge, origine, genre, parcours atypique) plutôt que sur les compétences attendues."
+    },
+    "tactique": {
+      "porteur": "Le recruteur qui pilote le processus au quotidien, lit les présélections et mène les entretiens",
+      "intention": "Réduire le temps passé à dégrossir un volume élevé de candidatures pour le réinvestir dans les entretiens, tout en gardant une décision humaine sur chaque mise à l'écart.",
+      "testInvalidation": "L'IA classe vite et bien, mais le recruteur finit par valider le tri sans relire : la décision humaine n'est plus qu'une formalité."
+    },
+    "operationnel": {
+      "porteur": "Le système d'IA qui lit les candidatures et propose une présélection",
+      "intention": "Évaluer chaque candidature uniquement sur les critères explicites du poste, produire pour chaque profil une synthèse justifiée et citable, et ne jamais émettre de rejet automatique ni de score global opaque.",
+      "testInvalidation": "L'IA produit une note globale qu'on ne peut ni décomposer ni expliquer à un candidat qui demande pourquoi il a été écarté."
+    },
+    "tensions": {
+      "stratTact": "Le stratégique veut que chaque candidature soit examinée selon exactement les mêmes critères ; le tactique veut aller vite sur un volume élevé.",
+      "tactOp": "Le tactique veut un classement net, exploitable immédiatement ; l'opérationnel ne peut produire qu'une évaluation critère par critère, justifiée, qui demande relecture.",
+      "stratOp": "Le stratégique exige une décision explicable et défendable juridiquement ; l'opérationnel sait qu'un modèle qui « note » globalement crée des corrélations opaques, parfois proxys de critères interdits."
+    },
+    "arbitrages": {
+      "stratTact": {
+        "prime": "strategique",
+        "sacrifice": "On accepte de traiter moins de dossiers par heure. La vitesse cède devant l'égalité de traitement : tout profil limite repasse en revue humaine."
+      },
+      "tactOp": {
+        "prime": "operationnel",
+        "sacrifice": "Pas de score unique « prêt à trier ». L'IA rend une fiche par critère que le recruteur doit lire — on perd le confort du classement automatique."
+      },
+      "stratOp": {
+        "prime": "strategique",
+        "sacrifice": "On renonce aux critères implicites « qui marchent statistiquement » mais qu'on ne peut pas expliquer. Seuls les critères explicitement liés au poste sont retenus, quitte à une sélection moins « optimisée »."
+      }
+    },
+    "gardeFous": {
+      "interdictions": "Ne jamais écarter une candidature automatiquement : l'IA propose, le recruteur décide. Ne jamais utiliser ni inférer un critère protégé (âge, sexe, origine, état de santé, situation familiale, opinions). Ne jamais produire un score global non décomposable en critères explicites du poste.",
+      "seuils": "S'arrêter et demander quand un parcours est atypique (reconversion, trajectoire non linéaire) plutôt que de le déclasser. S'arrêter quand un critère du poste risque d'être un proxy d'un critère protégé. S'arrêter quand le volume ou le format des candidatures dépasse ce qui a été cadré.",
+      "test3phrases": "1) Chaque mise à l'écart peut être expliquée à la personne concernée par des critères liés au poste. 2) Deux candidatures équivalentes sur les critères du poste reçoivent la même évaluation. 3) Aucune décision finale n'a été prise par l'IA seule."
+    }
+  }
+}

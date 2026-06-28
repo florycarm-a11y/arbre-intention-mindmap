@@ -12,13 +12,14 @@
     const autreCasContainer = document.getElementById('methode-autre-cas');
     const installationContainer = document.getElementById('methode-installation');
 
-    let schema, content, exempleMeta, exempleRseBdp;
+    let schema, content, exempleMeta, exempleRseBdp, exempleRecrutement;
     try {
-        [schema, content, exempleMeta, exempleRseBdp] = await Promise.all([
+        [schema, content, exempleMeta, exempleRseBdp, exempleRecrutement] = await Promise.all([
             fetch('data/schema.json').then(r => r.json()),
             fetch('data/methode-content.json').then(r => r.json()),
             fetch('data/exemple-meta.json').then(r => r.json()),
-            fetch('data/exemple-rse-bdp.json').then(r => r.json())
+            fetch('data/exemple-rse-bdp.json').then(r => r.json()),
+            fetch('data/exemple-recrutement.json').then(r => r.json())
         ]);
     } catch (e) {
         container.innerHTML = '<p class="methode-error">Impossible de charger la méthode. Veuillez réessayer.</p>';
@@ -42,9 +43,12 @@
         `;
     }).join('');
 
-    // Second cas appliqué — Expert RSE / Banque de Polynésie.
-    // Source : data/exemple-rse-bdp.json (mêmes données que la modale d'accueil).
-    autreCasContainer.innerHTML = renderAutreCas(schema, exempleRseBdp);
+    // Cas appliqués — Expert RSE / BdP et Recruteur RH / pré-tri.
+    // Sources : data/exemple-rse-bdp.json et data/exemple-recrutement.json
+    // (mêmes données que la modale d'accueil).
+    autreCasContainer.innerHTML = [exempleRseBdp, exempleRecrutement]
+        .map(ex => renderAutreCas(schema, ex))
+        .join('');
 
     // Mode d'emploi de déploiement — passer du livrable individuel à la pratique d'équipe.
     // Source : clé « installation » de methode-content.json.
@@ -115,12 +119,14 @@
             })
             .join('');
 
+        const sectionId = `autre-cas-${exemple.id}`;
+        const intro = exemple.introMethode || 'La même méthode, appliquée à un autre cas.';
         return `
-            <section class="methode-autrecas" id="autre-cas-applique" aria-labelledby="autre-cas-applique-title">
+            <section class="methode-autrecas" id="${sectionId}" aria-labelledby="${sectionId}-title">
                 <header class="methode-autrecas__header">
                     <p class="methode-autrecas__pretitre">Autre cas appliqué</p>
-                    <h2 class="methode-autrecas__title" id="autre-cas-applique-title">${escapeHtml(exemple.label)}</h2>
-                    <p class="methode-autrecas__intro">La même méthode, appliquée à un cas universel : un expert RSE qui accompagne un client en transition énergétique, du risque ESG au plan d'action CO₂.</p>
+                    <h2 class="methode-autrecas__title" id="${sectionId}-title">${escapeHtml(exemple.label)}</h2>
+                    <p class="methode-autrecas__intro">${escapeHtml(intro)}</p>
                 </header>
                 <div class="methode-autrecas__grille">${blocsHtml}</div>
             </section>
