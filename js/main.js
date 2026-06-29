@@ -72,6 +72,10 @@
         startWizard(mandat);
     });
 
+    // CTA de la démo avant/après : même parcours que « Créer mon mandat ».
+    const demoCta = document.getElementById('demo-diff-cta');
+    if (demoCta) demoCta.addEventListener('click', () => ctaCreer.click());
+
     // --- Mini-modale "Voir un exemple" ---
     const exempleModal = document.getElementById('exemple-modal');
     const exempleClose = document.getElementById('exemple-modal-close');

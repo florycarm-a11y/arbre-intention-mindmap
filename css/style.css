@@ -1037,6 +1037,143 @@ body.mode-fill .fab-export {
 #relecture-container[hidden] { display: none !important; }
 
 /* ========================================
+   Démo avant/après — prouver la valeur avant l'effort
+   ======================================== */
+.demo-diff {
+    padding: 1rem 0 1.5rem;
+}
+.demo-diff__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+.demo-diff__pretitre {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    margin: 0 0 0.4rem;
+}
+.demo-diff__titre {
+    font-size: var(--found-text-h2);
+    letter-spacing: var(--found-tracking-tight);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
+    margin: 0 0 0.6rem;
+}
+.demo-diff__intro {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-body);
+    font-size: var(--found-text-body);
+    margin: 0 0 1.25rem;
+    max-width: 640px;
+}
+.demo-diff__tache {
+    font-size: var(--found-text-small);
+    color: var(--found-ink);
+    background: var(--found-surface-sunken);
+    border: 1px solid var(--found-line);
+    border-radius: var(--found-radius-card);
+    padding: 0.75rem 1rem;
+    margin: 0 0 1.5rem;
+}
+.demo-diff__tache-label {
+    display: inline-block;
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    margin-right: 0.5rem;
+}
+.demo-diff__grille {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+    .demo-diff__grille { grid-template-columns: 1fr 1fr; }
+}
+.demo-diff__col {
+    background: var(--found-surface-raised);
+    border: 1px solid var(--found-line-strong);
+    border-radius: var(--found-radius-card);
+    box-shadow: var(--found-shadow-card);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.demo-diff__col--sans { border-top: 4px solid var(--step-02); }
+.demo-diff__col--avec { border-top: 4px solid var(--step-04); }
+.demo-diff__col-header { margin-bottom: 0.85rem; }
+.demo-diff__badge {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-weight: var(--found-weight-semibold);
+}
+.demo-diff__badge--sans { color: var(--step-02-ink); }
+.demo-diff__badge--avec { color: var(--step-04-ink); }
+.demo-diff__reponse {
+    background: var(--found-surface-sunken);
+    border-radius: var(--found-radius-control);
+    padding: 0.85rem 1rem;
+    margin-bottom: 1rem;
+}
+.demo-diff__reponse p {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    font-size: var(--found-text-small);
+    margin: 0 0 0.6rem;
+}
+.demo-diff__reponse p:last-child { margin-bottom: 0; }
+.demo-diff__notes {
+    list-style: none;
+    padding: 0;
+    margin: auto 0 0;
+    display: grid;
+    gap: 0.4rem;
+}
+.demo-diff__notes li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: var(--found-text-small);
+    line-height: var(--found-leading-snug);
+    color: var(--found-ink);
+}
+.demo-diff__notes li::before {
+    position: absolute;
+    left: 0;
+    top: -0.05em;
+    font-weight: var(--found-weight-semibold);
+}
+.demo-diff__notes--sans li::before { content: "\2717"; color: var(--step-02); }
+.demo-diff__notes--avec li::before { content: "\2713"; color: var(--step-04); }
+.demo-diff__chute {
+    margin: 1.5rem 0 0;
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-body);
+    font-size: var(--found-text-body);
+}
+.demo-diff__lien {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--mandat-accent);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: var(--found-weight-medium);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.demo-diff__lien:hover { color: var(--mandat-accent-strong); }
+
+/* ========================================
    Relecture IA — optionnelle, bring-your-own-key
    ======================================== */
 #relecture-container {
