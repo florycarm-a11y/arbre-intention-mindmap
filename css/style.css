@@ -1034,6 +1034,165 @@ body.mode-fill .fab-export {
 #wizard-container[hidden],
 #mindmap-container[hidden],
 #livrable-container[hidden] { display: none !important; }
+#relecture-container[hidden] { display: none !important; }
+
+/* ========================================
+   Relecture IA — optionnelle, bring-your-own-key
+   ======================================== */
+#relecture-container {
+    max-width: 720px;
+    margin: 0 auto 4rem;
+    padding: 1rem;
+}
+.relecture {
+    border-top: 1px solid var(--found-line);
+    padding-top: 2rem;
+}
+.relecture__pretitre {
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    margin: 0 0 0.4rem;
+}
+.relecture__titre {
+    font-size: var(--found-text-h2);
+    letter-spacing: var(--found-tracking-tight);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
+    margin: 0 0 0.6rem;
+}
+.relecture__intro {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-body);
+    font-size: var(--found-text-body);
+    margin: 0 0 1.25rem;
+}
+.relecture__confid {
+    margin-bottom: 1.25rem;
+}
+.relecture__confid summary {
+    cursor: pointer;
+    color: var(--found-ink-faint);
+    font-size: var(--found-text-small);
+}
+.relecture__confid p {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    font-size: var(--found-text-small);
+    margin: 0.6rem 0 0;
+}
+.relecture__label {
+    display: block;
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-micro);
+    text-transform: uppercase;
+    letter-spacing: var(--found-tracking-label);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink-faint);
+    margin: 0 0 0.4rem;
+}
+.relecture__row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+.relecture__input {
+    flex: 1 1 240px;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid var(--found-line-strong);
+    border-radius: var(--found-radius-control);
+    background: var(--found-surface-raised);
+    color: var(--found-ink);
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-small);
+}
+.relecture__input:focus {
+    outline: 2px solid var(--mandat-accent);
+    outline-offset: 1px;
+}
+.relecture__btn {
+    padding: 12px 22px;
+    border: 1px solid var(--mandat-accent);
+    background: var(--mandat-accent);
+    color: var(--mandat-accent-on);
+    border-radius: var(--found-radius-control);
+    cursor: pointer;
+    font-family: var(--found-font-sans);
+    font-size: var(--found-text-small);
+    font-weight: var(--found-weight-medium);
+    white-space: nowrap;
+}
+.relecture__btn:hover { background: var(--mandat-accent-strong); border-color: var(--mandat-accent-strong); }
+.relecture__btn[disabled] { opacity: 0.6; cursor: progress; }
+.relecture__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+}
+.relecture__note {
+    color: var(--found-ink-faint);
+    font-size: var(--found-text-small);
+    margin: 0;
+    flex: 1 1 260px;
+}
+.relecture__forget {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--found-ink-faint);
+    font-size: var(--found-text-small);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.relecture__resultat:not(:empty) { margin-top: 1.5rem; }
+.relecture__chargement { color: var(--found-ink-soft); font-style: italic; }
+.relecture__erreur {
+    color: var(--step-02-ink);
+    background: var(--found-surface-sunken);
+    border-left: 3px solid var(--step-02);
+    border-radius: 0 var(--found-radius-control) var(--found-radius-control) 0;
+    padding: 0.75rem 1rem;
+    margin: 0;
+}
+.relecture__critique {
+    background: var(--found-surface-sunken);
+    border: 1px solid var(--found-line);
+    border-radius: var(--found-radius-card);
+    padding: 1.25rem 1.5rem;
+}
+.relecture__critique h3 {
+    font-size: var(--found-text-body);
+    font-weight: var(--found-weight-semibold);
+    color: var(--found-ink);
+    letter-spacing: var(--found-tracking-tight);
+    margin: 1.1rem 0 0.4rem;
+}
+.relecture__critique h3:first-child { margin-top: 0; }
+.relecture__critique p {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-body);
+    font-size: var(--found-text-small);
+    margin: 0 0 0.5rem;
+}
+.relecture__critique ul { margin: 0 0 0.5rem; padding-left: 1.2rem; }
+.relecture__critique li {
+    color: var(--found-ink-soft);
+    line-height: var(--found-leading-snug);
+    font-size: var(--found-text-small);
+    margin-bottom: 0.3rem;
+}
+.relecture__critique strong { color: var(--found-ink); }
+
+@media (max-width: 560px) {
+    .relecture__btn { width: 100%; }
+}
 
 /* Barre de progression — 8 segments groupés par phase, fine, posée
    au-dessus du stepper textuel. Largeur alignée sur la carte d'étape

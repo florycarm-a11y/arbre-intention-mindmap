@@ -51,6 +51,7 @@
                 // Puis le livrable juste sous la mindmap
                 const livrableContainer = document.getElementById('livrable-container');
                 LeMandatLivrable.render({ mandat: m, container: livrableContainer });
+                showRelecture();
                 mmContainer.scrollIntoView({ behavior: 'smooth' });
             }
         });
@@ -141,10 +142,23 @@
                 });
                 const livrableContainer = document.getElementById('livrable-container');
                 LeMandatLivrable.render({ mandat: fullMandat, container: livrableContainer });
+                showRelecture();
                 mmContainer.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
+
+    // Monte la relecture IA sous le livrable. Lit le mandat le plus à jour
+    // (storage) au moment où l'utilisateur lance la relecture.
+    function showRelecture() {
+        if (!window.LeMandatRelecture) return;
+        const container = document.getElementById('relecture-container');
+        if (!container) return;
+        LeMandatRelecture.render({
+            container,
+            getMandat: () => LeMandatStorage.load()
+        });
+    }
 
     function showRestoreBanner(mandat) {
         const banner = document.createElement('div');

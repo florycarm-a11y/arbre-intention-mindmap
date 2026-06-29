@@ -54,7 +54,20 @@ déclencheur — un exemple directement réutilisable dans votre propre dépôt.
 
 HTML + CSS + JS vanilla, D3.js v7 (mindmap récap), jsPDF (export PDF).
 Pas de build, pas de bundler, pas de tracking. Le mandat ne quitte
-jamais votre navigateur.
+jamais votre navigateur — à une exception près, explicite et à votre
+initiative : la **relecture IA** (optionnelle) appelle directement l'API
+d'Anthropic depuis le navigateur, avec **votre propre clé**. Votre clé
+reste sur l'appareil (localStorage) ; aucun serveur du Mandat n'est
+impliqué.
+
+## Relecture IA (optionnelle)
+
+À l'étape du livrable, vous pouvez faire **relire votre mandat par une IA**
+(Claude) qui met le cadrage à l'épreuve : intentions trop vagues,
+contradictions, garde-fous manquants. C'est du *bring-your-own-key* — vous
+fournissez une clé [console.anthropic.com](https://console.anthropic.com/),
+l'appel part de votre navigateur, et la facturation se fait sur votre compte.
+Aucun backend, fidèle au principe « zéro serveur ».
 
 ## Régénération de l'OG cover
 
