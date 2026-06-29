@@ -33,5 +33,50 @@
       "comprendre": "La synthèse est le moment de vérité. Votre mandat est-il complet ? Les champs essentiels (projet nommé, trois intentions) sont-ils remplis ? Les tensions sont-elles identifiées et arbitrées ? Les garde-fous sont-ils posés ? Le diagnostic distingue l'essentiel (sans quoi le mandat ne tient pas) de l'important (qui renforce la qualité du cadrage). Un mandat avec uniquement les champs essentiels est utilisable. Un mandat avec tous les champs est robuste. Le résultat final est un document structuré, prêt à coller dans une session IA ou à déposer comme CLAUDE.md à la racine d'un projet.",
       "exemple": "Cas méta — Diagnostic complet : 4/4 essentiel, 4/4 important. Le mandat a effectivement guidé le développement de cet outil."
     }
+  },
+  "installation": {
+    "pretitre": "Passer à l'échelle",
+    "titre": "Installer Le Mandat dans une équipe",
+    "intro": "Produire un mandat est un acte individuel ; en faire un réflexe d'équipe demande quatre décisions, pas une de plus. Voici le mode d'emploi pour passer de l'outil qu'on essaie à l'instrument qu'on utilise chaque semaine.",
+    "leviers": [
+      {
+        "color": "01",
+        "titre": "Le déclencheur",
+        "question": "Quand crée-t-on un mandat ?",
+        "enjeu": "Un instrument n'est utilisé que s'il existe un moment précis qui l'appelle. Sans déclencheur, le mandat reste optionnel — donc oublié.",
+        "pratique": "Fixez la règle : un mandat avant toute nouvelle délégation à une IA — nouveau projet, nouvel agent, nouveau workflow assisté. Inscrivez-la là où démarrent les projets : checklist d'ouverture, modèle de ticket, étape d'onboarding."
+      },
+      {
+        "color": "04",
+        "titre": "Le lieu de vie",
+        "question": "Où vit le livrable ?",
+        "enjeu": "Un mandat produit puis perdu ne gouverne rien. Il lui faut une adresse stable, pas un fichier au fond d'un dossier de téléchargements.",
+        "pratique": "Pour le code : le CLAUDE.md à la racine du dépôt — il vit avec le projet et se révise en pull request. Pour le reste : un registre partagé (dossier ou page wiki), un fichier par mandat nommé « mandat-[projet]-[date].md ». Ce registre est ce qui transforme l'exercice en trace de gouvernance auditable."
+      },
+      {
+        "color": "06",
+        "titre": "Le propriétaire",
+        "question": "Qui le tient à jour ?",
+        "enjeu": "Les intentions d'un projet changent ; un mandat figé devient faux, et un mandat faux est plus dangereux qu'un mandat absent.",
+        "pratique": "Le champ « porteur » de chaque niveau désigne déjà un responsable — faites-en le propriétaire du mandat. Règle de revue minimale : à chaque changement structurel du projet, on relit et on met à jour. Sans propriétaire nommé, le mandat meurt à la première dérive."
+      },
+      {
+        "color": "08",
+        "titre": "La preuve",
+        "question": "Comment sait-on qu'il a servi ?",
+        "enjeu": "Un mandat qu'on remplit puis qu'on oublie est décoratif. L'instrument n'a de valeur que s'il revient sur la table une fois le travail fait.",
+        "pratique": "Le Mandat embarque ses propres critères de succès : le test d'invalidation de chaque niveau et le test des 3 phrases. Relisez-les après coup — « le livrable a-t-il passé les 3 phrases ? ». C'est ce qui rend la démarche mesurable plutôt que déclarative."
+      }
+    ],
+    "kit": {
+      "titre": "Le kit minimal",
+      "intro": "Quatre lignes à acter pour démarrer. Si ces quatre cases sont cochées, Le Mandat est opérationnel dans votre équipe.",
+      "items": [
+        "Une règle écrite : « un mandat avant toute délégation à une IA ».",
+        "Un lieu : CLAUDE.md dans le dépôt, et un registre partagé pour le hors-code.",
+        "Un propriétaire par mandat — le porteur, nommément.",
+        "Une revue à chaque changement structurel du projet."
+      ]
+    }
   }
 }

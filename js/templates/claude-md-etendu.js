@@ -10,6 +10,7 @@
     'use strict';
 
     function isFilled(s) { return typeof s === 'string' && s.trim().length > 0; }
+    const NIVEAU_FR = { strategique: 'Stratégique', tactique: 'Tactique', operationnel: 'Opérationnelle' };
     function fmt(d) {
         return new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
     }
@@ -65,7 +66,7 @@
             const labels = { stratTact: 'Stratégique ↔ Tactique', tactOp: 'Tactique ↔ Opérationnel', stratOp: 'Stratégique ↔ Opérationnel' };
             arbs.forEach(([key, a]) => {
                 lines.push(`### ${labels[key]}`);
-                lines.push(`**Prime :** ${a.prime}`);
+                lines.push(`**Prime :** ${NIVEAU_FR[a.prime] || a.prime}`);
                 if (isFilled(a.sacrifice)) {
                     lines.push(`**Sacrifice :** ${a.sacrifice}`);
                 }

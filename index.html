@@ -66,11 +66,57 @@
         </div>
     </header>
 
+    <!-- Démo avant/après : prouver la valeur avant l'effort -->
+    <section class="demo-diff" id="demo-diff" aria-labelledby="demo-diff-title">
+        <div class="demo-diff__inner">
+            <p class="demo-diff__pretitre">Pourquoi se donner cette peine</p>
+            <h2 class="demo-diff__titre" id="demo-diff-title">La même IA, avec et sans cadrage</h2>
+            <p class="demo-diff__intro">Une tâche identique, déléguée à une IA. Ce qui change entre les deux colonnes tient en quelques lignes de cadrage — mais décide du résultat.</p>
+            <p class="demo-diff__tache"><span class="demo-diff__tache-label">La demande</span> « Rédige le plan d'action RSE de mon client pour réduire ses émissions. »</p>
+            <div class="demo-diff__grille">
+                <article class="demo-diff__col demo-diff__col--sans">
+                    <header class="demo-diff__col-header">
+                        <span class="demo-diff__badge demo-diff__badge--sans">Sans mandat</span>
+                    </header>
+                    <div class="demo-diff__reponse">
+                        <p>Voici un plan en 5 axes pour réduire vos émissions de 30 % d'ici 2026 :</p>
+                        <p>1. Rénovation thermique du bâtiment — gain estimé 12 t CO₂/an.<br>
+                        2. Passage à un fournisseur d'énergie verte — −18 t CO₂/an.<br>
+                        3. Flotte électrique, télétravail, tri des déchets…</p>
+                    </div>
+                    <ul class="demo-diff__notes demo-diff__notes--sans">
+                        <li>Invente des chiffres qu'aucune source ne soutient.</li>
+                        <li>Plan générique — applicable à n'importe quelle entreprise.</li>
+                        <li>Rien n'est traçable pour un audit.</li>
+                    </ul>
+                </article>
+                <article class="demo-diff__col demo-diff__col--avec">
+                    <header class="demo-diff__col-header">
+                        <span class="demo-diff__badge demo-diff__badge--avec">Avec Le Mandat</span>
+                    </header>
+                    <div class="demo-diff__reponse">
+                        <p>Avant de chiffrer : je n'ai pas la consommation réelle du client. Deux options —</p>
+                        <p>· je propose une fourchette sourcée (référentiel ADEME), marquée comme hypothèse ;<br>
+                        · ou je m'arrête et vous demande la donnée.</p>
+                        <p>Le plan tiendra en une page, chaque chiffre tracé jusqu'à sa source.</p>
+                    </div>
+                    <ul class="demo-diff__notes demo-diff__notes--avec">
+                        <li>Refuse d'inventer un chiffre.</li>
+                        <li>Demande la donnée manquante avant d'avancer.</li>
+                        <li>Trace chaque source — le livrable est auditable.</li>
+                    </ul>
+                </article>
+            </div>
+            <p class="demo-diff__chute">La colonne de droite, c'est ce que cadre un mandat : les intentions, les arbitrages, les garde-fous. <button class="demo-diff__lien" id="demo-diff-cta" type="button">Créer le mien →</button></p>
+        </div>
+    </section>
+
     <main id="main-content">
         <!-- Wizard, mindmap récap, livrable seront montés en P2-P4 -->
         <section id="wizard-container" hidden></section>
         <section id="mindmap-container" hidden></section>
         <section id="livrable-container" hidden></section>
+        <section id="relecture-container" hidden></section>
     </main>
 
     <!-- Bande Article 4 (P5) -->
@@ -150,6 +196,14 @@
                         <button class="exemple-modal__btn exemple-modal__btn--primary" data-action="view" data-exemple-id="rse-bdp">Voir le mandat fini</button>
                     </div>
                 </article>
+                <article class="exemple-modal__cas-bloc" data-exemple-id="recrutement">
+                    <h3>Recruteur RH — pré-tri de candidatures</h3>
+                    <p>Cas à fort enjeu : pré-sélectionner un volume de candidatures sans discriminer — un usage classé à haut risque par l'AI Act.</p>
+                    <div class="exemple-modal__actions">
+                        <button class="exemple-modal__btn" data-action="prefill" data-exemple-id="recrutement">Charger dans le formulaire</button>
+                        <button class="exemple-modal__btn exemple-modal__btn--primary" data-action="view" data-exemple-id="recrutement">Voir le mandat fini</button>
+                    </div>
+                </article>
             </div>
         </div>
     </div>
@@ -162,6 +216,7 @@
     <script src="js/templates/prompt-court.js" defer></script>
     <script src="js/templates/claude-md-etendu.js" defer></script>
     <script src="js/livrable.js" defer></script>
+    <script src="js/relecture.js" defer></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>

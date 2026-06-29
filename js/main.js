@@ -51,6 +51,7 @@
                 // Puis le livrable juste sous la mindmap
                 const livrableContainer = document.getElementById('livrable-container');
                 LeMandatLivrable.render({ mandat: m, container: livrableContainer });
+                showRelecture();
                 mmContainer.scrollIntoView({ behavior: 'smooth' });
             }
         });
@@ -70,6 +71,10 @@
         LeMandatStorage.save(mandat);  // initialise updatedAt
         startWizard(mandat);
     });
+
+    // CTA de la démo avant/après : même parcours que « Créer mon mandat ».
+    const demoCta = document.getElementById('demo-diff-cta');
+    if (demoCta) demoCta.addEventListener('click', () => ctaCreer.click());
 
     // --- Mini-modale "Voir un exemple" ---
     const exempleModal = document.getElementById('exemple-modal');
@@ -92,8 +97,14 @@
         });
     }
 
+    const EXEMPLE_FILES = {
+        'meta': 'exemple-meta.json',
+        'rse-bdp': 'exemple-rse-bdp.json',
+        'recrutement': 'exemple-recrutement.json'
+    };
+
     async function loadExemple(id) {
-        const filename = id === 'meta' ? 'exemple-meta.json' : 'exemple-rse-bdp.json';
+        const filename = EXEMPLE_FILES[id] || EXEMPLE_FILES['meta'];
         const res = await fetch('data/' + filename);
         const data = await res.json();
         return data.mandat;
@@ -135,10 +146,23 @@
                 });
                 const livrableContainer = document.getElementById('livrable-container');
                 LeMandatLivrable.render({ mandat: fullMandat, container: livrableContainer });
+                showRelecture();
                 mmContainer.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
+
+    // Monte la relecture IA sous le livrable. Lit le mandat le plus à jour
+    // (storage) au moment où l'utilisateur lance la relecture.
+    function showRelecture() {
+        if (!window.LeMandatRelecture) return;
+        const container = document.getElementById('relecture-container');
+        if (!container) return;
+        LeMandatRelecture.render({
+            container,
+            getMandat: () => LeMandatStorage.load()
+        });
+    }
 
     function showRestoreBanner(mandat) {
         const banner = document.createElement('div');

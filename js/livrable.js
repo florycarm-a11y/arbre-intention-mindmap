@@ -45,14 +45,13 @@
                 <pre class="livrable__apercu" id="livrable-apercu">${escapeHtml(apercu)}</pre>
                 <div class="livrable__actions">
                     <button class="livrable__btn" data-action="copy">📋 Copier</button>
-                    <button class="livrable__btn" data-action="download-md">⬇ Télécharger .md</button>
-                    ${_activeFormat === 'B' ? '<button class="livrable__btn" data-action="download-pdf">⬇ Télécharger .pdf</button>' : ''}
+                    ${downloadTargets().map((t, i) => `<button class="livrable__btn" data-action="download" data-target="${i}">${t.label}</button>`).join('')}
                 </div>
                 <details class="livrable__help">
                     <summary>↳ Comment l'utiliser ?</summary>
                     <p>${_activeFormat === 'A'
-                        ? 'Collez ce texte au début de votre conversation avec ChatGPT, Claude ou Mistral. Pour un usage avancé : utilisez-le comme <code>system</code> prompt d\'un appel API ou comme instructions de session dans Cursor.'
-                        : 'Déposez ce fichier à la racine de votre projet (Claude Code, Cursor, repo Git). Il sert à la fois d\'instruction pour l\'IA et de trace écrite de gouvernance, utilisable comme preuve de réflexion préalable au regard de l\'Article 4.'}</p>
+                        ? 'Collez ce texte au début de votre conversation avec ChatGPT, Claude ou Mistral. Pour un projet, téléchargez-le comme <code>.cursorrules</code> (Cursor) ou utilisez-le comme <code>system</code> prompt d\'un appel API.'
+                        : 'Déposez ce fichier à la racine de votre projet sous le nom attendu par votre outil : <code>CLAUDE.md</code> (Claude Code), <code>AGENTS.md</code> (agents compatibles), ou un dépôt Git partagé. Il sert à la fois d\'instruction pour l\'IA et de trace écrite de gouvernance, utilisable comme preuve de réflexion préalable au regard de l\'Article 4.'}</p>
                 </details>
             </article>
         `;
@@ -74,9 +73,10 @@
             });
         });
         _container.querySelector('[data-action="copy"]').addEventListener('click', handleCopy);
-        _container.querySelector('[data-action="download-md"]').addEventListener('click', handleDownloadMd);
-        const pdfBtn = _container.querySelector('[data-action="download-pdf"]');
-        if (pdfBtn) pdfBtn.addEventListener('click', handleDownloadPdf);
+        const targets = downloadTargets();
+        _container.querySelectorAll('[data-action="download"]').forEach(btn => {
+            btn.addEventListener('click', () => handleDownload(targets[Number(btn.dataset.target)]));
+        });
     }
 
     async function handleCopy() {
@@ -90,10 +90,30 @@
         }
     }
 
-    function handleDownloadMd() {
+    // Destinations d'export par format. Les fichiers à nom fixe (CLAUDE.md,
+    // AGENTS.md, .cursorrules) sont prêts à déposer tels quels à la racine d'un
+    // dépôt ; le .md / .pdf restent horodatés et nommés d'après le projet (archive).
+    function downloadTargets() {
+        if (_activeFormat === 'A') {
+            return [
+                { label: '⬇ .cursorrules', filename: '.cursorrules', mime: 'text/plain' },
+                { label: '⬇ .md', ext: 'md' }
+            ];
+        }
+        return [
+            { label: '⬇ CLAUDE.md', filename: 'CLAUDE.md' },
+            { label: '⬇ AGENTS.md', filename: 'AGENTS.md' },
+            { label: '⬇ .md', ext: 'md' },
+            { label: '⬇ .pdf', ext: 'pdf', pdf: true }
+        ];
+    }
+
+    function handleDownload(target) {
+        if (!target) return;
+        if (target.pdf) { handleDownloadPdf(); return; }
         const content = computeContent();
-        const filename = buildFilename('md');
-        downloadBlob(content, filename, 'text/markdown');
+        const filename = target.filename || buildFilename(target.ext);
+        downloadBlob(content, filename, target.mime || 'text/markdown');
     }
 
     function handleDownloadPdf() {

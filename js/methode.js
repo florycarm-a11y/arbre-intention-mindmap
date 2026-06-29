@@ -10,14 +10,16 @@
 
     const container = document.getElementById('methode-sections');
     const autreCasContainer = document.getElementById('methode-autre-cas');
+    const installationContainer = document.getElementById('methode-installation');
 
-    let schema, content, exempleMeta, exempleRseBdp;
+    let schema, content, exempleMeta, exempleRseBdp, exempleRecrutement;
     try {
-        [schema, content, exempleMeta, exempleRseBdp] = await Promise.all([
+        [schema, content, exempleMeta, exempleRseBdp, exempleRecrutement] = await Promise.all([
             fetch('data/schema.json').then(r => r.json()),
             fetch('data/methode-content.json').then(r => r.json()),
             fetch('data/exemple-meta.json').then(r => r.json()),
-            fetch('data/exemple-rse-bdp.json').then(r => r.json())
+            fetch('data/exemple-rse-bdp.json').then(r => r.json()),
+            fetch('data/exemple-recrutement.json').then(r => r.json())
         ]);
     } catch (e) {
         container.innerHTML = '<p class="methode-error">Impossible de charger la méthode. Veuillez réessayer.</p>';
@@ -41,9 +43,18 @@
         `;
     }).join('');
 
-    // Second cas appliqué — Expert RSE / Banque de Polynésie.
-    // Source : data/exemple-rse-bdp.json (mêmes données que la modale d'accueil).
-    autreCasContainer.innerHTML = renderAutreCas(schema, exempleRseBdp);
+    // Cas appliqués — Expert RSE / BdP et Recruteur RH / pré-tri.
+    // Sources : data/exemple-rse-bdp.json et data/exemple-recrutement.json
+    // (mêmes données que la modale d'accueil).
+    autreCasContainer.innerHTML = [exempleRseBdp, exempleRecrutement]
+        .map(ex => renderAutreCas(schema, ex))
+        .join('');
+
+    // Mode d'emploi de déploiement — passer du livrable individuel à la pratique d'équipe.
+    // Source : clé « installation » de methode-content.json.
+    if (installationContainer) {
+        installationContainer.innerHTML = renderInstallation(content.installation);
+    }
 
     function escapeHtml(s) {
         return String(s == null ? '' : s)
@@ -108,14 +119,64 @@
             })
             .join('');
 
+        const sectionId = `autre-cas-${exemple.id}`;
+        const intro = exemple.introMethode || 'La même méthode, appliquée à un autre cas.';
         return `
-            <section class="methode-autrecas" id="autre-cas-applique" aria-labelledby="autre-cas-applique-title">
+            <section class="methode-autrecas" id="${sectionId}" aria-labelledby="${sectionId}-title">
                 <header class="methode-autrecas__header">
                     <p class="methode-autrecas__pretitre">Autre cas appliqué</p>
-                    <h2 class="methode-autrecas__title" id="autre-cas-applique-title">${escapeHtml(exemple.label)}</h2>
-                    <p class="methode-autrecas__intro">La même méthode, appliquée à un cas universel : un expert RSE qui accompagne un client en transition énergétique, du risque ESG au plan d'action CO₂.</p>
+                    <h2 class="methode-autrecas__title" id="${sectionId}-title">${escapeHtml(exemple.label)}</h2>
+                    <p class="methode-autrecas__intro">${escapeHtml(intro)}</p>
                 </header>
                 <div class="methode-autrecas__grille">${blocsHtml}</div>
+            </section>
+        `;
+    }
+
+    function renderInstallation(install) {
+        if (!install) return '';
+
+        const leviersHtml = (install.leviers || []).map((lev, i) => {
+            const colorVar = `--step-${lev.color}`;
+            return `
+                <article class="methode-install__levier" style="--etape-color: var(${colorVar})">
+                    <header class="methode-install__levier-header">
+                        <p class="methode-install__levier-numero">Levier ${i + 1}/4</p>
+                        <h3 class="methode-install__levier-titre">${escapeHtml(lev.titre)}</h3>
+                        <p class="methode-install__levier-question">${escapeHtml(lev.question)}</p>
+                    </header>
+                    <div class="methode-install__levier-corps">
+                        <div class="methode-install__bloc">
+                            <p class="methode-install__bloc-label">L'enjeu</p>
+                            <p class="methode-install__bloc-text">${escapeHtml(lev.enjeu)}</p>
+                        </div>
+                        <div class="methode-install__bloc">
+                            <p class="methode-install__bloc-label">En pratique</p>
+                            <p class="methode-install__bloc-text">${escapeHtml(lev.pratique)}</p>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+        const kit = install.kit || { titre: '', intro: '', items: [] };
+        const kitItems = (kit.items || [])
+            .map(it => `<li class="methode-install__kit-item">${escapeHtml(it)}</li>`)
+            .join('');
+
+        return `
+            <section class="methode-install" id="installer-en-equipe" aria-labelledby="installer-en-equipe-title">
+                <header class="methode-install__header">
+                    <p class="methode-install__pretitre">${escapeHtml(install.pretitre)}</p>
+                    <h2 class="methode-install__title" id="installer-en-equipe-title">${escapeHtml(install.titre)}</h2>
+                    <p class="methode-install__intro">${escapeHtml(install.intro)}</p>
+                </header>
+                <div class="methode-install__grille">${leviersHtml}</div>
+                <aside class="methode-install__kit" aria-label="${escapeHtml(kit.titre)}">
+                    <p class="methode-install__kit-title">${escapeHtml(kit.titre)}</p>
+                    <p class="methode-install__kit-intro">${escapeHtml(kit.intro)}</p>
+                    <ul class="methode-install__kit-list">${kitItems}</ul>
+                </aside>
             </section>
         `;
     }
